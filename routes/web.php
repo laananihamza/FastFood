@@ -3,7 +3,7 @@
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,14 +18,20 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', [StoreController::class, "index"])->name('home');
 // Route::get('/shop', [StoreController::class, "show"])->name('shop');
 // Route::get('/menu', [StoreController::class, 'menu'])->name('menu');
+Route::post('/home', [StoreController::class, 'getDashies']);
+Route::get('/home', [StoreController::class, 'Home'])->name('home');
+Route::get('/shopjs', fn () => Inertia::render('shop'))->name('shopjs');
+
+
+
 Auth::routes();
-Route::controller(StoreController::class)->group(function () {
-    Route::get('/',  "index")->name('home');
-    Route::get('/shop',  "show")->name('shop')->middleware('auth');
-    Route::post('/shop',  "changeShop");
-    Route::get('/menu',  'menu')->name('menu')->middleware('auth');
-    Route::get('/filterDishes/{name}',  'filterDishes');
-});
+// Route::controller(StoreController::class)->group(function () {
+//     Route::get('/',  "index")->name('home');
+//     Route::get('/shop',  "show")->name('shop')->middleware('auth');
+//     Route::post('/shop',  "changeShop");
+//     Route::get('/menu',  'menu')->name('menu')->middleware('auth');
+//     Route::get('/filterDishes/{name}',  'filterDishes');
+// });
 Route::get('/blog', function () {
     return view('pages.blog');
 })->name('blog');
@@ -37,5 +43,8 @@ Route::get('/contact', function () {
 })->name('contact');
 
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+require __DIR__ . '/auth.php';

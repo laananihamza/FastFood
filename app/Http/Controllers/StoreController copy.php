@@ -38,37 +38,35 @@ class StoreController extends Controller
             // ->distinct('name', 'urlPhoto')
             ->limit(8)
             ->get();
-        return redirect('/home');
-        // return view('pages.home', ['pizzas' => $pizzas, 'burger' => $burger, 'pasta' => $pasta, 'tacos' => $tacos, 'drinks' => $drinks]);
+        return view('pages.home', ['pizzas' => $pizzas, 'burger' => $burger, 'pasta' => $pasta, 'tacos' => $tacos, 'drinks' => $drinks]);
     }
     public function filterDishes($name)
     {
-        // switch ($name):
-        //     case "pizza":
-        //         $pizzas = DB::table("pizza")->select('name', 'urlPhoto', 'price', 'ingredients', 'description')
-        //             ->where('size', '=', 'S')
-        //             ->limit(8)
-        //             ->get();
-        //         return response()->json($pizzas);
-        //     case "pasta":
-        //         $pasta = DB::table("pasta")->select('name', 'urlPhoto', 'price', 'ingredients', 'description')
-        //             ->limit(8)
-        //             ->get();
-        //         return response()->json($pasta);
-        //     case "burger":
-        //         $burger = DB::table("burger")->select('name', 'urlPhoto', 'price', 'ingredients', 'description')
-        //             ->where('size', '=', 'S')
-        //             ->limit(8)
-        //             ->get();
-        //         return response()->json($burger);
-        //     case "drink":
-        //         $drinks = DB::table("drinks")->select('name', 'urlPhoto', 'price', 'ingredients', 'description', 'type')
-        //             ->limit(8)
-        //             ->get();
-        //         return response()->json($drinks);
+        switch ($name):
+            case "pizza":
+                $pizzas = DB::table("pizza")->select('name', 'urlPhoto', 'price', 'ingredients', 'description')
+                    ->where('size', '=', 'S')
+                    ->limit(8)
+                    ->get();
+                return response()->json($pizzas);
+            case "pasta":
+                $pasta = DB::table("pasta")->select('name', 'urlPhoto', 'price', 'ingredients', 'description')
+                    ->limit(8)
+                    ->get();
+                return response()->json($pasta);
+            case "burger":
+                $burger = DB::table("burger")->select('name', 'urlPhoto', 'price', 'ingredients', 'description')
+                    ->where('size', '=', 'S')
+                    ->limit(8)
+                    ->get();
+                return response()->json($burger);
+            case "drink":
+                $drinks = DB::table("drinks")->select('name', 'urlPhoto', 'price', 'ingredients', 'description', 'type')
+                    ->limit(8)
+                    ->get();
+                return response()->json($drinks);
 
-        // endswitch;
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $name)->where('size', '=', 'S')->get();
+        endswitch;
         // return response()->json(['pizza' => $pizzas, 'burger' => $burger, 'pasta' => $pasta, 'tacos' => $tacos, 'drink' => $drinks]);
         // return view('home', ['pizzas' => $pizzas, 'burger' => $burger, 'pasta' => $pasta, 'tacos' => $tacos, 'drinks' => $drinks]);
     }
@@ -126,16 +124,8 @@ class StoreController extends Controller
         // $products = DB::table("pizza")->join('category', 'pizza.category_code', '=', 'category.id')->get();
         return Response()->json($products);
     }
-    public function Home()
+    public function testReact()
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
-        return Inertia::render('Home', ['products' => $products]);
-    }
-    public function getDashies(Request $request)
-    {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->get();
-        return inertia('Home', ['products' => $products]);
-        // return response()->json(['test', $products]);
-        // return $products;
+        return Inertia::render('test');
     }
 }
