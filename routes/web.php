@@ -3,7 +3,7 @@
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', [StoreController::class, "index"])->name('home');
 // Route::get('/shop', [StoreController::class, "show"])->name('shop');
 // Route::get('/menu', [StoreController::class, 'menu'])->name('menu');
+Route::post('/test/', [StoreController::class, 'getDashies']);
+Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware('auth');
+Route::get('/shopjs', fn () => Inertia::render('shop'))->name('shopjs');
+
+
+
 Auth::routes();
 Route::controller(StoreController::class)->group(function () {
     Route::get('/',  "index")->name('home');
@@ -37,5 +43,8 @@ Route::get('/contact', function () {
 })->name('contact');
 
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+require __DIR__ . '/auth.php';
