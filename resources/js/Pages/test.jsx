@@ -18,7 +18,7 @@ export default function Home(props) {
 
     // }, [name])
     function getJson(name) {
-        router.visit('/home', {
+        router.visit('/test', {
             method: 'post',
             data: {
                 name
@@ -132,7 +132,7 @@ export default function Home(props) {
                             new phenomenon burger taste
                         </p>
                         <p className="text-2xl font-bold text-green-600">
-                            39.99DH
+                            44.99DH
                         </p>
                     </div>
                     <div className="image relative">
