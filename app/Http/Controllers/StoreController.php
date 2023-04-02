@@ -126,27 +126,32 @@ class StoreController extends Controller
         // $products = DB::table("pizza")->join('category', 'pizza.category_code', '=', 'category.id')->get();
         return Response()->json($products);
     }
-<<<<<<< HEAD
     public function Home()
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
         return Inertia::render('Home', ['products' => $products]);
-=======
+    }
     public function testReact()
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
         return Inertia::render('test', ['products' => $products]);
->>>>>>> 9cc07f5a5427deb28ebcf60bd5b1aa79a35e954f
     }
     public function getDashies(Request $request)
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->get();
-<<<<<<< HEAD
+
         return inertia('Home', ['products' => $products]);
-=======
         return inertia('test', ['products' => $products]);
->>>>>>> 9cc07f5a5427deb28ebcf60bd5b1aa79a35e954f
         // return response()->json(['test', $products]);
         // return $products;
     }
+
+    // public function userCreate()
+    // {
+    //     return Inertia::render('Auth/Register');
+    // }
+    // public function Login()
+    // {
+    //     return Inertia::render('Auth/Login');
+    // }
 }

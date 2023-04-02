@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/images/BK.png" type="image/x-icon">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,13 +71,13 @@
                     
                     <div class="menu hidden lg:inline-block">
                         <ul class="flex items-center gap-5 font-bold text-xl">
-                            {{-- <li class="home"><a href="{{ route("home") }}" class="hover:text-yellow-400">Home</a></li>
-                            <li class="menu"><a href="{{ route("menu") }}" class="hover:text-yellow-400">Menu</a></li>
+                            <li class="home"><a href="{{ route("home") }}" class="hover:text-yellow-400">Home</a></li>
+                            {{-- <li class="menu"><a href="{{ route("menu") }}" class="hover:text-yellow-400">Menu</a></li>
                             <li class="about"><a href="{{ route("about") }}" class="hover:text-yellow-400">About</a></li>
                             <li class="shop"><a href="{{ route("shop") }}" class="hover:text-yellow-400">Shop</a></li>
                             <li class="blog"><a href="{{ route("blog") }}" class="hover:text-yellow-400">Blog</a></li>
                             <li class="contact"><a href="{{ route("contact") }}" class="hover:text-yellow-400">Contact</a></li> --}}
-                            <li><a href="/" class="active hover:text-orange-300">Home</a></li>
+                            {{-- <li><a href="/" class="active hover:text-orange-300">Home</a></li> --}}
                             <li><a href="menu" class="hover:text-orange-300">Menu</a></li>
                             <li><a href="about" class="hover:text-orange-300">About</a></li>
                             <li><a href="shop" class="hover:text-orange-300">Shop</a></li>
@@ -105,8 +106,8 @@
                                     @if (Auth::user())
                                         <p class="text-sm text-stone-600"><a href="/profile">{{Auth::user()->name}}</a></p>
                                     @else
-                                        <li><a href="/login" class="text-sm text-stone-600">Sign in</a></li>
-                                        <li><a href="/register" class="text-sm text-stone-600">Register</a></li>
+                                        <li><a href={{route('login')}} class="text-sm text-stone-600">Sign in</a></li>
+                                        <li><a href={{route('register')}} class="text-sm text-stone-600">Register</a></li>
                                     @endif
                                     <li><a href="/wishlist" class="text-sm text-stone-600">Wishlist(<span class="wishlist-number">0</span>)</a></li>
                                     <li><a href="/compare" class="text-sm text-stone-600">Compare(<span class="compare-number">0</span>)</a></li>

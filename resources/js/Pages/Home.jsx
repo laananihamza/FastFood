@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function Home(props) {
     const [names, setName] = useState('pizza')
-
+    // console.log(document.querySelector('meta[name=csrf-token]').getAttribute('content'));
     // useEffect(() => {
     //     router.visit('/test', {
     //         method: 'post',
@@ -216,7 +216,8 @@ export default function Home(props) {
             )) : <p className='grid text-center text-2xl col-start-1 col-end-5'>No dishes Here</p>}
             </div>
             <div className="all-products w-fit mx-auto mt-14">
-                <Link href={route('shopjs')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link>
+                <Link href={''} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link>
+                {/* <Link href={route('shopjs')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link> */}
             </div>
         </div>
     </section>
