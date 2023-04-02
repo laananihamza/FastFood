@@ -106,7 +106,12 @@ class StoreController extends Controller
     {
 
         // $price = $request->input('priceProduct', 0);
-        $price = $request->input('price', 0);
+        $price = $request->input('price');
+        if ($request->has('page')) {
+            $page = $request->input('page');
+        } else {
+            $page = 1;
+        }
         // $products = (DB::table("pizza")->where('price', '>=', $price)
         //     ->union(DB::table("burger")->where('price', '>=', $price)))->join('category', 'pizza.category_code', '=', 'category.id')->get();
         if ($request->has('categories')) {
@@ -118,9 +123,14 @@ class StoreController extends Controller
             ])->orWhere([
                 ['price', '>=', $price],
                 ['category_name', '=',  $pizza]
-            ])->get();
+            ])->forPage($page, 12)->get();
         } else {
-            $products = DB::table("products")->get();
+            // $products = DB::table("products")->get();
+            $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where([
+                ['price', '>=', $price],
+            ])->orWhere([
+                ['price', '>=', $price],
+            ])->forPage($page, 12)->get();
         }
 
         // $products = DB::table("pizza")->join('category', 'pizza.category_code', '=', 'category.id')->get();
