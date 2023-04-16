@@ -1,6 +1,6 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { useRef, useState } from "react";
-
+import axios from 'axios'
 function Register() {
     const [user, setUser] = useState({
         email: '',
@@ -26,11 +26,16 @@ function Register() {
         setUser((prevState) => ({...prevState, [e.target.name] : e.target.value}))
         console.log(user);
     }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post(route('login'), user).then(() => router('/'))
+    }
     return ( 
         <>
             <div className="container mx-auto px-14 my-14 py-20 flex flex-col items-center gap-8" >
                 <div className="title-form text-4xl text-center">Create Account</div>
-                <form action="" method="post" className="w-4/6 md:w-3/4 xl:w-2/6">
+                <form action={''} method="post" className="w-4/6 md:w-3/4 xl:w-2/6" onSubmit={handleSubmit}>
+                    
                     <div className={`relative border border-black my-5 py-4 px-3`} id="fname" onClick={(e) => {
                         setIsClicked((prev) => ({...!prev, email : !prev.email}));
                         emailInput.current.focus()

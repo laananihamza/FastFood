@@ -19,25 +19,27 @@ use Inertia\Inertia;
 // Route::get('/', [StoreController::class, "index"])->name('home');
 // Route::get('/shop', [StoreController::class, "show"])->name('shop');
 // Route::get('/menu', [StoreController::class, 'menu'])->name('menu');
-Route::post('/home', [StoreController::class, 'getDashies']);
-Route::get('/home', [StoreController::class, 'Home'])->name('home');
+Route::post('/', [StoreController::class, 'getDashies']);
+Route::get('/', [StoreController::class, 'Home'])->name('home');
+// Route::post('/home', [StoreController::class, 'getDashies']);
+// Route::get('/home', [StoreController::class, 'Home'])->name('home');
 
 Route::post('/test/', [StoreController::class, 'getDashies']);
 Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware('auth');
 Route::get('/singout', [AuthController::class, 'userCreate'])->name('register');
 Route::get('/login', [AuthController::class, 'Login'])->name('login');
 Route::post('/user', [AuthController::class, 'store'])->name('user');
+Auth::routes();
 
 
 
 
 
-// Auth::routes();
 Route::controller(StoreController::class)->group(function () {
     // Route::get('/',  "index")->name('home');
-    Route::get('/shop',  "show")->name('shop');
-    Route::post('/shop',  "changeShop");
-    Route::get('/menu',  'menu')->name('menu');
+    // Route::get('/shop',  "show")->name('shop');
+    // Route::post('/shop',  "changeShop");
+    // Route::get('/menu',  'menu')->name('menu');
     // Route::get('/filterDishes/{name}',  'filterDishes');
 });
 Route::get('/blog', function () {
