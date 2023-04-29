@@ -11,13 +11,13 @@ let filterMenu = document.querySelectorAll(".filtermenu div");
 let loading = document.querySelector('.loading');
 
 
-user.addEventListener('click', () => {
+user?.addEventListener('click', () => {
     user.querySelector('.userprofile').classList.toggle('hidden')
 })
-shopCart.addEventListener('click', () => {
+shopCart?.addEventListener('click', () => {
     shopCart.querySelector('.producstOnCart').classList.toggle('hidden')
 })
-mobileMenuIcon.addEventListener('click', () => {
+mobileMenuIcon?.addEventListener('click', () => {
     
     if (menuMobile.classList.contains('left-0')) {
         menuMobile.classList.replace('left-0', "-left-1/2")
@@ -30,18 +30,18 @@ mobileMenuIcon.addEventListener('click', () => {
 })
 
 document.addEventListener("click", (e) => {
-    if (!user.contains(e.target)) {
+    if (!user?.contains(e.target)) {
         user.querySelector('.userprofile').classList.add('hidden')
     }
-    if (!shopCart.contains(e.target)) {
+    if (!shopCart?.contains(e.target)) {
         shopCart.querySelector('.producstOnCart').classList.add('hidden')
     }
-    if (!menuMobile.contains(e.target) && !mobileMenuIcon.contains(e.target)) {
+    if (!menuMobile?.contains(e.target) && !mobileMenuIcon.contains(e.target)) {
         menuMobile.classList.replace("left-0", '-left-1/2')
     }
 })
 // get yellow color to name page on navbar
-navBarLinks.forEach((li) => {
+navBarLinks?.forEach((li) => {
     let myPathname = location.pathname;
     
         if (myPathname === '/'){
@@ -61,7 +61,7 @@ navBarLinks.forEach((li) => {
 
 //Fetching data using fetch
 
-filterMenu.forEach((div) => {
+filterMenu?.forEach((div) => {
     
         div.addEventListener("click", () => {
             filterMenu.forEach((div) => {

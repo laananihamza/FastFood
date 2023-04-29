@@ -1,6 +1,8 @@
 import { Head, Link, router } from '@inertiajs/react'
 import { Inertia } from '@inertiajs/inertia'
 import { useState, useEffect } from 'react'
+import SwiperSlide from '../components/swiperSlide'
+import Header from '../components/Header'
 
 export default function Home(props) {
     const [names, setName] = useState('pizza')
@@ -19,7 +21,7 @@ export default function Home(props) {
     // }, [name])
     function getJson(name) {
         router.visit('/home', {
-            method: 'post',
+            method: 'POST',
             data: {
                 name
             },
@@ -39,6 +41,7 @@ export default function Home(props) {
   return (
     <>
       <Head title="Home" />
+      <Header />
       <section className="landing py-6 relative overflow-hidden">
       
         <div className="yellow-circle  right-0  absolute top-0"></div>
@@ -208,7 +211,7 @@ export default function Home(props) {
             @endif */}
             {props.products.length > 0 ? props.products?.map((product, i) => (
                 <div key={i} className="box rounded-lg border overflow-hidden p-3">
-                <div className="backward-color w-full relative"><img src={product.urlPhoto} className="mx-auto rounded-lg" alt="" /></div>
+                <div className="backward-color w-full relative"><img src={product.urlPhoto} className="mx-auto rounded-lg duration-200" alt="" /></div>
                 <p className="fond-bold text-xl mt-5">{product.name }</p>
                 <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$pizza->description}}">{product.description}</p>
                 <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
@@ -338,11 +341,11 @@ export default function Home(props) {
     <section className="client py-24 bg-orange-50 duration-200 hover:bg-[#ffede0]">
         <div className="container mx-auto px-4">
             <div className="main-text">
-                <p className="main-title text-3xl font-bold uppercase">
+                <p className="main-title text-3xl my-5 font-bold uppercase">
                     what your client says
                 </p>
             </div>
-            <div className="slides-content relative mt-6 w-full h-44">
+            {/* <div className="slides-content relative mt-6 w-full h-44">
                 <div className="slider-container user-select-none w-11/12 mx-auto swiper">
                     <div className="slides user-select-none swiper-wrapper">
                         <div className="slide swiper-slide rounded-md bg-white px-6 py-7">
@@ -415,7 +418,8 @@ export default function Home(props) {
                     <i className="las la-chevron-circle-left prev absolute -left-5 lg:left-0 top-1/2 -translate-y-1/2 text-4xl cursor-pointer duration-200 text-slate-500 hover:text-slate-800" id="prev"></i>
                     <i className="las la-chevron-circle-right next absolute -right-5 lg:right-0 top-1/2 -translate-y-1/2  text-4xl cursor-pointer duration-200 text-slate-500 hover:text-slate-800" id="next"></i>
                 </div>
-            </div>
+            </div> */}
+            <SwiperSlide />
         </div>
     </section>
     <section className="banner lg:h-[500px]">
