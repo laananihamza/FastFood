@@ -4,7 +4,8 @@
 /* font-family: 'Roboto', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /* font-family: 'Poppins', sans-serif; */
-
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+/* font-family: 'Lilita One', cursive; */
 
 /* .landing::before {
     content: '';
@@ -232,9 +233,15 @@ footer .summary-info .box {
     font-family: 'Roboto', sans-serif;
 }
 
-.client .main-title {
+.client .main-title,
+.input-lable {
     font-family: 'Poppins', sans-serif;
     letter-spacing: -1px;
+}
+
+.title-form {
+    font-family: 'Lilita One', cursive;
+
 }
 
 .banner .banner-post .shape-banner,
