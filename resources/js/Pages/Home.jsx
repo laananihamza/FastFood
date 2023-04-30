@@ -20,7 +20,7 @@ export default function Home(props) {
 
     // }, [name])
     function getJson(name) {
-        router.visit('/home', {
+        router.visit(route('home'), {
             method: 'POST',
             data: {
                 name

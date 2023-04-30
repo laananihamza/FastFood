@@ -38,7 +38,7 @@ class StoreController extends Controller
             // ->distinct('name', 'urlPhoto')
             ->limit(8)
             ->get();
-        return to_route('home');
+        return redirect('/');
         // return view('pages.home', ['pizzas' => $pizzas, 'burger' => $burger, 'pasta' => $pasta, 'tacos' => $tacos, 'drinks' => $drinks]);
     }
     public function filterDishes($name)

@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 function Header() {
     return ( 
         <>
@@ -32,24 +34,24 @@ function Header() {
                     <div className="MobileMenuIcon inline-block lg:hidden">
                         <i className="las la-bars text-4xl cursor-pointer"></i>
                     </div>
-                    <a href="/"><img src="images/BurgerKech_Logo.png" className="logo w-36 2xl:w-44" alt="" /></a>
+                    <Link href="/"><img src="images/BurgerKech_Logo.png" className="logo w-36 2xl:w-44" alt="" /></Link>
                     
                     <div className="menu hidden lg:inline-block">
                         <ul className="flex items-center gap-5 font-bold text-xl">
                             
-                            <li><a href="/" className="active hover:text-orange-300">Home</a></li>
-                            <li><a href="menu" className="hover:text-orange-300">Menu</a></li>
-                            <li><a href="about" className="hover:text-orange-300">About</a></li>
-                            <li><a href="shop" className="hover:text-orange-300">Shop</a></li>
-                            <li><a href="blog" className="hover:text-orange-300">Blog</a></li>
-                            <li><a href="contact" className="hover:text-orange-300">Contact</a></li>
+                            <li><Link href="/" className="active hover:text-orange-300">Home</Link></li>
+                            <li><Link href="menu" className="hover:text-orange-300">Menu</Link></li>
+                            <li><Link href="about" className="hover:text-orange-300">About</Link></li>
+                            <li><Link href="shop" className="hover:text-orange-300">Shop</Link></li>
+                            <li><Link href="blog" className="hover:text-orange-300">Blog</Link></li>
+                            <li><Link href="contact" className="hover:text-orange-300">Contact</Link></li>
                         </ul>
                     </div>
                     <div className="order-phone hidden xl:flex flex-row items-center">
                         <i className="las la-paper-plane text-green-500 text-4xl"></i>
                         <div className="order-number">
                             <p className="text-slate-400 text-md">Call and Order in</p>
-                            <a href="tel: +212 5 48 75 63 32" className="text-orange-500 text-xl">+212 5 48 75 63 32</a>
+                            <Link href="tel: +212 5 48 75 63 32" className="text-orange-500 text-xl">+212 5 48 75 63 32</Link>
                         </div>
                     </div>
         
@@ -61,21 +63,21 @@ function Header() {
                                 <ul>
                                     {/* (Route::has('login')) */}
                                     {/* @if (Auth::user()) */}
-                                        {/* <p className="text-sm text-stone-600"><a href="/profile">{{Auth::user()->name}}</a></p> */}
+                                        {/* <p className="text-sm text-stone-600"><Link href="/profile">{{Auth::user()->name}}</Link></p> */}
                                     {/* @else */}
-                                        <li><a href="/login" className="text-sm text-stone-600">Sign in</a></li>
-                                        <li><a href="/register" className="text-sm text-stone-600">Register</a></li>
+                                        <li><Link href="/login" className="text-sm text-stone-600">Sign in</Link></li>
+                                        <li><Link href="/register" className="text-sm text-stone-600">Register</Link></li>
                                     {/* @endif */}
-                                    <li><a href="/wishlist" className="text-sm text-stone-600">Wishlist(<span className="wishlist-number">0</span>)</a></li>
-                                    <li><a href="/compare" className="text-sm text-stone-600">Compare(<span className="compare-number">0</span>)</a></li>
-                                    <li><a href="/cart" className="text-sm text-stone-600">Checkout</a></li>
+                                    <li><Link href="/wishlist" className="text-sm text-stone-600">Wishlist(<span className="wishlist-number">0</span>)</Link></li>
+                                    <li><Link href="/compare" className="text-sm text-stone-600">Compare(<span className="compare-number">0</span>)</Link></li>
+                                    <li><Link href="/cart" className="text-sm text-stone-600">Checkout</Link></li>
                                     {/* @if (Auth::user())
                                     {{-- @if (Route::has('login')) --}}
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" className="d-none">
                                         @csrf
                                         <button className="text-sm text-stone-600 duration-100 hover:text-red-700 border-0 bg-transparent">Logout</button>
                                     </form> */}
-                                        {/* {{-- <a href="" className="text-sm text-stone-600 duration-100 hover:text-red-700">Logout</a> --}} */}
+                                        {/* {{-- <Link href="" className="text-sm text-stone-600 duration-100 hover:text-red-700">Logout</Link> --}} */}
                                     {/* @endif */}
                                 </ul>
                             </div>
@@ -108,12 +110,12 @@ function Header() {
         
                                 <div className="checkout border-t border-slate-400 text-center p-2 mt-3">
                                     <p className="total-price text-slate-500 text-base mb-2">Total: <span id="Tprice">43 MAD</span></p>
-                                    <button className="bg-slate-900 w-full py-3 text-white text-base mb-2"><a href="/checkout">Checkout</a></button>
+                                    <button className="bg-slate-900 w-full py-3 text-white text-base mb-2"><Link href="/checkout">Checkout</Link></button>
                                     <button className="bg-white  border-2 hover:border-[3px] hover:py-[11px] border-slate-900 w-full py-3 text-slate-900 text-base">Checkout</button>
                                 </div>
                             </div>
                         </span>
-                        <a href="/shop/burger" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">order now</a>
+                        <Link href="/shop/burger" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">order now</Link>
                     </div>
                 </div>
             </div>
@@ -121,18 +123,18 @@ function Header() {
             {/* {{-- <div className="menuMobile flex-col hidden w-1/2 bg-white font-extralight text-md h-screen absolute left-0 top-0 z-50 px-4 py-9"> --}} */}
                 <div className="closeIcon w-fit place-self-end bg-stone-100 p-1"><i className="las la-times cursor-pointer h-fit duration-300 hover:rotate-180 text-2xl hover:text-red-500"></i></div>
                 <ul className="flex flex-col items-start gap-5 font-bold text-base">
-                    {/* {{-- <li className="border-b w-full py-2 pl-3"><a href="{{ route("home") }}" className="hover:text-yellow-400">Home</a></li>
-                    <li className="border-b w-full py-2 pl-3"><a href="{{ route("menu") }}" className="hover:text-yellow-400">Menu</a></li>
-                    <li className="border-b w-full py-2 pl-3"><a href="{{ route("about") }}" className="hover:text-yellow-400">About</a></li>
-                    <li className="border-b w-full py-2 pl-3"><a href="{{ route("shop") }}" className="hover:text-yellow-400">Shop</a></li>
-                    <li className="border-b w-full py-2 pl-3"><a href="{{ route("blog") }}" className="hover:text-yellow-400">Blog</a></li>
-                    <li className="border-b w-full py-2 pl-3"><a href="{{ route("contact") }}" className="hover:text-yellow-400">Contact</a></li> --}} */}
-                    <li><a href="/home" className="hover:text-orange-300">Home</a></li>
-                    <li><a href="menu" className="hover:text-orange-300">Menu</a></li>
-                    <li><a href="about" className="hover:text-orange-300">About</a></li>
-                    <li><a href="shop" className="hover:text-orange-300">Shop</a></li>
-                    <li><a href="blog" className="hover:text-orange-300">Blog</a></li>
-                    <li><a href="contact" className="hover:text-orange-300">Contact</a></li>
+                    {/* {{-- <li className="border-b w-full py-2 pl-3"><Link href="{{ route("home") }}" className="hover:text-yellow-400">Home</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("menu") }}" className="hover:text-yellow-400">Menu</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("about") }}" className="hover:text-yellow-400">About</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("shop") }}" className="hover:text-yellow-400">Shop</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("blog") }}" className="hover:text-yellow-400">Blog</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("contact") }}" className="hover:text-yellow-400">Contact</Link></li> --}} */}
+                    <li><Link href={route('home')} className="hover:text-orange-300">Home</Link></li>
+                    <li><Link href="menu" className="hover:text-orange-300">Menu</Link></li>
+                    <li><Link href="about" className="hover:text-orange-300">About</Link></li>
+                    <li><Link href="shop" className="hover:text-orange-300">Shop</Link></li>
+                    <li><Link href="blog" className="hover:text-orange-300">Blog</Link></li>
+                    <li><Link href="contact" className="hover:text-orange-300">Contact</Link></li>
                 </ul>
             </div>
             {/* </div> */}

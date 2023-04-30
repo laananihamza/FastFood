@@ -1,6 +1,7 @@
-import { Link, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import { useRef, useState } from "react";
 import axios from 'axios'
+import Header from "../../components/Header";
 function Register() {
     const [user, setUser] = useState({
         email: '',
@@ -28,10 +29,12 @@ function Register() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(route('login'), user).then(() => router('/'))
+        axios.post(route('login'), user)
     }
     return ( 
         <>
+        <Head title="FastFood | Login" />
+        <Header />
             <div className="container mx-auto px-14 my-14 py-20 flex flex-col items-center gap-8" >
                 <div className="title-form text-4xl text-center">Create Account</div>
                 <form action={''} method="post" className="w-4/6 md:w-3/4 xl:w-2/6" onSubmit={handleSubmit}>

@@ -1,5 +1,6 @@
 import { Head, Link, router } from '@inertiajs/react'
 import { useState } from 'react'
+import Header from '../components/Header'
 
 export default function Shop({products}) {
     const [product, setProduct] = useState(products)
@@ -7,6 +8,7 @@ export default function Shop({products}) {
     return(
         <>
             <Head title='Shop' />
+            <Header />
             <div class="container mx-auto px-4 my-14 md:mb-44">
         <p class="title text-4xl my-5 font-black">Products</p>
         <form action="/shop" name="filter">

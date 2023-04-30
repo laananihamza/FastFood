@@ -1,5 +1,6 @@
 import { router } from "@inertiajs/react";
 import { useState } from "react";
+import Header from "../../components/Header";
 
 function Register() {
     const [user, setUser] = useState({
@@ -23,6 +24,8 @@ function Register() {
     }
     return ( 
         <>
+        <Head title="FastFood | Sign up" />
+        <Header />
             <div className="container mx-auto px-14 my-14 py-20 flex flex-col items-center gap-8" >
                 <div className="title-form text-4xl text-center">Create Account</div>
                 <form action="" method="post" className="w-4/6 md:w-3/4 xl:w-2/6" onSubmit={handleSubmit}>

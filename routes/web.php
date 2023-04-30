@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +28,10 @@ Route::post('/', [StoreController::class, 'getDashies']);
 Route::post('/test/', [StoreController::class, 'getDashies']);
 Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware('auth');
 Route::get('/singout', [AuthController::class, 'userCreate'])->name('register');
-Route::get('/login', [AuthController::class, 'Login'])->name('login');
-Route::post('/user', [AuthController::class, 'store'])->name('user');
 Auth::routes();
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/user', [AuthController::class, 'store'])->name('user');
 
 
 
