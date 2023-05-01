@@ -28,7 +28,7 @@ export default function Home(props) {
             preserveScroll: true,
             
         })
-        
+        console.log(props.user);
         // fetch('/test', {
         //     method: 'POST',
         //     data: {
@@ -41,7 +41,7 @@ export default function Home(props) {
   return (
     <>
       <Head title="Home" />
-      <Header />
+      <Header user={props.user} />
       <section className="landing py-6 relative overflow-hidden">
       
         <div className="yellow-circle  right-0  absolute top-0"></div>

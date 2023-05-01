@@ -127,10 +127,11 @@ class StoreController extends Controller
         return Response()->json($products);
     }
 
-    public function Home()
+    public function Home(Request $request)
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
-        return Inertia::render('Home', ['products' => $products]);
+        $user = $request->user();
+        return Inertia::render('Home', ['products' => $products, 'user' => $user]);
     }
 
     public function testReact()

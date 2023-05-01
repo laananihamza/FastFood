@@ -1,8 +1,16 @@
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import { useRef, useState } from "react";
 import axios from 'axios'
 import Header from "../../components/Header";
-function Register() {
+import { redirect } from "react-router-dom";
+function Login({status}) {
+    if (!status) {
+        redirect('/')
+    }
+    const {data, setData, post, error} = useForm({
+        email: '',
+        password:'',
+    })
     const [user, setUser] = useState({
         email: '',
         password:'',
@@ -11,7 +19,7 @@ function Register() {
         email: false,
         password:false,
     })
-    console.log(isClicked.fname);
+    
     const fnameInput = useRef(null)
     const lnameInput = useRef(null)
     const emailInput = useRef(null)
@@ -24,12 +32,14 @@ function Register() {
     }
     
     const changeHandler = (e) => {
-        setUser((prevState) => ({...prevState, [e.target.name] : e.target.value}))
-        console.log(user);
+        // setUser((prevState) => ({...prevState, [e.target.name] : e.target.value}))
+        setData(e.target.name, e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(route('login'), user)
+        console.log(data);
+        // axios.post(route('login'), user)
+        post(route('login'))
     }
     return ( 
         <>
@@ -69,4 +79,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default Login;

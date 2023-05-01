@@ -1,6 +1,11 @@
 import { Link } from "@inertiajs/react";
+import axios from "axios";
 
-function Header() {
+function Header({user}) {
+    function logOut(e) {
+        e.preventDefault()
+        axios.post(route('logout'))
+    }
     return ( 
         <>
             
@@ -62,15 +67,25 @@ function Header() {
                             <div className="userprofile hidden w-32 bg-white group-hover:block py-3 pl-4 pr-4 absolute top-full right-0 border shadow-sm">
                                 <ul>
                                     {/* (Route::has('login')) */}
+                                    {user ? 
+                                    <p className="text-sm text-stone-600"><Link href="/profile">{user.name}</Link></p> 
+                                    : <>
+                                        <li><Link href="/login" className="text-sm text-stone-600">Sign in</Link></li>
+                                        <li><Link href="/register" className="text-sm text-stone-600">Register</Link></li>
+                                    </>
+                                    }
                                     {/* @if (Auth::user()) */}
                                         {/* <p className="text-sm text-stone-600"><Link href="/profile">{{Auth::user()->name}}</Link></p> */}
                                     {/* @else */}
-                                        <li><Link href="/login" className="text-sm text-stone-600">Sign in</Link></li>
-                                        <li><Link href="/register" className="text-sm text-stone-600">Register</Link></li>
+                                        {/* <li><Link href="/login" className="text-sm text-stone-600">Sign in</Link></li>
+                                        <li><Link href="/register" className="text-sm text-stone-600">Register</Link></li> */}
                                     {/* @endif */}
                                     <li><Link href="/wishlist" className="text-sm text-stone-600">Wishlist(<span className="wishlist-number">0</span>)</Link></li>
                                     <li><Link href="/compare" className="text-sm text-stone-600">Compare(<span className="compare-number">0</span>)</Link></li>
                                     <li><Link href="/cart" className="text-sm text-stone-600">Checkout</Link></li>
+                                    {user && <form id="logout-form" action='' onSubmit={logOut} method="POST" className="d-none">
+                                        <button className="text-sm text-stone-600 duration-100 hover:text-red-700 border-0 bg-transparent">Logout</button>
+                                    </form>}
                                     {/* @if (Auth::user())
                                     {{-- @if (Route::has('login')) --}}
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" className="d-none">
