@@ -50,7 +50,7 @@
         @inertia
 
 
-        <footer class="  relative">
+        {{-- <footer class="  relative">
             <div class="part-1-footer py-24 bg-[#181818] relative">
                     <div class="container mx-auto px-4">
                         <img src="./images/delivery.png" class="delivery absolute -top-28 md:-top-40 lg:-top-32 right-32 w-5/12 md:w-fit " />
@@ -111,6 +111,6 @@
                     <img src="./images/payments.png" alt="">
                 </div>
             </div>
-            </footer>
+            </footer> --}}
     </body>
 </html>

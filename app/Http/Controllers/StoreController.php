@@ -134,10 +134,12 @@ class StoreController extends Controller
         return Inertia::render('Home', ['products' => $products, 'user' => $user]);
     }
 
-    public function testReact()
+    public function Shop(Request $request)
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
-        return Inertia::render('test', ['products' => $products]);
+        $countProducts = DB::table("products")->count();
+        $maxPrice = DB::table("products")->get()->max('price');
+        return Inertia::render('shop', ['user' => $request->user(), 'products' => $products, 'maxPrice' => $maxPrice, 'countProducts' => $countProducts]);
     }
     public function getDashies(Request $request)
     {

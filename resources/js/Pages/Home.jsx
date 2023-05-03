@@ -3,6 +3,7 @@ import { Inertia } from '@inertiajs/inertia'
 import { useState, useEffect } from 'react'
 import SwiperSlide from '../components/swiperSlide'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 export default function Home(props) {
     const [names, setName] = useState('pizza')
@@ -511,6 +512,7 @@ export default function Home(props) {
             </div>
         </div>
     </section>
+    <Footer />
     </>
   )
 }
