@@ -1,6 +1,7 @@
-import { Head, router, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 function Register() {
     const {data, setData, post, errors} = useForm({
@@ -39,34 +40,38 @@ function Register() {
                 <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>First Name</p>
                     <div className={`relative border ${errors.firstname ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="fname" >
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>First name</p> */}
-                        <input type="text" name="firstname" placeholder="firstname" className="focus:outline-none" onChange={changeHandler} />
+                        <input type="text" name="firstname" placeholder="firstname" className="focus:outline-none w-full" onChange={changeHandler} />
                     </div>
                 <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Last Name</p>
                     <div className={`relative border ${errors.lastname ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="lname" >
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Last name</p> */}
-                        <input type="text" name="lastname" placeholder="lastname" className="focus:outline-none" onChange={changeHandler} />
+                        <input type="text" name="lastname" placeholder="lastname" className="focus:outline-none w-full" onChange={changeHandler} />
                     </div>
                 <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Email</p>
                     <div className={`relative border ${errors.email ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="fname">
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Email</p> */}
-                        <input type="email" name="email" placeholder="email" className="focus:outline-none" onChange={changeHandler} />
+                        <input type="email" name="email" placeholder="email" className="focus:outline-none w-full" onChange={changeHandler} />
                     </div>
                     <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Password</p>
                     <div className={`relative border ${errors.password ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="fname">
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Password</p> */}
-                        <input type="password" name="password" placeholder="password" className="focus:outline-none" onChange={changeHandler} />
+                        <input type="password" name="password" placeholder="password" className="focus:outline-none w-full" onChange={changeHandler} />
                     </div>
                     <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Confirm Password</p>
                     <div className={`relative border ${errors.password_confirmation ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="fname">
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Password</p> */}
-                        <input type="password" name="password_confirmation" placeholder="Confirm Password" className="focus:outline-none" onChange={changeHandler} />
+                        <input type="password" name="password_confirmation" placeholder="Confirm Password" className="focus:outline-none w-full" onChange={changeHandler} />
                     </div>
                     <input type="hidden" name="name" value={`${data.firstname} ${data.lastname}`} onChange={changeHandler} />
                     <div className="submit w-1/3 mx-auto ">
                         <button className="bg-black text-white mt-5 py-3 px-1 mx-auto w-full">Create</button>
                     </div>
                 </form>
+                <div className="w-fit mx-auto">
+                        <Link href={route('login')} className="text-base underline">already have account?</Link>
+                        </div>
             </div>
+            <Footer />
         </>
     );
 }

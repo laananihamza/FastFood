@@ -29,7 +29,6 @@ export default function Home(props) {
             preserveScroll: true,
             
         })
-        console.log(props.user);
         // fetch('/test', {
         //     method: 'POST',
         //     data: {
@@ -39,15 +38,15 @@ export default function Home(props) {
         // }).then((res) => res.json())
         // .then((data) => console.log(data))
     }
-  return (
+    return (
     <>
-      <Head title="Home" />
-      <Header user={props.user} />
-      <section className="landing py-6 relative overflow-hidden">
+        <Head title="Home" />
+        <Header user={props.user} />
+        <section className="landing py-6 relative overflow-hidden">
       
-        <div className="yellow-circle  right-0  absolute top-0"></div>
-         <div className="yellow-circle w-4/6 h-96  top-24 -right-0 lg:w-4/6 md:h-full absolute md:-right-40 lg:-top-14 -z-50"></div> 
-         <img src="/images/ellipse.png" className="hidden md:inline h-10/12 w-4/6 top-24 -right-14 lg:h-10/12 lg:w-4/6 absolute lg:-right-40 lg:-top-14 -z-50" alt="" /> 
+            <div className="yellow-circle  right-0  absolute top-0"></div>
+                <div className="yellow-circle w-4/6 h-96  top-24 -right-0 lg:w-4/6 md:h-full absolute md:-right-40 lg:-top-14 -z-50"></div> 
+                <img src="/images/ellipse.png" className="hidden md:inline h-10/12 w-4/6 top-24 -right-14 lg:h-10/12 lg:w-4/6 absolute lg:-right-40 lg:-top-14 -z-50" alt="" /> 
         <div className="container mx-auto px-5 flex flex-col lg:flex-row justify-between items-center py-9 md:py-20">
       
             <div className="text-burger">
@@ -212,10 +211,12 @@ export default function Home(props) {
             @endif */}
             {props.products.length > 0 ? props.products?.map((product, i) => (
                 <div key={i} className="box rounded-lg border overflow-hidden p-3">
-                <div className="backward-color w-full relative"><img src={product.urlPhoto} className="mx-auto rounded-lg duration-200" alt="" /></div>
-                <p className="fond-bold text-xl mt-5">{product.name }</p>
-                <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$pizza->description}}">{product.description}</p>
-                <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
+                    <Link href={`products/${product.id}`}>
+                        <div className="backward-color w-full relative"><img src={`/${product.urlPhoto}`} className="mx-auto rounded-lg duration-200" alt="" /></div>
+                        <p className="fond-bold text-xl mt-5">{product.name }</p>
+                        <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$pizza->description}}">{product.description}</p>
+                        <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
+                    </Link>
             </div>
             )) : <p className='grid text-center text-2xl col-start-1 col-end-5'>No dishes Here</p>}
             </div>

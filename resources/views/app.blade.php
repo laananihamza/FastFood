@@ -23,12 +23,12 @@
         @vite(['resources/css/app.css' ,'resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
         @routes
-        <script src="./js/index.js" defer></script>
-        <link rel="stylesheet" href="css/all.min.css">
-        <link rel="stylesheet" href="css/normlize.css">
-        <link rel="stylesheet" href="css/line-awesome.css">
-        <link rel="stylesheet" href="css/line-awesome.min.css">
-        <link rel="stylesheet" href="css/style.css">
+        <script src="/js/index.js" defer></script>
+        <link rel="stylesheet" href="/css/all.min.css">
+        <link rel="stylesheet" href="/css/normlize.css">
+        <link rel="stylesheet" href="/css/line-awesome.css">
+        <link rel="stylesheet" href="/css/line-awesome.min.css">
+        <link rel="stylesheet" href="/css/style.css">
         <style>
           html {
               font-family: 'Nunito', sans-serif !important;

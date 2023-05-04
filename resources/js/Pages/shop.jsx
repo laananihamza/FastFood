@@ -1,16 +1,19 @@
 import { Head, Link, router } from '@inertiajs/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { faAngleLeft, faAngleRight, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Shop({products, maxPrice, user}) {
     const [product, setProduct] = useState(products)
+    console.log(product);
 
     return(
         <>
             <Head title='Shop' />
             <Header user={user} />
-            <div className="container mx-auto px-4 my-14 md:mb-44">
+            <div className="container mx-auto px-16 my-14 md:mb-44">
         <p className="title text-4xl my-5 font-black">Products</p>
         <form action="/shop" name="filter">
             <div className="flex justify-start gap-4 items-center mt-5 mb-10">
@@ -51,22 +54,29 @@ export default function Shop({products, maxPrice, user}) {
         </div>
         <div className="shop-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-8">
             
-            {product?.map((product, i) => (
-                <div className="box rounded-lg border overflow-hidden p-3" key={i}>
+            {product.data?.map((product, i) => (
+                <div className="box rounded-2xl  border overflow-hidden p-3" key={i}>
+                <Link href={`products/${product.id}`}>
                 <div className="backward-color w-full relative mx-auto overflow-hidden group"><img src={`/${product.urlPhoto }`} className="duration-200 mx-auto rounded-lg object-cover w-10/12 h-64" alt=""/></div>
                 <p className="fond-bold text-xl mt-5">{product.name}</p>
                 <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$product->description}}">{product.description}</p>
                 <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
-            </div>
+            
+                </Link>
+                </div>
             ))}
         </div>
         
         <div className="pages flex justify-center items-center gap-2 p-2 my-14">
-            
-                    {/* <a href={"/shop?page="} className=" border-b border-black text-xl duration-150 hover:text-yellow-600">{i}</a> */}
-              
+        {product?.links?.map((p, i) => (
+                <React.Fragment key={i}>
+                    {p.label === '&laquo; Previous' ? <Link href={p.url} className='font-light'><FontAwesomeIcon size='lg' icon={faAngleLeft} className={`duration-200 ${product.current_page === 1 ? 'hidden' : 'inline'} px-1`} /></Link> : p.label === 'Next &raquo;'?  <Link href={p.url}><FontAwesomeIcon icon={faAngleRight} size='lg' className={`duration-200 ${product.current_page === product.last_page ? 'hidden' : 'inline'}`} /></Link> : <Link href={p.url} className={`${p.active && 'border-b border-b-black'} p-2 font-b`} key={i}>{p.label}</Link>}
+                </React.Fragment>
+            ))}
         </div>
-        <div id="test"></div>
+        <div id="test">
+        
+        </div>
         </div>
         <Footer />
         </>

@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import axios from 'axios'
 import Header from "../../components/Header";
 import { redirect } from "react-router-dom";
+import Footer from "../../components/Footer";
 function Login({status}) {
     if (!status) {
         redirect('/')
@@ -56,7 +57,7 @@ function Login({status}) {
                         setIsClicked((prev) => ({...!prev, email : !prev.email}));
                         emailInput.current.focus()
                     }}>
-                        <input type="email" name="email" ref={emailInput} className="focus:outline-none" onChange={changeHandler} focus={`${isClicked.lname}`} />
+                        <input type="email" name="email" ref={emailInput} className="focus:outline-none w-full" onChange={changeHandler} focus={`${isClicked.lname}`} />
                     </div>
                         <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Password</p>
                     <div className={`relative border ${errors.password ? "border-red-500" : 'border-black'}  my-5 py-4 px-3`} id="password" onClick={(e) => {
@@ -64,7 +65,7 @@ function Login({status}) {
                         passInput.current.focus()
                     }}>
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light ${isClicked.password === true ?  'top-2 text-xs' : user?.password !== ''  ? "top-2 text-xs" : 'text-lg top-1/2'}`}>Password</p> */}
-                        <input type="password" name="password" ref={passInput} className="focus:outline-none" onChange={changeHandler} />
+                        <input type="password" name="password" ref={passInput} className="focus:outline-none w-full" onChange={changeHandler} />
                     </div>
                         <div className="w-fit mx-auto">
                         <Link href="forget-password" className="text-sm underline">Forget your password?</Link>
@@ -74,10 +75,11 @@ function Login({status}) {
                     </div>
                 </form>
                         <div className="w-fit mx-auto">
-                        <Link href={route('register')} className="text-sm underline">Create account</Link>
+                        <Link href={route('register')} className="text-base underline">Create account</Link>
                         </div>
                 
             </div>
+            <Footer />
         </>
     );
 }

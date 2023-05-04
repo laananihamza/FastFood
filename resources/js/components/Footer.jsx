@@ -4,7 +4,7 @@ function Footer() {
             <footer className="  relative">
             <div className="part-1-footer py-24 bg-[#181818] relative">
                     <div className="container mx-auto px-4">
-                        <img src="./images/delivery.png" className="delivery absolute -top-28 md:-top-40 lg:-top-32 right-32 w-5/12 md:w-fit " />
+                        <img src="/images/delivery.png" className="delivery absolute -top-28 md:-top-40 lg:-top-32 right-32 w-5/12 md:w-fit " />
                     </div>
                 <div className="logo-footer mx-auto flex justify-center items-center relative">
                     <a href="/" className="w-fit flex justify-center items-center">
@@ -58,7 +58,7 @@ function Footer() {
                     <p className="copyright text-md text-white">
                         Copyright &copy; {new Date().getFullYear() }, Made By <span className="text-yellow-400">LAANANI</span> <i className="las la-heart text-red-600"></i>
                     </p>
-                    <img src="./images/payments.png" alt="" />
+                    <img src="/images/payments.png" alt="" />
                 </div>
             </div>
             </footer>

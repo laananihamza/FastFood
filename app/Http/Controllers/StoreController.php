@@ -129,25 +129,30 @@ class StoreController extends Controller
 
     public function Home(Request $request)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category.category_name', '=', 'Pizza')->where('products.size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price')->get();
         $user = $request->user();
         return Inertia::render('Home', ['products' => $products, 'user' => $user]);
     }
 
     public function Shop(Request $request)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', 'Pizza')->where('size', '=', 'S')->get();
+        $products = DB::table("products")->where('size', '=', 'S')->paginate(8);
         $countProducts = DB::table("products")->count();
         $maxPrice = DB::table("products")->get()->max('price');
         return Inertia::render('shop', ['user' => $request->user(), 'products' => $products, 'maxPrice' => $maxPrice, 'countProducts' => $countProducts]);
     }
     public function getDashies(Request $request)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->get();
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price')->get();
         return inertia('Home', ['products' => $products]);
 
         // return inertia('test', ['products' => $products]);
         return response()->json(['products', $products]);
         // return $products;
+    }
+    public function getProduct(Request $request, $id = 4)
+    {
+        $products = DB::table("products")->where('id', '=', $id)->get();
+        return Inertia::render("product", ['products' => $products, 'id' => $id]);
     }
 }

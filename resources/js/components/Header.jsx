@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {faFacebookF} from '@fortawesome/free-regular-svg-icons';
 import { Link } from "@inertiajs/react";
 import axios from "axios";
 
@@ -10,7 +12,7 @@ function Header({user}) {
         <>
             
         <header className="bg-slate-900 w-full md:p-3">
-            <div className="container mx-auto px-9">
+            <div className="container mx-auto px-16">
                 <div className="header hidden md:flex justify-between items-center">
                     <div className="leftSide text-xs flex items-center text-white uppercase
                      gap-3.5">
@@ -24,7 +26,7 @@ function Header({user}) {
                         </div>
                         </div>
                         <div className="rightSide text-white text-xl">
-                            <a href="https://www.facebook.com"><i className="lab la-facebook mx-2 hover:text-yellow-400"></i></a>
+                            <a href="https://www.facebook.com"><i className="lab la-facebook "></i></a>
                             <a href="https://www.instagram.com"><i className="lab la-instagram mx-2 hover:text-yellow-400"></i></a>
                             <a href="https://www.twitter.com"><i className="lab la-twitter mx-2 hover:text-yellow-400"></i></a>
                             <a href="https://www.youtube.com"><i className="lab la-youtube mx-2 hover:text-yellow-400"></i></a>
@@ -39,15 +41,16 @@ function Header({user}) {
                     <div className="MobileMenuIcon inline-block lg:hidden">
                         <i className="las la-bars text-4xl cursor-pointer"></i>
                     </div>
-                    <Link href="/"><img src="images/BurgerKech_Logo.png" className="logo w-36 2xl:w-44" alt="" /></Link>
+                    {/* <Link href="/"><img src={require('/images/BurgerKech_Logo.png')} className="logo w-36 2xl:w-44" alt="" /></Link> */}
+                    <Link href="/"><img src="/images/BurgerKech_Logo.png" className="logo w-36 2xl:w-44" alt="" /></Link>
                     
                     <div className="menu hidden lg:inline-block">
                         <ul className="flex items-center gap-5 font-bold text-xl">
                             
-                            <li><Link href="/" className="active hover:text-orange-300">Home</Link></li>
+                            <li><Link href={route('home')} className="active hover:text-orange-300">Home</Link></li>
                             <li><Link href="menu" className="hover:text-orange-300">Menu</Link></li>
                             <li><Link href="about" className="hover:text-orange-300">About</Link></li>
-                            <li><Link href="shop" className="hover:text-orange-300">Shop</Link></li>
+                            <li><Link href={route('shop')} className="hover:text-orange-300">Shop</Link></li>
                             <li><Link href="blog" className="hover:text-orange-300">Blog</Link></li>
                             <li><Link href="contact" className="hover:text-orange-300">Contact</Link></li>
                         </ul>
@@ -111,7 +114,7 @@ function Header({user}) {
                                 <div className="products">
                                     <ul>
                                         <li className="flex justify-between items-center">
-                                            <img src="./images/meatPizza.jpg" className="w-20 rounded-full" alt="" />
+                                            <img src="/images/meatPizza.png" className="w-20 rounded-full" alt="" />
                                             <div className="proInfo">
                                                 <p className="mb-1 text-base">Meat Pizza</p>
                                                 <p className="text-lg mb-3 text-green-500">MAD <span className="priceCart"> 8.00</span></p>
