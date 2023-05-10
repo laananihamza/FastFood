@@ -143,8 +143,8 @@ class StoreController extends Controller
     }
     public function getDashies(Request $request)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price')->get();
-        return inertia('Home', ['products' => $products]);
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients')->get();
+        // return inertia('Home', ['products' => $products]);
 
         // return inertia('test', ['products' => $products]);
         return response()->json(['products', $products]);
@@ -152,7 +152,9 @@ class StoreController extends Controller
     }
     public function getProduct(Request $request, $id = 4)
     {
-        $products = DB::table("products")->where('id', '=', $id)->get();
-        return Inertia::render("product", ['products' => $products, 'id' => $id]);
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('products.id', '=', $id)->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
+        $same_category_products =  DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('size', '=', 'S')->where('products.category_code', '=', $products[0]->category_code)->select('products.id', 'products.id', 'products.name', 'products.urlPhoto',  'products.price')->orderByDesc('products.Nbr_ordred')->get();
+        $size_product = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('products.name', '=', $products[0]->name)->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
+        return Inertia::render("product", ['products' => $products, 'category' => $same_category_products, 'size' => $size_product]);
     }
 }

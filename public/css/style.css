@@ -173,7 +173,7 @@
     transform: scale(1.3);
 }
 
-.popular .boxes img,
+.boxes img,
 .shop-content img {
     /* height: auto; */
     object-fit: contain;
@@ -183,12 +183,12 @@
     transform: scale(0.6);
 }
 
-.popular .boxes .box:hover img,
+.boxes .box:hover img,
 .shop-content .box:hover img {
     transform: scale(0.8);
 }
 
-.popular .boxes .backward-color::after,
+.boxes .backward-color::after,
 .shop-content .box .backward-color::after {
     content: '';
     position: absolute;
@@ -201,7 +201,7 @@
     transition: .3s;
 }
 
-.popular .boxes .box:hover .backward-color::after,
+.boxes .box:hover .backward-color::after,
 .shop-content .box:hover .backward-color::after {
 
     height: 100%;
@@ -223,8 +223,16 @@
 .getOff,
 .title-ads,
 .banner-main-des,
-.menuTitle {
+.menuTitle
+
+/* .another-products .title */
+    {
     font-family: 'Dancing Script', cursive;
+}
+
+
+.another-products .title {
+    font-family: 'Lilita One', cursive;
 }
 
 .main-text,

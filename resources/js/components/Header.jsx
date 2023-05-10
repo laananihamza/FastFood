@@ -22,7 +22,7 @@ function Header({user}) {
                         </div>
                         <div className="address flex flex-row items-center gap-2">
                             <i className="las la-map-marker text-xl"></i>
-                            <p className=""> Casablanca Ain Shoq N 15</p>
+                            <p className=""> Marrakesh Muhammed VI street N 1440 </p>
                         </div>
                         </div>
                         <div className="rightSide text-white text-xl">

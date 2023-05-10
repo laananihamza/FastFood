@@ -211,7 +211,7 @@ export default function Home(props) {
             @endif */}
             {props.products.length > 0 ? props.products?.map((product, i) => (
                 <div key={i} className="box rounded-lg border overflow-hidden p-3">
-                    <Link href={`products/${product.id}`}>
+                    <Link href={`/products/${product.id}`}>
                         <div className="backward-color w-full relative"><img src={`/${product.urlPhoto}`} className="mx-auto rounded-lg duration-200" alt="" /></div>
                         <p className="fond-bold text-xl mt-5">{product.name }</p>
                         <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$pizza->description}}">{product.description}</p>
