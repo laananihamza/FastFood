@@ -1,55 +1,114 @@
-import { Head, Link, router } from '@inertiajs/react'
+import { Head, Link, router, useForm } from '@inertiajs/react'
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faTh, faThLarge } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faTh, faThLarge } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
+import { Inertia } from '@inertiajs/inertia'
 
-export default function Shop({products, maxPrice, user}) {
+export default function Shop({products, maxPrice, user, minPrice, category}) {
     const [product, setProduct] = useState(products)
     const [grid, setGrid] = useState('grid-cols-3')
-    console.log(product);
+    const [isOpen, setIsOpen] = useState({
+        category: false,
+        price: false
+    })
+    const [price, setPrice] = useState({
+        min: 0,
+        max :parseInt(maxPrice),
+    })
+    console.log(category);
+    console.log(minPrice);
 
+    const PriceChange = (e) => {
+        setPrice((prev) => ({...prev, [e.target.name] : parseInt(e.target.value)}))
+        console.log(products);
+    }
+    const submitHandle = (e) => {
+        e.preventDefault()
+        // axios.post(route('shop'), price).then((data) => {
+        //     console.log(data);
+        // })
+        // router.visit(`/products/`, {
+        //     method: 'POST',
+        //     data: price,
+        //     preserveScroll: true,
+            
+        // })
+        router.visit(`/products/${''}/${price.min}/${price.max}`, {method: 'post', data: price})
+    }
     return(
         <>
             <Head title='Shop' />
             <Header user={user} />
             <div className="container mx-auto px-16 my-14 md:mb-44">
-        <p className="title text-4xl my-5 font-black">Products</p>
-        <form action="/shop" name="filter">
-            <div className="flex justify-start gap-4 items-center my-5">
-                
-                <details className="relative" data-filter="type">
-                    <summary className="list-none cursor-pointer text-lg">
-                        <div className="flex items-center gap-2">
-                            <span className="uppercase">PRODUCT TYPE</span>
-                            <i className="las la-angle-down "></i>
-                        </div>
-                    </summary>
-                    <div className="flex flex-col justify-start absolute left-0 z-50 bg-slate-100 p-2 w-56">
-                        <div><input type="checkbox" className="w-[10%] mr-1" value="burger" name="burger" id="burgerCheck"/><label htmlFor="burgerCheck" >Burgers</label></div>
-                        <div><input type="checkbox" className="w-[10%] mr-1" value="pizza" name="pizza" id="pizzaCheck"/><label htmlFor="pizzaCheck" >Pizzas</label></div>
-                        <div><input type="checkbox" className="w-[10%] mr-1" value="cold-drink" name="cold-drink" id="coldDrinkCheck" /><label htmlFor="coldDrinkCheck">Cold Drinks</label></div>
-                        <div><input type="checkbox" className="w-[10%] mr-1" value="hot-drink" name="hot-drink" id="hotDrinkCheck" /><label htmlFor="hotDrinkCheck">Hot Drinks</label></div>
-                    </div>
-                </details>
-                <details className="relative" data-filter="Price">
-                    <summary className="list-none cursor-pointer text-lg">
-                        <div className="flex items-center gap-2">
-                            <span className="uppercase">Price</span>
-                            <i className="las la-angle-down"></i>
-                        </div>
-                    </summary>
-                    <div className="absolute z-50 bg-white p-2 w-56">
-                        <input type="range" min="0" max={maxPrice} defaultValue="0" className="w-full" name="priceProduct" /><br />
-                        <span id="min"></span>
-                        <span id="demo"></span>
-                        <span id="max"></span>
-                    </div>
-                </details>
-                <button className="px-8 py-2 w-fit  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">Filter</button>
+            <p className="title text-4xl my-5 font-black">Products</p>
+            <div className="flex items-center justify-between">
+            <div className=''>
+
+<div className="flex justify-start gap-4 items-center my-5">
+    <p>Filter :</p>
+    <div className="relative" data-filter="category" id='category' onClick={(e) => setIsOpen((prev) => ({...!prev, category: !prev.category}))}>
+        <div className="list-none cursor-pointer text-lg">
+            <div className="flex items-center gap-2">
+                <span className="uppercase text-sm">PRODUCT TYPE</span>
+                <FontAwesomeIcon size='sm' icon={faAngleDown} />
             </div>
-        </form>
+        </div>
+        <div className={` ${isOpen?.category ? 'block' : 'hidden'} absolute left-0 z-50 bg-white py-5 px-3 w-72 top-[30px] border border-black`}>
+        <p className='mb-3'>Select The Category</p>
+        <div className="flex flex-col justify-start ">
+            <Link href={`/products/0/${price.max}`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+                <FontAwesomeIcon icon={faAngleRight} /> All Products
+            </Link>
+            <Link href={`/products/0/${price.max}/burger`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+                <FontAwesomeIcon icon={faAngleRight} /> Burgers
+            </Link>
+            <Link href={`/products/0/${price.max}/pizza`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+                <FontAwesomeIcon icon={faAngleRight} /> Pizzas
+            </Link>
+            <Link href={`/products/0/${price.max}/cold-drinks`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+                <FontAwesomeIcon icon={faAngleRight} /> Cold Drinks
+            </Link>
+            <Link href={`/products/0/${price.max}/hot-drinks`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+                <FontAwesomeIcon icon={faAngleRight} /> Hot Drinks
+            </Link>
+        </div>
+        </div>
+    </div>
+    <div className="relative" data-filter="Price" id='price' >
+        <div className="list-none cursor-pointer text-lg" onClick={(e) => setIsOpen((prev) => ({...!prev, price: !prev.price}))}>
+            <div className="flex items-center gap-2">
+                <span className="uppercase text-sm">Price</span>
+                <FontAwesomeIcon size='sm' icon={faAngleDown} />
+            </div>
+        </div>
+        <div className={` ${isOpen?.price ? 'block' : 'hidden' } absolute z-50 bg-white py-5 px-3 w-72 top-[30px] border border-black`}>
+            <p className='mb-3'>Select The price</p>
+            {/* <input type="range" min="0" max={maxPrice} defaultValue="0" className="w-full" name="priceProduct" /><br />
+            <span id="min"></span>
+            <span id="demo"></span>
+            <span id="max"></span> */}
+            <div className='flex justify-between items-center'>
+            <div className='w-1/2'><p className='w-fit mb-1'>MIN :</p><input type="number" name='min' onChange={PriceChange} min={0} max={maxPrice} className='border-2 border-black py-2 px-1 mx-1 w-10/12' placeholder='Min' defaultValue={''} /></div>
+            <div className='w-1/2'><p className='w-fit mb-1'>MAX :</p><input type="number" name='max' onChange={PriceChange} min={0} max={maxPrice} className='border-2 border-black py-2 px-1 mx-1 w-10/12' placeholder='Max' defaultValue={maxPrice} /></div>
+            </div>
+            <div className='text-right'><button className="px-8 py-2 w-fit mt-3 rounded-lg duration-200 hover:text-white bg-yellow-400"><Link href={`/products/${price.min}/${price.max}/${category}`}>Filter</Link></button></div>
+        </div>
+    </div>
+    
+        </div>
+        <div className="filter-content my-5 flex items-center gap-5">
+        {minPrice != 0 && <p>Price :  <button className='rounded-full px-8 py-0.5 border-2 border-gray-500 w-fit text-sm'>{minPrice} - {maxPrice}</button></p>}
+        {category !== '' && <p>Category : <button className='rounded-full px-8 py-0.5 border-2 border-gray-500 w-fit text-sm'>{category}</button></p>}
+        </div>
+        </div>
+        <div className="show-product-total ordered">
+
+            <p className='text-gray-500 text-lg'>Show {product?.to} of {product?.total}</p>
+        </div>
+            </div>
         <div className="loading w-full flex justify-center items-center">
             <div className="lds-dual-ring"></div>
         </div>
@@ -75,12 +134,13 @@ export default function Shop({products, maxPrice, user}) {
                 <span className={`${grid === 'grid-cols-4' ? 'bg-black' : 'bg-slate-300'} w-[13%] h-4/6 inline-block absolute right-2`}></span>
             </span>
         </div>
+        
         {/* <div className={`shop-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-8`}> */}
-        <div className={`shop-content grid grid-cols-1 md:${grid}  gap-8`}>
+        <div className={`shop-content grid grid-cols-1 md:${product.data.length !== 0 && grid}  gap-8`}>
             
-            {product.data?.map((product, i) => (
+            {product.data.length !== 0 ? product.data?.map((product, i) => (
                 <div className="box rounded-2xl  border overflow-hidden p-3" key={i}>
-                <Link href={`products/${product.id}`}>
+                <Link href={`/products/${product.category_name}/${product.id}`}>
                 <div className="backward-color w-full relative mx-auto overflow-hidden group"><img src={`/${product.urlPhoto }`} className="duration-200 mx-auto rounded-lg object-cover w-10/12 h-64" alt=""/></div>
                 <p className="fond-bold text-xl mt-5">{product.name}</p>
                 <p className="my-2 text-slate-400 h-9 overflow-hidden">{product.description}</p>
@@ -88,11 +148,13 @@ export default function Shop({products, maxPrice, user}) {
             
                 </Link>
                 </div>
-            ))}
+            ))
+            : <p className='text-center text-3xl'>No Dishes Found</p>
+        }
         </div>
         
         <div className="pages flex justify-center items-center gap-2 p-2 my-14">
-        {product?.links?.map((p, i) => (
+        {product.data.length !== 0 && product?.links?.map((p, i) => (
                 <React.Fragment key={i}>
                     {p.label === '&laquo; Previous' ? <Link href={p.url} className='font-light'><FontAwesomeIcon icon={faAngleLeft} className={`duration-200 ${product.current_page === 1 ? 'hidden' : 'inline'} px-1`} /></Link> : p.label === 'Next &raquo;'?  <Link href={p.url}><FontAwesomeIcon icon={faAngleRight}  className={`duration-200 ${product.current_page === product.last_page ? 'hidden' : 'inline'}`} /></Link> : <Link href={p.url} className={`${p.active && 'border-b border-b-black'} p-2 font-b`} key={i}>{p.label}</Link>}
                 </React.Fragment>

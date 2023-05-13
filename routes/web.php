@@ -24,8 +24,10 @@ use Inertia\Inertia;
 // Route::get('/menu', [StoreController::class, 'menu'])->name('menu');
 Route::get('/', [StoreController::class, 'Home'])->name('home');
 Route::post('/', [StoreController::class, 'getDashies']);
-Route::get('/products', [StoreController::class, "Shop"])->name('shop');
-Route::get('/products/{id?}', [StoreController::class, "getProduct"]);
+Route::get('/products/{category}/{id}', [StoreController::class, "getProduct"]);
+// Route::post('/products/{category?}', [StoreController::class, "Shop"]);
+Route::post('/products/{min?}/{max?}/{category?}', [StoreController::class, "Shop"])->name('filtershop');
+Route::get('/products/{min?}/{max?}/{category?}', [StoreController::class, "Shop"])->name('shop');
 // Route::post('/home', [StoreController::class, 'getDashies']);
 // Route::get('/home', [StoreController::class, 'Home'])->name('home');
 

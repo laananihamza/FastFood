@@ -134,25 +134,50 @@ class StoreController extends Controller
         return Inertia::render('Home', ['products' => $products, 'user' => $user]);
     }
 
-    public function Shop(Request $request)
+    public function Shop(Request $request,  $min = 0, $max = 0, $category = '',)
     {
-        $products = DB::table("products")->where('size', '=', 'S')->paginate(8);
+        $maxPrice = DB::table("products")->get()->max('price');
+        $max = (int)$maxPrice;
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')
+            // ->where('size', '=', 'S')
+            ->where('category.category_name', 'Like', "%$category%")
+            ->whereBetween('products.price', [$min, $max])
+            ->paginate(8);
+        Inertia::getShared('min');
+        $countProducts = DB::table("products")->count();
+        return Inertia::render('shop', ['user' => $request->user(), 'products' => $products, 'minPrice' => $min, 'maxPrice' => $maxPrice, 'countProducts' => $countProducts, 'category' => $category]);
+    }
+    public function filtershop(Request $request, $category = '')
+    {
+        $maxPrice = DB::table("products")->get()->max('price');
+        $burger = $request->input('burger', '');
+        $pizza = $request->input('pizza', '');
+        $min_price = $request->input('min', 0);
+        $max_price = $request->input('max', (int)$maxPrice);
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')
+            ->whereBetween('products.price', [$min_price, $max_price])
+            ->paginate(8);
         $countProducts = DB::table("products")->count();
         $maxPrice = DB::table("products")->get()->max('price');
-        return Inertia::render('shop', ['user' => $request->user(), 'products' => $products, 'maxPrice' => $maxPrice, 'countProducts' => $countProducts]);
+        return Inertia::render('shop', ['user' => $request->user(), 'products' => $products, 'min_price' => $min_price, 'maxPrice' => $maxPrice, 'countProducts' => $countProducts]);
+        // return Inertia::render('shop', ['user' => $request->user(), 'products' => $products, 'maxPrice' => $maxPrice, 'countProducts' => $countProducts]);
     }
     public function getDashies(Request $request)
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients')->get();
-        // return inertia('Home', ['products' => $products]);
+        return Inertia::render('Home', ['products' => $products]);
 
         // return inertia('test', ['products' => $products]);
-        return response()->json(['products', $products]);
+        // return response()->json(['products', $products]);
+
         // return $products;
     }
-    public function getProduct(Request $request, $id = 4)
+    public function getProduct(Request $request, $category, $id)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('products.id', '=', $id)->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')
+            ->where('products.id', '=', $id)
+            ->where('category.category_name', '=', $category)
+            ->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
         $same_category_products =  DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('size', '=', 'S')->where('products.category_code', '=', $products[0]->category_code)->select('products.id', 'products.id', 'products.name', 'products.urlPhoto',  'products.price')->orderByDesc('products.Nbr_ordred')->get();
         $size_product = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('products.name', '=', $products[0]->name)->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
         return Inertia::render("product", ['products' => $products, 'category' => $same_category_products, 'size' => $size_product]);

@@ -36,11 +36,11 @@ function Product({products, size, category}) {
         <Head title="FastFood | Product" />
         <Header />
         <section className="container mx-auto p-14 min-h-[90vh]">
-            <div className="product-info flex justify-center items-center gap-x-10">
-                <div className="product-img w-5/12">
+            <div className="product-info flex flex-col md:flex-row justify-center items-center gap-x-10">
+                <div className="product-img w-full md:w-5/12">
                     <img src={`/${size[0]?.urlPhoto}`} alt="" className="max-w-full w-7/12 mx-auto" />
                 </div>
-                <div className="info w-4/12">
+                <div className="info w-full md:w-6/12 xl:w-4/12">
                     <div className="base-info border-b p-2 my-2">
                         <p className="text-xs my-1">BurderKech</p>
                         <p className="product-name font-black text-4xl mb-5">{size[0]?.name}</p>
@@ -50,13 +50,13 @@ function Product({products, size, category}) {
                     </div>
                     <div className="quantity w-full pt-2 pb-4 border-b">
                         <p className="my-2 text-sm">Quantity</p>
-                        <div className="quantity flex gap-x-3">
-                            <div className="counts flex">
+                        <div className="quantity flex gap-3 flex-col md:flex-row">
+                            <div className="counts flex ">
                                 <button className="dec py-2 border text-sm px-5 cursor-pointer" onClick={decrement}><FontAwesomeIcon icon={faMinus} /></button>
-                                <p className="dec py-2 border-y text-base px-5"><span className="countMany">{quantity}</span></p>
+                                <p className="dec py-2 border-y text-base px-10 md:px-5"><span className="countMany">{quantity}</span></p>
                                 <button className="dec py-2 border text-sm px-5 cursor-pointer" onClick={increment}><FontAwesomeIcon icon={faPlus} /></button>
                             </div>
-                            <Link href="/shop/burger" className="block px-10 py-2 rounded-lg duration-200 font-bold text-white bg-yellow-400 text-lg"><FontAwesomeIcon icon={faCartPlus} className="mr-3"/>Add to cart</Link>
+                            <Link href="/shop/burger" className="block px-10 py-2 rounded-lg duration-200 text-center font-bold text-white bg-yellow-400 text-lg"><FontAwesomeIcon icon={faCartPlus} className="mr-3"/>Add to cart</Link>
                         </div>
                         <div className={`sizes  gap-3 mt-4 ${size[0]?.category_name === "Burger" || "Pasta" ? 'hidden' : 'flex'}`}>
                             <button name="s" className={`border-[3px] ${sizeClicked.s === true ?'border-yellow-400' : 'border-gray-500'} p-2 w-2/12`} onClick={changeSize}>S</button>
