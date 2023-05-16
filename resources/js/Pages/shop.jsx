@@ -38,6 +38,10 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         // })
         router.visit(`/products/${''}/${price.min}/${price.max}`, {method: 'post', data: price})
     }
+    const addToCart = (id) => {
+        Inertia.post(`/add-to-cart`, {'product_id': id})
+
+    }
     return(
         <>
             <Head title='Shop' />
@@ -140,13 +144,15 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
             
             {product.data.length !== 0 ? product.data?.map((product, i) => (
                 <div className="box rounded-2xl  border overflow-hidden p-3" key={i}>
-                <Link href={`/products/${product.category_name}/${product.id}`}>
+                <Link href={`/product/${product.category_name}/${product.id}`}>
                 <div className="backward-color w-full relative mx-auto overflow-hidden group"><img src={`/${product.urlPhoto }`} className="duration-200 mx-auto rounded-lg object-cover w-10/12 h-64" alt=""/></div>
                 <p className="fond-bold text-xl mt-5">{product.name}</p>
                 <p className="my-2 text-slate-400 h-9 overflow-hidden">{product.description}</p>
-                <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
-            
                 </Link>
+                <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5" onClick={() => addToCart(product.id)}>
+                    <span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>
+                </div>
+            
                 </div>
             ))
             : <p className='text-center text-3xl'>No Dishes Found</p>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\cartController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -20,19 +21,38 @@ use Inertia\Inertia;
 |
 */
 
+/*
+|
+|
+| Main Routes
+|
+|
+*/
+
 // Route::get('/', [StoreController::class, "index"])->name('home');
 // Route::get('/menu', [StoreController::class, 'menu'])->name('menu');
 Route::get('/', [StoreController::class, 'Home'])->name('home');
 Route::post('/', [StoreController::class, 'getDashies']);
-Route::get('/products/{category}/{id}', [StoreController::class, "getProduct"]);
 // Route::post('/products/{category?}', [StoreController::class, "Shop"]);
 Route::post('/products/{min?}/{max?}/{category?}', [StoreController::class, "Shop"])->name('filtershop');
 Route::get('/products/{min?}/{max?}/{category?}', [StoreController::class, "Shop"])->name('shop');
+Route::get('/product/{category}/{id}', [StoreController::class, "getProduct"]);
 // Route::post('/home', [StoreController::class, 'getDashies']);
 // Route::get('/home', [StoreController::class, 'Home'])->name('home');
 
 Route::post('/test/', [StoreController::class, 'getDashies']);
 Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware('auth');
+
+Route::post('/add-to-cart', [cartController::class, 'addToCart']);
+
+/*
+|
+|
+| Auth Routes
+|
+|
+*/
+
 Auth::routes();
 Route::get('/singout', [RegisterController::class, 'create'])->name('register');
 Route::post('/singout', [RegisterController::class, 'store'])->name('createUser');

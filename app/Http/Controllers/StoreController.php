@@ -134,7 +134,7 @@ class StoreController extends Controller
         return Inertia::render('Home', ['products' => $products, 'user' => $user]);
     }
 
-    public function Shop(Request $request,  $min = 0, $max = 0, $category = '',)
+    public function Shop(Request $request,  $min = 0, $max = 0, $category = '')
     {
         $maxPrice = DB::table("products")->get()->max('price');
         $max = (int)$maxPrice;
@@ -172,14 +172,14 @@ class StoreController extends Controller
 
         // return $products;
     }
-    public function getProduct(Request $request, $category, $id)
+    public function getProduct(Request $request, $category = '', $id)
     {
         $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')
             ->where('products.id', '=', $id)
-            ->where('category.category_name', '=', $category)
+            ->where('category.category_name', 'Like', "%$category%")
             ->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
         $same_category_products =  DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('size', '=', 'S')->where('products.category_code', '=', $products[0]->category_code)->select('products.id', 'products.id', 'products.name', 'products.urlPhoto',  'products.price')->orderByDesc('products.Nbr_ordred')->get();
         $size_product = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('products.name', '=', $products[0]->name)->select('products.id', 'products.category_code', 'products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'category.category_name', 'products.ingredients')->get();
-        return Inertia::render("product", ['products' => $products, 'category' => $same_category_products, 'size' => $size_product]);
+        return Inertia::render("product", ['products' => $products, 'user' => $request->user(), 'category' => $same_category_products, 'size' => $size_product]);
     }
 }

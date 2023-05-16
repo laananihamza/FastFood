@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBoxArchive, faBoxes, faBoxesPacking, faCartPlus, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-function Product({products, size, category}) {
+function Product({products, size, category, user}) {
     const [quantity, setQuantity] = useState(1)
     const [des, setDes] = useState(true)
     const [sizes, setSizes] = useState('S')
@@ -34,7 +34,7 @@ function Product({products, size, category}) {
     return ( 
         <>
         <Head title="FastFood | Product" />
-        <Header />
+        <Header user={user} />
         <section className="container mx-auto p-14 min-h-[90vh]">
             <div className="product-info flex flex-col md:flex-row justify-center items-center gap-x-10">
                 <div className="product-img w-full md:w-5/12">
