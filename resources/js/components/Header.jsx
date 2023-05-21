@@ -1,13 +1,63 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import {faFacebookF} from '@fortawesome/free-regular-svg-icons';
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import CartList from "./cartList";
 
-function Header({user}) {
-    function logOut(e) {
-        e.preventDefault()
-        axios.post(route('logout'))
+function Header({user, clicked}) {
+
+    /* Page information */
+    const {url, component} = usePage()
+
+    /* Clicked States */
+    const [mobileMenuClicked, setMenuClicked] = useState(false)
+    const [userClicked, setUserClicked] = useState(false)
+    const [cartClicked, setCartClicked] = useState(false)
+
+    /* Quantity State */
+    const [quantity, setQuantity] = useState(1)
+
+    /* Products State */
+    const [products, setProducts] = useState(null)
+
+
+    const increment = () => {
+        setQuantity((prev) => prev + 1)
     }
+    const decrement = () => {
+        setQuantity((prev) => {
+            if (prev <= 1) return 1
+            return prev - 1
+        })
+    }
+    function getCartItems() {
+        axios.get(route('cartItems')).then((res) => setProducts(res.data[0]))
+    }
+    const userRef = useRef()
+    const cartRef = useRef()
+    const menuMobileRef = useRef()
+    useEffect(() => {
+        const mobileMenu = (e) => {
+            
+        }
+        document.addEventListener('mousedown', (e) => {
+            if (!(menuMobileRef?.current?.contains(e.target))) {
+                setMenuClicked(false)
+                // console.log(categoryRef?.current?.contains(e.target));
+            }
+            if (!(userRef?.current?.contains(e.target))) {
+                setUserClicked(false)
+                // console.log(categoryRef?.current?.contains(e.target));
+            }
+            if (!(cartRef?.current?.contains(e.target))) {
+                setCartClicked(false)
+                // console.log(categoryRef?.current?.contains(e.target));
+            }
+            
+        })
+        return;
+    }, [menuMobileRef, userRef, cartRef])
     return ( 
         <>
             
@@ -38,7 +88,7 @@ function Header({user}) {
         <nav className="z-50 sticky top-0 bg-white shadow-sm">
             <div className="container mx-auto">
                 <div className="nav py-5 flex justify-evenly items-center">
-                    <div className="MobileMenuIcon inline-block lg:hidden">
+                    <div className="MobileMenuIcon inline-block lg:hidden" onClick={() => setMenuClicked(true)}>
                         <i className="las la-bars text-4xl cursor-pointer"></i>
                     </div>
                     {/* <Link href="/"><img src={require('/images/BurgerKech_Logo.png')} className="logo w-36 2xl:w-44" alt="" /></Link> */}
@@ -47,12 +97,12 @@ function Header({user}) {
                     <div className="menu hidden lg:inline-block">
                         <ul className="flex items-center gap-5 font-bold text-xl">
                             
-                            <li><Link href={route('home')} className="active hover:text-orange-300">Home</Link></li>
-                            <li><Link href="menu" className="hover:text-orange-300">Menu</Link></li>
-                            <li><Link href="about" className="hover:text-orange-300">About</Link></li>
-                            <li><Link href={route('shop')} className="hover:text-orange-300">Shop</Link></li>
-                            <li><Link href="blog" className="hover:text-orange-300">Blog</Link></li>
-                            <li><Link href="contact" className="hover:text-orange-300">Contact</Link></li>
+                            <li><Link href={route('home')} className={`${component === 'Home' ? 'active' : ''} hover:text-orange-300`}>Home</Link></li>
+                            <li><Link href="menu" className={` hover:text-orange-300`}>Menu</Link></li>
+                            <li><Link href="about" className={` hover:text-orange-300`}>About</Link></li>
+                            <li><Link href={route('shop')} className={`${component === 'shop' || url.startsWith('/product') ? 'active' : ''} hover:text-orange-300`}>Shop</Link></li>
+                            <li><Link href="blog" className={` hover:text-orange-300`}>Blog</Link></li>
+                            <li><Link href="contact" className={` hover:text-orange-300`}>Contact</Link></li>
                         </ul>
                     </div>
                     <div className="order-phone hidden xl:flex flex-row items-center">
@@ -65,9 +115,9 @@ function Header({user}) {
         
                     <div className="other text-2xl flex items-center gap-2">
                         
-                        <span className="user relative cursor-pointer group" id="user">
+                        <span className="user relative cursor-pointer group" id="user" ref={userRef} onClick={() => setUserClicked((prev) => !prev)}>
                             <i className="las la-user border  border-slate-400 rounded-full p-2 hover:bg-yellow-400  hover:border-yellow-400"></i>
-                            <div className="userprofile hidden w-32 bg-white group-hover:block py-3 pl-4 pr-4 absolute top-full right-0 border shadow-sm">
+                            <div className={`userprofile ${userClicked? 'block' : 'hidden'} w-32 bg-white group-hover:block py-3 pl-4 pr-4 absolute top-full right-0 border shadow-sm`}>
                                 <ul>
                                     {/* (Route::has('login')) */}
                                     {user ? 
@@ -107,25 +157,27 @@ function Header({user}) {
                             <i className="las la-heart border border-slate-400 rounded-full p-2 hover:bg-orange-400 hover:text-white hover:border-orange-400"></i>
                             <span className="bg-slate-900 text-white absolute top-0 right-0 rounded-full text-sm h-4 w-4 text-center" name="fav">0</span>
                         </span> --}} */}
-                        <span className="relative group" id="cart">
+                        {/* <span className="relative group" id="cart" ref={cartRef} onClick={() => setCartClicked((prev) => !prev)}>
                             <i className="las la-shopping-cart cursor-pointer border border-slate-400 rounded-full p-2 hover:bg-yellow-400  hover:border-yellow-400"></i>
-                            <span className="bg-yellow-400 text-black absolute top-0 right-0 rounded-full font-bold text-xs h-4 w-4 text-center" name="cart">0</span>
-                            <div className="producstOnCart hidden group-hover:block bg-white absolute top-12 -right-20 border-t-[2.5px] border-black py-4 px-3 w-[350px]">
-                                <div className="products">
+                            <span className="bg-yellow-500  absolute py-0.5 top-0 right-0 rounded-full font-bold text-xs h-5 w-5 text-center text-white" name="cart">{products?.length}</span>
+                            <div className={`producstOnCart ${cartClicked ? 'block' : 'hidden'}  group-hover:block bg-white absolute top-12 -right-20 border-t-[2.5px] border-black py-4 px-3 w-[350px]`}>
+                                <div className="products h-[250px] overflow-y-auto">
                                     <ul>
-                                        <li className="flex justify-between items-center">
-                                            <img src="/images/meatPizza.png" className="w-20 rounded-full" alt="" />
+                                        {products ? products?.map((product, i) => (
+                                            <li className="flex justify-between items-center border-t py-2 border-black" key={i}>
+                                            <img src={`/${product?.urlPhoto}`} className="w-20 rounded-full" alt="" />
                                             <div className="proInfo">
-                                                <p className="mb-1 text-base">Meat Pizza</p>
-                                                <p className="text-lg mb-3 text-green-500">MAD <span className="priceCart"> 8.00</span></p>
+                                                <p className="mb-1 text-base">{product?.name}</p>
+                                                <p className="text-lg mb-3 text-green-500">MAD <span className="priceCart"> {product?.price ? product?.price  : 0}</span></p>
                                                 <div className="counts flex">
-                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer">-</button>
-                                                    <p className="dec py-1 border-y text-sm px-5"><span className="countMany">1</span></p>
-                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer">+</button>
+                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer" onClick={decrement}>-</button>
+                                                    <p className="dec py-1 border-y text-sm px-5"><span className="countMany">{quantity}</span></p>
+                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer" onClick={increment}>+</button>
                                                 </div>
                                             </div>
                                             <i className="las la-trash duration-150 hover:text-red-500 cursor-pointer"></i>
                                         </li>
+                                        )) : 'No Products in cart shop'}
                                     </ul>
                                 </div>
         
@@ -135,14 +187,15 @@ function Header({user}) {
                                     <button className="bg-white  border-2 hover:border-[3px] hover:py-[11px] border-slate-900 w-full py-3 text-slate-900 text-base">Checkout</button>
                                 </div>
                             </div>
-                        </span>
+                        </span> */}
+                        <CartList click={getCartItems}  />
                         <Link href="/shop/burger" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">order now</Link>
                     </div>
                 </div>
             </div>
-            <div className="menuMobile flex flex-col w-1/2 bg-white font-extralight text-md h-screen absolute -left-1/2 duration-300 top-0 z-50 px-4 py-9">
+            <div ref={menuMobileRef} className={`menuMobile flex flex-col w-1/2 bg-white font-extralight text-md h-screen absolute ${mobileMenuClicked ? "left-0" :"-left-1/2"} duration-300 top-0 z-50 px-4 py-9`}>
             {/* {{-- <div className="menuMobile flex-col hidden w-1/2 bg-white font-extralight text-md h-screen absolute left-0 top-0 z-50 px-4 py-9"> --}} */}
-                <div className="closeIcon w-fit place-self-end bg-stone-100 p-1"><i className="las la-times cursor-pointer h-fit duration-300 hover:rotate-180 text-2xl hover:text-red-500"></i></div>
+                <div className="closeIcon w-fit place-self-end bg-stone-100 p-1" onClick={() => setMenuClicked(false)}><i className="las la-times cursor-pointer h-fit duration-300 hover:rotate-180 text-2xl hover:text-red-500"></i></div>
                 <ul className="flex flex-col items-start gap-5 font-bold text-base">
                     {/* {{-- <li className="border-b w-full py-2 pl-3"><Link href="{{ route("home") }}" className="hover:text-yellow-400">Home</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("menu") }}" className="hover:text-yellow-400">Menu</Link></li>
@@ -150,12 +203,12 @@ function Header({user}) {
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("shop") }}" className="hover:text-yellow-400">Shop</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("blog") }}" className="hover:text-yellow-400">Blog</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("contact") }}" className="hover:text-yellow-400">Contact</Link></li> --}} */}
-                    <li><Link href={route('home')} className="hover:text-orange-300">Home</Link></li>
-                    <li><Link href="menu" className="hover:text-orange-300">Menu</Link></li>
-                    <li><Link href="about" className="hover:text-orange-300">About</Link></li>
-                    <li><Link href="shop" className="hover:text-orange-300">Shop</Link></li>
-                    <li><Link href="blog" className="hover:text-orange-300">Blog</Link></li>
-                    <li><Link href="contact" className="hover:text-orange-300">Contact</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href={route('home')} className="hover:text-yellow-400">Home</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="menu" className="hover:text-yellow-400">Menu</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="about" className="hover:text-yellow-400">About</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href={route('shop')} className="hover:text-yellow-400">Shop</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="blog" className="hover:text-yellow-400">Blog</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="contact" className="hover:text-yellow-400">Contact</Link></li>
                 </ul>
             </div>
             {/* </div> */}

@@ -43,7 +43,16 @@ Route::get('/product/{category}/{id}', [StoreController::class, "getProduct"]);
 Route::post('/test/', [StoreController::class, 'getDashies']);
 Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware('auth');
 
+/*
+|
+|
+| Cart Routes
+|
+|
+*/
+
 Route::post('/add-to-cart', [cartController::class, 'addToCart']);
+Route::get('/get-cart-items', [cartController::class, 'getCartItems'])->name('cartItems');
 
 /*
 |

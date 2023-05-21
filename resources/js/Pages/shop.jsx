@@ -1,10 +1,9 @@
-import { Head, Link, router, useForm } from '@inertiajs/react'
-import React, { useState } from 'react'
+import { Head, Link, router, useForm, usePage, useRemember } from '@inertiajs/react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { faAngleDown, faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faTh, faThLarge } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios'
 import { Inertia } from '@inertiajs/inertia'
 
 export default function Shop({products, maxPrice, user, minPrice, category}) {
@@ -18,8 +17,8 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         min: 0,
         max :parseInt(maxPrice),
     })
-    console.log(category);
-    console.log(minPrice);
+
+    const [cartProducts, setCartProducts] = useState([])
 
     const PriceChange = (e) => {
         setPrice((prev) => ({...prev, [e.target.name] : parseInt(e.target.value)}))
@@ -27,25 +26,39 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
     }
     const submitHandle = (e) => {
         e.preventDefault()
-        // axios.post(route('shop'), price).then((data) => {
-        //     console.log(data);
-        // })
-        // router.visit(`/products/`, {
-        //     method: 'POST',
-        //     data: price,
-        //     preserveScroll: true,
-            
-        // })
         router.visit(`/products/${''}/${price.min}/${price.max}`, {method: 'post', data: price})
     }
+    const [clicked, setclicked] = useRemember(false)
     const addToCart = (id) => {
-        Inertia.post(`/add-to-cart`, {'product_id': id})
-
+        Inertia.post(`/add-to-cart`, {'product_id': id, 'quantity' : 1})
+        setclicked(true)
+        
     }
+    const categoryRef = useRef()
+    const priceRef = useRef() 
+    useEffect(() => {
+        const CategoryDropDown = (e) => {
+            if (!(categoryRef?.current?.contains(e.target))) {
+                setIsOpen((prev) => ({...prev, category: false}))
+                // console.log(categoryRef?.current?.contains(e.target));
+            }
+        }
+        document.addEventListener('mousedown', (e) => {
+            if (!(categoryRef?.current?.contains(e.target))) {
+                setIsOpen((prev) => ({...prev, category: false}))
+                // console.log(categoryRef?.current?.contains(e.target));
+            }
+            if (!(priceRef?.current?.contains(e.target))) {
+                setIsOpen((prev) => ({...prev, price: false}))
+
+            }
+        })
+        return;
+    }, [categoryRef, priceRef])
     return(
         <>
             <Head title='Shop' />
-            <Header user={user} />
+            <Header user={user} clicked={clicked}  />
             <div className="container mx-auto px-16 my-14 md:mb-44">
             <p className="title text-4xl my-5 font-black">Products</p>
             <div className="flex items-center justify-between">
@@ -53,8 +66,8 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
 
 <div className="flex justify-start gap-4 items-center my-5">
     <p>Filter :</p>
-    <div className="relative" data-filter="category" id='category' onClick={(e) => setIsOpen((prev) => ({...!prev, category: !prev.category}))}>
-        <div className="list-none cursor-pointer text-lg">
+    <div className="relative" ref={categoryRef} data-filter="category" id='category' >
+        <div className="list-none cursor-pointer text-lg" onClick={(e) => setIsOpen((prev) => ({...!prev, category: !prev.category}))}>
             <div className="flex items-center gap-2">
                 <span className="uppercase text-sm">PRODUCT TYPE</span>
                 <FontAwesomeIcon size='sm' icon={faAngleDown} />
@@ -81,7 +94,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         </div>
         </div>
     </div>
-    <div className="relative" data-filter="Price" id='price' >
+    <div className="relative" ref={priceRef} data-filter="Price" id='price' >
         <div className="list-none cursor-pointer text-lg" onClick={(e) => setIsOpen((prev) => ({...!prev, price: !prev.price}))}>
             <div className="flex items-center gap-2">
                 <span className="uppercase text-sm">Price</span>
