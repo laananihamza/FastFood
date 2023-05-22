@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -71,6 +72,26 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 
 Route::resource('/profile', UserController::class)->middleware('auth');
 
+
+/*
+* 
+* Admin Routes
+*
+*/
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group([
+        'prefix' => '/me-admin',
+        'controller' => AdminController::class,
+        'middleware' => 'admin'
+    ], function () {
+        Route::get('/', 'index');
+        Route::get('/dashboard', 'Dashboard')->name('dashboard');
+    });
+});
+
+
+
 // Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 // Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
@@ -98,9 +119,9 @@ Route::get('/contact', function () {
 })->name('contact');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // require __DIR__ . '/auth.php';
 
