@@ -78,9 +78,11 @@ class ProductController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function edit(products $products)
+    public function edit(products $products, $product)
     {
-        //
+        $category = DB::table('category')->select('id', 'category_name')->get();
+        $product = $products->where('id', '=', $product)->get();
+        return Inertia::render('Admin/products/AddProduct', ['user' => auth()->user(), 'category' => $category, 'product' =>  $product[0]->id]);
     }
 
     /**

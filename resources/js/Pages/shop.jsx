@@ -167,7 +167,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
                 </Link>
                 <div className="flex justify-between items-center  font-bold p-2 pt-5" onClick={() => addToCart(product.id)}>
                     <span className="pricePopular text-yellow-400 text-3xl">{product.price } DH</span>
-                    {user?.issuperuser ? <span className="actions"><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /> <FontAwesomeIcon icon={faTrash} className='text-white bg-red-500 p-2 rounded-md' /></span>
+                    {user?.issuperuser ? <span className="actions"> <Link href={route('products.edit', {'product' : product.id})}><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /></Link> <FontAwesomeIcon icon={faTrash} className='text-white bg-red-500 p-2 rounded-md' /></span>
                                 : <i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>}
                 </div>
             
