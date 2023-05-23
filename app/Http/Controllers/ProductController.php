@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function create()
     {
         $category = DB::table('category')->select('id', 'category_name')->get();
-        return Inertia::render('Admin/products/AddProduct', ['user' => auth()->user(), 'category' => $category]);
+        return Inertia::render('Admin/products/HandleProduct', ['user' => auth()->user(), 'category' => $category]);
     }
 
     /**
@@ -82,7 +82,7 @@ class ProductController extends Controller
     {
         $category = DB::table('category')->select('id', 'category_name')->get();
         $product = $products->where('id', '=', $product)->get();
-        return Inertia::render('Admin/products/AddProduct', ['user' => auth()->user(), 'category' => $category, 'product' =>  $product[0]->id]);
+        return Inertia::render('Admin/products/HandleProduct', ['user' => auth()->user(), 'category' => $category, 'product' =>  $product[0]]);
     }
 
     /**
@@ -92,9 +92,30 @@ class ProductController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, products $products)
+    public function update(Request $request, products $products, $product)
     {
-        //
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:70'],
+            'size' => ['required', 'string', 'max:2'],
+            'urlPhoto' => ['required', 'string', 'max:255'],
+            'stock' => ['required', 'numeric', 'gte:1'],
+            'price' => ['required', 'numeric', 'gte:10'],
+            'ingredients' => ['required', 'string', 'max:500'],
+            'description' => ['required', 'string', 'max:1000'],
+            'category_code' => ['required', 'numeric', 'gt:0'],
+        ]);
+        $product = DB::table('products')->where('id', '=', $product)->update([
+            'name' => $request->input('name'),
+            'size' => $request->input('size'),
+            'urlPhoto' => $request->input('urlPhoto'),
+            'stock' =>  $request->input('stock'),
+            'price' =>  $request->input('price'),
+            'ingredients' => $request->input('ingredients'),
+            'description' => $request->input('description'),
+            'category_code' =>  $request->input('category_code'),
+        ]);
+        return to_route('shop');
     }
 
     /**

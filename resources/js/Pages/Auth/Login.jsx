@@ -40,6 +40,7 @@ function Login({status}) {
         // axios.post(route('login'), user)
         post(route('login'))
     }
+    console.log(errors);
     return ( 
         <>
         <Head title="FastFood | Login" />
@@ -47,7 +48,7 @@ function Login({status}) {
             <div className="container mx-auto px-1 md:px-10 lg:px-14 mt-3 mb-14 md:my-10  lg:my-14 pb-20 pt-5 md:pt-10 lg:pt-20 flex flex-col items-center gap-8" >
                 <div className="title-form text-4xl text-center">Create Account</div>
                 {(errors.email || errors.password)  && <div className="error bg-red-200 px-2 py-5 rounded-lg w-11/12 mx-auto md:w-5/12">
-                    {errors.email  && <p className="my-2 text-red-600">* {errors.email}</p>}
+                    {errors.email  && <p className="my-2 text-red-600">* Email or password incorrect</p>}
                     {errors.password  && <p className="my-2 text-red-600">* {errors.password}</p>}
                     </div>}
                 <form action={''} method="post" className="w-4/6 md:w-3/4 xl:w-2/6" onSubmit={handleSubmit}>

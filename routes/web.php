@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
         Route::get('/', 'index');
         Route::get('/dashboard', 'Dashboard')->name('dashboard');
-        Route::resource('products', ProductController::class)->middleware(['auth', 'admin']);
+        Route::resource('products', ProductController::class)->middleware(['admin']);
     });
 });
 
