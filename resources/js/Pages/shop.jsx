@@ -2,7 +2,7 @@ import { Head, Link, router, useForm, usePage, useRemember } from '@inertiajs/re
 import React, { useEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { faAngleDown, faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faTh, faThLarge } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faPen, faPlus, faTh, faThLarge, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Inertia } from '@inertiajs/inertia'
 
@@ -59,21 +59,21 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         <>
             <Head title='Shop' />
             <Header user={user} clicked={clicked}  />
-            <div className="container mx-auto px-16 my-14 md:mb-44">
-            <p className="title text-4xl my-5 font-black">Products</p>
-            <div className="flex items-center justify-between">
+            <div className="container mx-auto px-5 xl:px-16 md:mt-14 mb-44">
+            <p className="title text-4xl my-5 font-black text-center md:text-left">Products</p>
+            <div className="flex items-center flex-col md:flex-row justify-between">
             <div className=''>
 
-<div className="flex justify-start gap-4 items-center my-5">
-    <p>Filter :</p>
-    <div className="relative" ref={categoryRef} data-filter="category" id='category' >
+        <div className="flex flex-col md:flex-row justify-start gap-4 items-center my-5">
+        <p>Filter :</p>
+        <div className="relative" ref={categoryRef} data-filter="category" id='category' >
         <div className="list-none cursor-pointer text-lg" onClick={(e) => setIsOpen((prev) => ({...!prev, category: !prev.category}))}>
             <div className="flex items-center gap-2">
                 <span className="uppercase text-sm">PRODUCT TYPE</span>
                 <FontAwesomeIcon size='sm' icon={faAngleDown} />
             </div>
         </div>
-        <div className={` ${isOpen?.category ? 'block' : 'hidden'} absolute left-0 z-50 bg-white py-5 px-3 w-72 top-[30px] border border-black`}>
+        <div className={` ${isOpen?.category ? 'block' : 'hidden'} absolute -left-1/2 md:left-0 z-50 bg-white py-5 px-3 w-72 top-[30px] border border-black`}>
         <p className='mb-3'>Select The Category</p>
         <div className="flex flex-col justify-start ">
             <Link href={`/products/0/${price.max}`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
@@ -101,7 +101,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
                 <FontAwesomeIcon size='sm' icon={faAngleDown} />
             </div>
         </div>
-        <div className={` ${isOpen?.price ? 'block' : 'hidden' } absolute z-50 bg-white py-5 px-3 w-72 top-[30px] border border-black`}>
+        <div className={` ${isOpen?.price ? 'block' : 'hidden' } absolute left-1/2 -translate-x-1/2 md:left-0 z-50 bg-white py-5 px-3 w-72 top-[30px] border border-black`}>
             <p className='mb-3'>Select The price</p>
             {/* <input type="range" min="0" max={maxPrice} defaultValue="0" className="w-full" name="priceProduct" /><br />
             <span id="min"></span>
@@ -116,7 +116,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
     </div>
     
         </div>
-        <div className="filter-content my-5 flex items-center gap-5">
+        <div className="filter-content my-5 flex flex-col md:flex-row items-center gap-5">
         {minPrice != 0 && <p>Price :  <button className='rounded-full px-8 py-0.5 border-2 border-gray-500 w-fit text-sm'>{minPrice} - {maxPrice}</button></p>}
         {category !== '' && <p>Category : <button className='rounded-full px-8 py-0.5 border-2 border-gray-500 w-fit text-sm'>{category}</button></p>}
         </div>
@@ -129,6 +129,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         <div className="loading w-full flex justify-center items-center">
             <div className="lds-dual-ring"></div>
         </div>
+        <div className="flex justify-between items-center">
         <div className="many-on-line mb-5">
             {/* <span className='border border-black relative w-14 px-1 h-6 inline-block before:bg-slate-400 before:w-1/4 before:left-2 before:h-full before:absolute after:bg-slate-400 after:w-1/4 after:h-full after:absolute after:right-2'></span>
             <span className='border border-black relative w-14 px-1 h-6 inline-block before:bg-slate-400 before:w-1/4 before:left-2 before:h-full before:absolute before:shadow-2xl after:bg-slate-400 after:w-1/4 after:h-full after:absolute after:right-2'></span> */}
@@ -151,6 +152,8 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
                 <span className={`${grid === 'grid-cols-4' ? 'bg-black' : 'bg-slate-300'} w-[13%] h-4/6 inline-block absolute right-2`}></span>
             </span>
         </div>
+        {user?.issuperuser ? <Link href={route('products.create')} className='bg-green-500 text-white p-2'><FontAwesomeIcon icon={faPlus} className='' /> Add Product</Link> : null}
+        </div>
         
         {/* <div className={`shop-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-8`}> */}
         <div className={`shop-content grid grid-cols-1 md:${product.data.length !== 0 && grid}  gap-8`}>
@@ -162,8 +165,10 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
                 <p className="fond-bold text-xl mt-5">{product.name}</p>
                 <p className="my-2 text-slate-400 h-9 overflow-hidden">{product.description}</p>
                 </Link>
-                <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5" onClick={() => addToCart(product.id)}>
-                    <span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>
+                <div className="flex justify-between items-center  font-bold p-2 pt-5" onClick={() => addToCart(product.id)}>
+                    <span className="pricePopular text-yellow-400 text-3xl">{product.price } DH</span>
+                    {user?.issuperuser ? <span className="actions"><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /> <FontAwesomeIcon icon={faTrash} className='text-white bg-red-500 p-2 rounded-md' /></span>
+                                : <i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>}
                 </div>
             
                 </div>

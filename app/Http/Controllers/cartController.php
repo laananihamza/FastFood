@@ -36,13 +36,15 @@ class cartController extends Controller
             $cart = DB::table('carts')
                 ->where('id', '=', session()->get('cart_id'))
                 ->get();
+            $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=', $cart[0]->id ?? null)->get(); // join with cart_items
+            // return $cart;
         } else {
             $cart = DB::table('carts')
                 ->where('user_id', '=', $request->user()['id'])
                 ->get();
+            $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=',  $cart[0]->id ?? null)->get(); // join with cart_items
         }
         // $cart_items = DB::table('cart_items')->where('cart_id', '=', $cart[0]->id)->get();
-        $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=', $cart[0]->id)->get(); // join with cart_items
         return response()->json([$product_list]);
     }
 }

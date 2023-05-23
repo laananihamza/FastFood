@@ -120,8 +120,10 @@ function Header({user, clicked}) {
                             <div className={`userprofile ${userClicked? 'block' : 'hidden'} w-32 bg-white group-hover:block py-3 pl-4 pr-4 absolute top-full right-0 border shadow-sm`}>
                                 <ul>
                                     {/* (Route::has('login')) */}
+                                    
                                     {user ? 
-                                    <p className="text-sm text-stone-600"><Link href="/profile">{user.name}</Link></p> 
+                                        user?.issuperuser ? <p className="text-sm text-stone-600"><Link href={route('dashboard')}>Dashboard</Link></p> : <p className="text-sm text-stone-600"><Link href="/profile">{user.name}</Link></p> 
+
                                     : <>
                                         <li><Link href="/login" className="text-sm text-stone-600">Sign in</Link></li>
                                         <li><Link href="/register" className="text-sm text-stone-600">Register</Link></li>
@@ -189,20 +191,21 @@ function Header({user, clicked}) {
                             </div>
                         </span> */}
                         <CartList click={getCartItems}  />
-                        <Link href="/shop/burger" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">order now</Link>
+                        {user?.issuperuser ? <Link href={route('dashboard')} className="hidden md:block px-4 py-2  rounded-lg duration-200 text-white bg-sky-400 text-lg">Dashboard</Link> :<Link href="/products/" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">order now</Link>}
                     </div>
                 </div>
             </div>
             <div ref={menuMobileRef} className={`menuMobile flex flex-col w-1/2 bg-white font-extralight text-md h-screen absolute ${mobileMenuClicked ? "left-0" :"-left-1/2"} duration-300 top-0 z-50 px-4 py-9`}>
             {/* {{-- <div className="menuMobile flex-col hidden w-1/2 bg-white font-extralight text-md h-screen absolute left-0 top-0 z-50 px-4 py-9"> --}} */}
                 <div className="closeIcon w-fit place-self-end bg-stone-100 p-1" onClick={() => setMenuClicked(false)}><i className="las la-times cursor-pointer h-fit duration-300 hover:rotate-180 text-2xl hover:text-red-500"></i></div>
-                <ul className="flex flex-col items-start gap-5 font-bold text-base">
+                <ul className="flex flex-col items-start gap-5 font-bold text-base mt-2">
                     {/* {{-- <li className="border-b w-full py-2 pl-3"><Link href="{{ route("home") }}" className="hover:text-yellow-400">Home</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("menu") }}" className="hover:text-yellow-400">Menu</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("about") }}" className="hover:text-yellow-400">About</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("shop") }}" className="hover:text-yellow-400">Shop</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("blog") }}" className="hover:text-yellow-400">Blog</Link></li>
                     <li className="border-b w-full py-2 pl-3"><Link href="{{ route("contact") }}" className="hover:text-yellow-400">Contact</Link></li> --}} */}
+                    {user?.issuperuser? <li className="px-2 duration-150 hover:pl-5"><Link href={route('dashboard')} className="hover:text-yellow-400">Dashboard</Link></li>: null}
                     <li className="px-2 duration-150 hover:pl-5"><Link href={route('home')} className="hover:text-yellow-400">Home</Link></li>
                     <li className="px-2 duration-150 hover:pl-5"><Link href="menu" className="hover:text-yellow-400">Menu</Link></li>
                     <li className="px-2 duration-150 hover:pl-5"><Link href="about" className="hover:text-yellow-400">About</Link></li>

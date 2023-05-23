@@ -13,6 +13,6 @@ class AdminController extends Controller
     }
     public function Dashboard(Request $request)
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Dashboard', ['user' => auth()->user()]);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -87,8 +88,18 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
         Route::get('/', 'index');
         Route::get('/dashboard', 'Dashboard')->name('dashboard');
+        Route::resource('products', ProductController::class)->middleware(['auth', 'admin']);
     });
 });
+
+/*
+|
+|
+* Handle Products
+|
+|
+*/
+
 
 
 

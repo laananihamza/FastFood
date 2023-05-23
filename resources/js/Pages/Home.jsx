@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import SwiperSlide from '../components/swiperSlide'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home(props) {
     const [names, setName] = useState('pizza')
@@ -54,7 +56,7 @@ export default function Home(props) {
                 <p className="uppercase text-7xl text-yellow-600 md:text-8xl lg:text-9xl font-bold font-sans lg:text-yellow-400">burger</p>
                 <p className="text-green-600 font-bold text-4xl my-4">Medium 2-topping* pizza</p>
                 <p className="text-slate-400 text-lg mt-4 mb-8">*Additional charge for premium toppings. Minimum of 2 required.</p>
-                <Link href="/shop/burger" className="px-6 py-3 md:py-4 md:px-9 mx-auto lg:mx-0 rounded-lg duration-300 hover:bg-yellow-600 hover:text-white bg-yellow-400 text-xl md:text-2xl">order now</Link>
+                <Link href="/shop/burger" className=" px-4 py-3 mr-3 md:py-4 md:px-9 mx-auto lg:mx-0 rounded-lg duration-300 hover:bg-yellow-600 hover:text-white bg-yellow-400 text-sm sm:text-base md:text-2xl">order now</Link>
                 {/* <button className=' bg-yellow-500 text-white' onClick={(e) => getJson(e.target.textContent)}>Pizza</button>
                 <button className=' bg-yellow-500 text-white' onClick={(e) => getJson(e.target.textContent)}>burger</button>
                 <button className=' bg-yellow-500 text-white' onClick={(e) => getJson(e.target.textContent)}>tacos</button> */}
@@ -214,14 +216,17 @@ export default function Home(props) {
                     <Link href={`/products/${product.id}`}>
                         <div className="backward-color w-full relative"><img src={`/${product.urlPhoto}`} className="mx-auto rounded-lg duration-200" alt="" /></div>
                         <p className="fond-bold text-xl mt-5">{product.name }</p>
-                        <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$pizza->description}}">{product.description}</p>
-                        <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{product.price } DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
-                    </Link>
+                        <p className="my-2 text-slate-400 h-9 overflow-hidden">{product.description}</p>
+                            </Link>
+                        <div className="flex justify-between items-center  p-2 pt-5">
+                            <span className="pricePopular text-yellow-400 text-3xl font-bold">{product.price } DH</span>
+                                {props.user?.issuperuser ? <span className="actions"><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /> <FontAwesomeIcon icon={faTrash} className='text-white bg-red-500 p-2 rounded-md' /></span>
+                                : <i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>}</div>
             </div>
             )) : <p className='grid text-center text-2xl col-start-1 col-end-5'>No dishes Here</p>}
             </div>
             <div className="all-products w-fit mx-auto mt-14">
-                <Link href={''} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link>
+                <Link href={route('shop')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link>
                 {/* <Link href={route('shopjs')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link> */}
             </div>
         </div>
@@ -257,7 +262,7 @@ export default function Home(props) {
                     <p className="text-2xl md:text-3xl lg:text-4xl  font-bold uppercase">
                         Top recipes
                     </p>
-                    <Link href="/shop" className="text-md font-bold hover:text-yellow-500">See all <i className="las la-angle-right bg-green-500 hover:bg-white p-1"></i></Link>
+                    <Link href={route('shop')} className="text-md font-bold hover:text-yellow-500">See all <i className="las la-angle-right bg-green-500 hover:bg-white p-1"></i></Link>
                 </div>
                 <div className="products-left my-5 gap-5 grid grid-cols-1 md:grid-cols-2">
                     <div className="box-dish border-2 rounded-3xl">

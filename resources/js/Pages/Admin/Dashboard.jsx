@@ -1,12 +1,14 @@
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-function Dashboard() {
+function Dashboard({user}) {
+    const pageInfo = usePage()
     return ( 
         <>
+        
             <Head title="Dashboard" />
-            <Header />
+            <Header user={user} />
                 Hello admin
             <Footer />
         </>
