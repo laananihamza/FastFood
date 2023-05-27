@@ -51,8 +51,8 @@ function AddProduct({user, category, product}) {
                                 <div className="name">
                                     <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Product Name</p>
 
-                                    <div className={`relative border ${errors.name ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="name">
-                                        <input type="text" name="name" placeholder="Product Name" defaultValue={product?.name} className="focus:outline-none w-full" onChange={(e) => setData(e.target.name, e.target.value)} />
+                                    <div className={`relative border ${errors.name ? "border-red-500" : 'border-black'} mb-5 p-0`} id="name">
+                                        <input type="text" name="name" placeholder="Product Name" defaultValue={product?.name} className="focus:outline-none w-full  border-0 py-3.5" onChange={(e) => setData(e.target.name, e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="category">
@@ -65,14 +65,14 @@ function AddProduct({user, category, product}) {
                                     </div>
                                     <div className="price">
                                         <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Price</p>
-                                        <div className={`relative border ${errors.price ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="price">
-                                            <input type="number" name="price" defaultValue={product?.price} min={0} max={1000} placeholder="Price" className="focus:outline-none w-full" onChange={(e) => setData(e.target.name, parseInt(e.target.value))} />
+                                        <div className={`relative border ${errors.price ? "border-red-500" : 'border-black'} mb-5 p-0`} id="price">
+                                            <input type="number" name="price" defaultValue={product?.price} min={0} max={1000} placeholder="Price" className="focus:outline-none w-full border-0 py-3.5" onChange={(e) => setData(e.target.name, parseInt(e.target.value))} />
                                         </div>
                                     </div>
                                     <div className="stock">
                                         <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Stock</p>
-                                        <div className={`relative border ${errors.stock ? "border-red-500" : 'border-black'} mb-5 py-4 px-3`} id="stock">
-                                            <input type="number" name="stock" defaultValue={product?.stock} min={0} max={1000} placeholder="Stock" className="focus:outline-none w-full" onChange={(e) => setData(e.target.name, parseInt(e.target.value))} />
+                                        <div className={`relative border ${errors.stock ? "border-red-500" : 'border-black'} mb-5 p-0`} id="stock">
+                                            <input type="number" name="stock" defaultValue={product?.stock} min={0} max={1000} placeholder="Stock" className="focus:outline-none w-full border-0 py-3.5" onChange={(e) => setData(e.target.name, parseInt(e.target.value))} />
                                         </div>
                                     </div>
                                     <div className="sizes col-span-2 ">

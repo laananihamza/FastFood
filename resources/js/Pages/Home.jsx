@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home(props) {
-    const [names, setName] = useState('pizza')
+    const [dishesClick, setDishesClick] = useState('pizza')
     // console.log(document.querySelector('meta[name=csrf-token]').getAttribute('content'));
     // useEffect(() => {
     //     router.visit('/test', {
@@ -53,15 +53,15 @@ export default function Home(props) {
       
             <div className="text-burger">
                 <p className="uppercase text-5xl md:text-6xl lg:text-7xl font-bold font-sans">american</p>
-                <p className="uppercase text-7xl text-yellow-600 md:text-8xl lg:text-9xl font-bold font-sans lg:text-yellow-400">burger</p>
-                <p className="text-green-600 font-bold text-4xl my-4">Medium 2-topping* pizza</p>
+                <p className="uppercase text-7xl text-yellow-500 md:text-8xl lg:text-9xl font-bold font-sans lg:text-yellow-300">burger</p>
+                <p className="text-green-500 font-bold text-4xl my-4">Medium 2-topping* pizza</p>
                 <p className="text-slate-400 text-lg mt-4 mb-8">*Additional charge for premium toppings. Minimum of 2 required.</p>
-                <Link href="/shop/burger" className=" px-4 py-3 mr-3 md:py-4 md:px-9 mx-auto lg:mx-0 rounded-lg duration-300 hover:bg-yellow-600 hover:text-white bg-yellow-400 text-sm sm:text-base md:text-2xl">order now</Link>
+                <Link href="/shop/burger" className=" px-4 py-3 mr-3 md:py-4 md:px-9 mx-auto lg:mx-0 rounded-lg duration-300 hover:bg-yellow-500 hover:text-white bg-yellow-300 text-sm sm:text-base md:text-2xl">order now</Link>
                 {/* <button className=' bg-yellow-500 text-white' onClick={(e) => getJson(e.target.textContent)}>Pizza</button>
                 <button className=' bg-yellow-500 text-white' onClick={(e) => getJson(e.target.textContent)}>burger</button>
                 <button className=' bg-yellow-500 text-white' onClick={(e) => getJson(e.target.textContent)}>tacos</button> */}
                 
-                <span className="md:ml-5 mt-9 text-green-600 font-bold text-3xl md:text-5xl ">69.99DH</span>
+                <span className="md:ml-5 mt-9 text-green-500 font-bold text-3xl md:text-5xl ">69.99DH</span>
                 <span className="text-slate-400 text-base md:text-lg line-through">99.99DH</span>
             </div>
             <div className="images">
@@ -73,55 +73,55 @@ export default function Home(props) {
     
     <section className="menuProducts relative">
         <div className="linkMenu relative -top-4 mx-auto w-fit ">
-            <Link href="/menu" className="px-6 py-3 md:py-4 md:px-9 rounded-lg duration-300 hover:bg-yellow-600 hover:text-white bg-yellow-400 text-base">Menus</Link>
+            <Link href="/menu" className="px-6 py-3 md:py-4 md:px-9 rounded-lg duration-300 hover:bg-yellow-500 hover:text-white bg-yellow-300 text-base">Menus</Link>
         </div>
         <div className="container mx-auto ">
             <div className="category py-9 grid items-end grid-cols-2 lg:grid-cols-8 md:grid-cols-4  ">
                 <Link href="/shop/cold-drink">
-                    <div className="combo flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="combo flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-combo.png" alt="" />
                         <p className="uppercase font-bold">Combo</p>
                     </div>
                 </Link>
                 <Link href="/shop/pasta">
-                    <div className="kids flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="kids flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-kids.png" alt="" />
                         <p className="uppercase font-bold">Kids Menu</p>
                     </div>
                 </Link>
                 <Link href="/shop/pizaa">
-                    <div className="pizza flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="pizza flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-pizza.png" alt="" />
                         <p className="uppercase font-bold">Pizza</p>
                     </div>
                 </Link>
                 <Link href="/shop/meals">
-                    <div className="meal flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="meal flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-meal.png" alt="" />
                         <p className="uppercase font-bold">Box Meals</p>
                     </div>
                 </Link>
                 <Link href="/shop/burger">
-                    <div className="burger flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="burger flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-burger.png" alt="" />
                         <p className="uppercase font-bold">Burger</p>
                     </div>
                 </Link>
                 <Link href="/shop/pasta">
-                    <div className="chicken flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="chicken flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-chicken.png" alt="" />
                         <p className="uppercase font-bold">Chicken</p>
                     </div>
                 </Link>
                 <Link href="/shop/cold-drink">
-                    <div className="sauce flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="sauce flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-sauce.png" alt="" />
                         <p className="uppercase font-bold">Sauces</p>
                     </div>
 
                 </Link>
                 <Link href="/shop/hot-drink">
-                    <div className="drink flex flex-col justify-center items-center duration-300 hover:text-yellow-400">
+                    <div className="drink flex flex-col justify-center items-center duration-300 hover:text-yellow-300">
                         <img src="/images/category-drink.png" alt="" />
                         <p className="uppercase font-bold">Drinks</p>
                     </div>
@@ -136,7 +136,7 @@ export default function Home(props) {
                         <p className="text-sm my-3 uppercase w-2/3">
                             new phenomenon burger taste
                         </p>
-                        <p className="text-2xl font-bold text-green-600">
+                        <p className="text-2xl font-bold text-green-500">
                             39.99DH
                         </p>
                     </div>
@@ -145,14 +145,14 @@ export default function Home(props) {
                         <img src="/images/category-burger.png" className="z-10 w-64" alt="" />
                     </div>
                 </div>
-                <div className="box rounded-md p-5 mx-2.5 flex flex-row md:flex-col-reverse lg:flex-col-reverse xl:flex-row bg-green-600 items-center justify-center z-0">
+                <div className="box rounded-md p-5 mx-2.5 flex flex-row md:flex-col-reverse lg:flex-col-reverse xl:flex-row bg-green-500 items-center justify-center z-0">
                     <div className="text text-white">
                         <p className="text-3xl font-bold">Other flavors</p>
                         <p className="text-sm my-3 uppercase w-2/3">
                             save rooms. <br />
                             we made salats
                         </p>
-                        <p className="text-2xl font-bold text-yellow-400">
+                        <p className="text-2xl font-bold text-yellow-300">
                             39.99DH
                         </p>
                     </div>
@@ -182,23 +182,22 @@ export default function Home(props) {
                 <p>Popular Dishes</p>
             </div>
             <div className="filtermenu flex flex-wrap  justify-center items-center gap-2 md:gap-5 mt-9">
-                <div className="pizza" data-dishes="pizza">
-                    <p onClick={(e) => getJson(e.target.textContent)} className=" uppercase w-fit rounded-full py-4 px-12 cursor-pointer border-2 duration-150 text-sm font-bold hover:border-yellow-400 bg-white">pizza</p>
+                <div className="pizza " id="pizza">
+                    <p onClick={(e) => getJson(e.target.textContent)} className={` uppercase w-fit rounded-full py-4 px-12 cursor-pointer border-[3px] duration-150 text-sm font-bold hover:border-yellow-300 ${props?.products[0]?.category_name === 'Pizza' && 'border-yellow-300'} bg-white`}>pizza</p>
                 </div>
-                <div className="pasta" data-dishes="pasta">
-                    <p onClick={(e) => getJson(e.target.textContent)} className="uppercase rounded-full py-4 px-12 cursor-pointer border-2 duration-150 text-sm font-bold hover:border-yellow-400 w-fit bg-white">pasta</p>
+                <div className="pasta" id="pasta">
+                    <p onClick={(e) => getJson(e.target.textContent)} className={`uppercase rounded-full py-4 px-12 cursor-pointer border-[3px] duration-150 text-sm font-bold hover:border-yellow-300 w-fit ${props?.products[0]?.category_name === 'Pasta' && 'border-yellow-300'} bg-white`}>pasta</p>
                 </div>
-                <div className="burger" data-dishes="burger">
-                    <p onClick={(e) => getJson(e.target.textContent)} className="uppercase rounded-full py-4 px-12 cursor-pointer border-2 duration-150 text-sm font-bold hover:border-yellow-400 w-fit bg-white">burger</p>
+                <div className="burger" id="burger">
+                    <p onClick={(e) => getJson(e.target.textContent)} className={`uppercase rounded-full py-4 px-12 cursor-pointer border-[3px] duration-150 text-sm font-bold hover:border-yellow-300 w-fit ${props?.products[0]?.category_name === 'Burger' && 'border-yellow-300'} bg-white`}>burger</p>
                 </div>
-                <div className="drink" data-dishes="drink">
-                    <p onClick={(e) => getJson(e.target.textContent)} className="uppercase rounded-full py-4 px-12 cursor-pointer border-2 duration-150 text-sm font-bold hover:border-yellow-400 w-fit bg-white">Drink</p>
+                <div className="drink" id="drink">
+                    <p onClick={(e) => getJson(e.target.textContent)} className={`uppercase rounded-full py-4 px-12 cursor-pointer border-[3px] duration-150 text-sm font-bold hover:border-yellow-300 w-fit ${props?.products[0]?.category_name === 'Cold Drink' || props?.products[0]?.category_name === 'Hot Drink' && 'border-yellow-300'} bg-white`}>Drink</p>
                 </div>
             </div>
             <div className="loading w-full flex justify-center items-center">
                 <div className="lds-dual-ring"></div>
             </div>
-            
             <div className={`boxes px-5 grid ${props.products.length > 0 && 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'} mt-14 py-5`}>
             {/* <div className="boxes px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14 py-5"> */}
             {/* @if (count($pizzas) > 0)
@@ -207,7 +206,7 @@ export default function Home(props) {
                         <div className="backward-color w-full relative"><img src="/{{ $pizza->urlPhoto }}" className="mx-auto rounded-lg" alt=""></div>
                         <p className="fond-bold text-xl mt-5">{{ $pizza->name }}</p>
                         <p className="my-2 text-slate-400 h-9 overflow-hidden" title="{{$pizza->description}}">{{$pizza->description}}</p>
-                        <div className="flex justify-between items-center text-yellow-400 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{{ $pizza->price }} DH</span><i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
+                        <div className="flex justify-between items-center text-yellow-300 text-3xl font-bold p-2 pt-5"><span className="pricePopular">{{ $pizza->price }} DH</span><i className="las la-shopping-basket bg-yellow-300 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i></div>
                     </div>
                 @endforeach
             @endif */}
@@ -219,15 +218,15 @@ export default function Home(props) {
                         <p className="my-2 text-slate-400 h-9 overflow-hidden">{product.description}</p>
                             </Link>
                         <div className="flex justify-between items-center  p-2 pt-5">
-                            <span className="pricePopular text-yellow-400 text-3xl font-bold">{product.price } DH</span>
+                            <span className="pricePopular text-yellow-300 text-3xl font-bold">{product.price } DH</span>
                                 {props.user?.issuperuser ? <span className="actions"><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /> <FontAwesomeIcon icon={faTrash} className='text-white bg-red-500 p-2 rounded-md' /></span>
-                                : <i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>}</div>
+                                : <i className="las la-shopping-basket bg-yellow-300 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>}</div>
             </div>
             )) : <p className='grid text-center text-2xl col-start-1 col-end-5'>No dishes Here</p>}
             </div>
             <div className="all-products w-fit mx-auto mt-14">
-                <Link href={route('shop')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link>
-                {/* <Link href={route('shopjs')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-400 w-fit bg-yellow-400 hover:bg-yellow-500 hover:text-white">All products</Link> */}
+                <Link href={route('shop')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-300 w-fit bg-yellow-300 hover:bg-yellow-500 hover:text-white">All products</Link>
+                {/* <Link href={route('shopjs')} className="uppercase rounded-md py-4 px-12 cursor-pointer duration-300 text-sm font-bold hover:border-yellow-300 w-fit bg-yellow-300 hover:bg-yellow-500 hover:text-white">All products</Link> */}
             </div>
         </div>
     </section>
@@ -238,13 +237,13 @@ export default function Home(props) {
                     <img src="/images/think.png" className="w-48" alt="" />
                     <div className="text-off absolute -translate-x-1/2 -translate-y-1/2 top-20 left-20">
                         <p className="getOff text-xl font-bold text-center">get Up to</p>
-                        <p className="text-yellow-500 text-4xl font-bold">-50%</p>
+                        <p className="text-yellow-400 text-4xl font-bold">-50%</p>
                         <p className="font-bold text-center text-4xl">OFF</p>
                     </div>
                 </div>
                 <div className="order font-bold">
                     <p className="getOff text-white text-5xl shadow-sm">Hot Fresh</p>
-                    <div className="main-text uppercase text-yellow-400 text-7xl md:text-8xl lg:text-10xl">
+                    <div className="main-text uppercase text-yellow-300 text-7xl md:text-8xl lg:text-10xl">
                         hotd<span className="relative">o<span className="images absolute top-0 left-1/4 w-full flex h-1/2"><img src="/images/thunder-1.png" alt="" /><img src="/images/thunder-2.png" alt="" /></span></span>g
                     </div>
                     <div className="link-order mt-9">
@@ -266,78 +265,78 @@ export default function Home(props) {
                 </div>
                 <div className="products-left my-5 gap-5 grid grid-cols-1 md:grid-cols-2">
                     <div className="box-dish border-2 rounded-3xl">
-                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-orange-50 duration-200 hover:bg-[#ffede0]">
+                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-amber-100 duration-200 hover:bg-amber-300 text-red-500">
                             <img src="/images/breast4.png" className="w-[8em]" alt="" />
                             <div className="description w-full">
                                 <p className="font-bold text-lg">BBQ chicken breast</p>
                                 <p className="text-md mt-2 text-slate-500">Pasta</p>
                                 <p className="text-green-500 font-bold mt-2 text-xl">25DH</p>
                             </div>
-                            <i className="las la-shopping-basket bg-yellow-400 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
+                            <i className="las la-shopping-basket bg-yellow-300 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
                         </div>
                     </div>
                     <div className="box-dish border-2 rounded-3xl">
-                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-orange-50 duration-200 hover:bg-[#ffede0]">
+                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-amber-100 duration-200 hover:bg-amber-300 text-red-500">
                             <img src="/images/butter6.png" className="w-[8em]" alt="" />
                             <div className="description w-full">
                                 <p className="font-bold text-lg">Chesse Butter</p>
                                 <p className="text-md mt-2 text-slate-500">burger</p>
                                 <p className="text-green-500 font-bold mt-2 text-xl">35DH</p>
                             </div>
-                            <i className="las la-shopping-basket bg-yellow-400 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
+                            <i className="las la-shopping-basket bg-yellow-300 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
 
                         </div>
                     </div>
                     <div className="box-dish border-2 rounded-3xl">
-                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-orange-50 duration-200 hover:bg-[#ffede0]">
+                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-amber-100 duration-200 hover:bg-amber-300 text-red-500">
                             <img src="/images/choco7.png" className="w-[8em]" alt="" />
                             <div className="description w-full">
                                 <p className="font-bold text-lg">Chocolate Muffln</p>
                                 <p className="text-md mt-2 text-slate-500">Cold Drinks</p>
                                 <p className="text-green-500 font-bold mt-2 text-xl">28dh</p>
                             </div>
-                            <i className="las la-shopping-basket bg-yellow-400 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
+                            <i className="las la-shopping-basket bg-yellow-300 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
 
                         </div>
                     </div>
                     <div className="box-dish border-2 rounded-3xl">
-                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-orange-50 duration-200 hover:bg-[#ffede0]">
+                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-amber-100 duration-200 hover:bg-amber-300 text-red-500">
                             <img src="/images/shake5.png" className="w-[8em]" alt="" />
                             <div className="description w-full">
                                 <p className="font-bold text-lg">Blueberry Shake</p>
                                 <p className="text-md mt-2 text-slate-500">Cold Drinks</p>
                                 <p className="text-green-500 font-bold mt-2 text-xl">25dh</p>
                             </div>
-                            <i className="las la-shopping-basket bg-yellow-400 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
+                            <i className="las la-shopping-basket bg-yellow-300 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
 
                         </div>
                     </div>
                     <div className="box-dish border-2 rounded-3xl">
-                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-orange-50 duration-200 hover:bg-[#ffede0]">
+                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-amber-100 duration-200 hover:bg-amber-300 text-red-500">
                             <img src="/images/apr2.png" className="w-[8em]" alt="" />
                             <div className="description w-full">
                                 <p className="font-bold text-lg">Aprlcot Chicken</p>
                                 <p className="text-md mt-2 text-slate-500">pizza</p>
                                 <p className="text-green-500 font-bold mt-2 text-xl">26dh</p>
                             </div>
-                            <i className="las la-shopping-basket bg-yellow-400 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
+                            <i className="las la-shopping-basket bg-yellow-300 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end"></i>
 
                         </div>
                     </div>
                     <div className="box-dish border-2 rounded-3xl">
-                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-orange-50 duration-200 hover:bg-[#ffede0]">
+                        <div className="flex gap-2 items-center border-[10px] rounded-3xl border-white bg-amber-100 duration-200 hover:bg-amber-300 text-red-500">
                             <img src="/images/salade9.png" className="w-[8em]" alt="" />
                             <div className="description w-full">
                                 <p className="font-bold text-lg">Country Salade</p>
                                 <p className="text-md mt-2 text-slate-500">salades</p>
                                 <p className="text-green-500 font-bold mt-2 text-xl">23dh</p>
                             </div>
-                            <i className="las la-shopping-basket bg-yellow-400 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end "></i>
+                            <i className="las la-shopping-basket bg-yellow-300 text-3xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer hover:text-white place-self-end "></i>
                         </div>
                     </div>
                 </div>
             </article>
-            <div className="box-ads-burger  relative hidden pt-5 lg:block w-4/12 bg-yellow-400 rounded-md">
+            <div className="box-ads-burger  relative hidden pt-5 lg:block w-4/12 bg-yellow-300 rounded-md">
                 <p className="title-ads text-5xl font-bold text-center text-white">Super Delicious</p>
                 <p className="title-ads-burger text-6xl mt-5 font-bold text-center uppercase text-[#f00000]">Chicken</p>
                 <p className="title-ads-burger text-2xl mt-7 font-bold text-center uppercase text-white">Call us now:</p>
@@ -346,7 +345,7 @@ export default function Home(props) {
             </div>
         </div>
     </section>
-    <section className="client py-24 bg-orange-50 duration-200 hover:bg-[#ffede0]">
+    <section className="client py-24 bg-amber-100 duration-200 hover:bg-amber-200">
         <div className="container mx-auto px-4">
             <div className="main-text">
                 <p className="main-title text-3xl my-5 font-bold uppercase">
@@ -366,11 +365,11 @@ export default function Home(props) {
                                     </div>
                                 </div>
                                 <div className="starts flex gap-1">
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="far fa-star text-sm md:text-md text-yellow-400"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="far fa-star text-sm md:text-md text-yellow-300"></i>
                                 </div>
                             </div>
                             <div className="description mt-6 text-md md:text-lg text-slate-800">
@@ -387,11 +386,11 @@ export default function Home(props) {
                                     </div>
                                 </div>
                                 <div className="starts flex gap-1">
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
                                 </div>
                             </div>
                             <div className="description mt-6 text-md md:text-lg text-slate-800">
@@ -408,11 +407,11 @@ export default function Home(props) {
                                     </div>
                                 </div>
                                 <div className="starts flex gap-1">
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="fas fa-star text-sm md:text-md text-yellow-400"></i>
-                                    <i className="far fa-star text-sm md:text-md text-yellow-400"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="fas fa-star text-sm md:text-md text-yellow-300"></i>
+                                    <i className="far fa-star text-sm md:text-md text-yellow-300"></i>
                                 </div>
                             </div>
                             <div className="description mt-6 text-md md:text-lg text-slate-800">
@@ -438,10 +437,10 @@ export default function Home(props) {
                 <img src="./images/banner-chicken.png" className="w-full h-full object-cover"  alt="" />
                 <div className="information flex flex-col justify-evenly absolute top-0 left-0 w-full h-full pl-14 py-9">
                     <p className="banner-main-des text-5xl text-white">Fash Food</p>
-                    <p className="banner-titles font-black text-yellow-400 text-3xl md:text-5xl lg:text-7xl uppercase">Meals</p>
+                    <p className="banner-titles font-black text-yellow-300 text-3xl md:text-5xl lg:text-7xl uppercase">Meals</p>
                     <p className="desc-banner text-xl text-white uppercase">new phenomenon<br /> chicken taste</p>
-                    <p className="text-yellow-400 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">24.99DH</p>
-                    <p className="mt-2 md:mt-0"><Link href="/shop" className="px-6 py-1 sm:mt-5 md:py-2 lg:px-8 lg:py-4 rounded-md bg-white text-black duration-200 hover:text-yellow-400 uppercase">order now</Link></p>
+                    <p className="text-yellow-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">24.99DH</p>
+                    <p className="mt-2 md:mt-0"><Link href="/shop" className="px-6 py-1 sm:mt-5 md:py-2 lg:px-8 lg:py-4 rounded-md bg-white text-black duration-200 hover:text-yellow-300 uppercase">order now</Link></p>
                 </div>
             </div>
             <div className="banner-post burger-banner relative col-span-1 md:col-span-2 lg:col-span-1">
@@ -449,10 +448,10 @@ export default function Home(props) {
                 <img src="./images/banner-burger.png" className="w-full h-full md:h-[400px] lg:h-full object-cover" alt="" />
                 <div className="information flex flex-col justify-evenly absolute top-0 left-0 w-full h-full pl-14 py-9">
                     <p className="banner-main-des text-5xl text-white">House</p>
-                    <p className="banner-titles font-black text-yellow-400 text-3xl md:text-5xl lg:text-7xl uppercase">burger</p>
+                    <p className="banner-titles font-black text-yellow-300 text-3xl md:text-5xl lg:text-7xl uppercase">burger</p>
                     <p className="desc-banner text-xl text-white uppercase">new phenomenon<br /> burger taste</p>
-                    <p className="text-yellow-400 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">23.99DH</p>
-                    <p className="mt-2 md:mt-0"><Link href="/shop" className="px-6 py-1 sm:mt-5 md:py-2 lg:px-8 lg:py-4 rounded-md bg-white text-black duration-200 hover:text-yellow-400 uppercase">order now</Link></p>
+                    <p className="text-yellow-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">23.99DH</p>
+                    <p className="mt-2 md:mt-0"><Link href="/shop" className="px-6 py-1 sm:mt-5 md:py-2 lg:px-8 lg:py-4 rounded-md bg-white text-black duration-200 hover:text-yellow-300 uppercase">order now</Link></p>
                 </div>
             </div>
             <div className="banner-post salad-banner relative">
@@ -463,7 +462,7 @@ export default function Home(props) {
                     <p className="banner-titles font-black text-yellow-800 text-3xl md:text-5xl lg:text-7xl uppercase">Salats</p>
                     <p className="desc-banner text-xl text-white uppercase">new phenomenon<br /> salat taste</p>
                     <p className="text-yellow-800 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">12.99DH</p>
-                    <p className="mt-2 md:mt-0"><Link href="/shop" className="px-6 py-1 sm:mt-5 md:py-2 lg:px-8 lg:py-4 rounded-md bg-white text-black duration-200 hover:text-yellow-400 uppercase">order now</Link></p>
+                    <p className="mt-2 md:mt-0"><Link href="/shop" className="px-6 py-1 sm:mt-5 md:py-2 lg:px-8 lg:py-4 rounded-md bg-white text-black duration-200 hover:text-yellow-300 uppercase">order now</Link></p>
                 </div>
             </div>
         </div>
@@ -481,12 +480,12 @@ export default function Home(props) {
                         <img src="./images/posts-blog-1.jpg" className="h-full w-full object-cover" alt="" />
                     </div>
                     <div className="texts py-7 px-5">
-                        <p className="text-md text-gray-500"><Link href="/blog" className="hover:text-yellow-400">blog</Link> / 15 Sep / posted by <span className="text-black">Ahmad Jone</span></p>
+                        <p className="text-md text-gray-500"><Link href="/blog" className="hover:text-yellow-300">blog</Link> / 15 Sep / posted by <span className="text-black">Ahmad Jone</span></p>
                         <p className="mt-3 text-xl font-bold">Easy Way To Prepare Burger</p>
                         <p className="short-descr mt-3 text-md text-stone-500 leading-relaxed">The Ultimate Hangover Burger: Egg in a Hole Burger Grilled Cheese Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed ...</p>
                     </div>
                     <div className="link-read-more px-5">
-                        <Link href="/blog/post/1504" className="uppercase text-[12px] rounded-md bg-yellow-400 px-8 py-4 duration-200 hover:text-white">read more</Link>
+                        <Link href="/blog/post/1504" className="uppercase text-[12px] rounded-md bg-yellow-300 px-8 py-4 duration-200 hover:text-white">read more</Link>
                     </div>
                 </div>
                 <div className="post post-second h-full md:pb-10 lg:pb-14 xl:pb-10 2xl:pb-5 rounded-md bg-white overflow-hidden border-2">
@@ -494,12 +493,12 @@ export default function Home(props) {
                         <img src="./images/posts-blog-2.png" className="h-full w-full object-cover" alt="" />
                     </div>
                     <div className="texts py-7 px-5">
-                        <p className="text-md text-gray-500"><Link href="/blog" className="hover:text-yellow-400">blog</Link> / 08 Oct / posted by <span className="text-black">Khalid Abouai</span></p>
+                        <p className="text-md text-gray-500"><Link href="/blog" className="hover:text-yellow-300">blog</Link> / 08 Oct / posted by <span className="text-black">Khalid Abouai</span></p>
                         <p className="mt-3 text-xl font-bold">Top 5 Burger's Ingredients</p>
                         <p className="short-descr mt-3 text-md text-stone-500 leading-relaxed">The Ultimate Hangover Burger: Egg in a Hole Burger Grilled Cheese Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed ...</p>
                     </div>
                     <div className="link-read-more px-5">
-                        <Link href="/blog/post/1196" className="uppercase text-[12px] rounded-md bg-yellow-400 px-8 py-4 duration-200 hover:text-white">read more</Link>
+                        <Link href="/blog/post/1196" className="uppercase text-[12px] rounded-md bg-yellow-300 px-8 py-4 duration-200 hover:text-white">read more</Link>
                     </div>
                 </div>
                 <div className="post post-third h-full md:pb-10 lg:pb-14 xl:pb-10 2xl:pb-5 rounded-md bg-white overflow-hidden border-2">
@@ -507,12 +506,12 @@ export default function Home(props) {
                         <img src="./images/posts-blog-3.jpg" className="h-full w-full object-cover" alt="" />
                     </div>
                     <div className="texts py-7 px-5">
-                        <p className="text-md text-gray-500"><Link href="/blog" className="hover:text-yellow-400">blog</Link> / 26 Oct / posted by <span className="text-black">Vladimir Yoshi</span></p>
+                        <p className="text-md text-gray-500"><Link href="/blog" className="hover:text-yellow-300">blog</Link> / 26 Oct / posted by <span className="text-black">Vladimir Yoshi</span></p>
                         <p className="mt-3 text-xl font-bold">5 Burgers You Have To Try it</p>
                         <p className="short-descr mt-3 text-md text-stone-500 leading-relaxed">The Ultimate Hangover Burger: Egg in a Hole Burger Grilled Cheese Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed ...</p>
                     </div>
                     <div className="link-read-more px-5">
-                        <Link href="/blog/post/1873" className="uppercase text-[12px] rounded-md bg-yellow-400 px-8 py-4 duration-200 hover:text-white">read more</Link>
+                        <Link href="/blog/post/1873" className="uppercase text-[12px] rounded-md bg-yellow-300 px-8 py-4 duration-200 hover:text-white">read more</Link>
                     </div>
                 </div>
             </div>

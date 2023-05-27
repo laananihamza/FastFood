@@ -164,7 +164,7 @@ class StoreController extends Controller
     }
     public function getDashies(Request $request)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients')->get();
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->where('category_name', '=', $request->name)->where('size', '=', 'S')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')->get();
         return Inertia::render('Home', ['products' => $products]);
 
         // return inertia('test', ['products' => $products]);

@@ -16,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')->paginate(6);
+        return Inertia::render('Admin/products/products-items', ['user' => auth()->user(), 'products' => $products]);
     }
 
     /**
@@ -124,8 +125,9 @@ class ProductController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(products $products)
+    public function destroy(products $products, $product)
     {
-        //
+        DB::table('products')->where('id', '=', $product)->delete();
+        return redirect()->back();
     }
 }

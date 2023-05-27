@@ -2,17 +2,21 @@ import { Head, Link, router, useForm, usePage, useRemember } from '@inertiajs/re
 import React, { useEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { faAngleDown, faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faPen, faPlus, faTh, faThLarge, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleLeft, faAngleRight, faChevronLeft, faChevronRight, faClose, faExclamation, faExclamationCircle, faPen, faPlus, faTh, faThLarge, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Inertia } from '@inertiajs/inertia'
+import { Button, Modal } from 'flowbite-react'
 
 export default function Shop({products, maxPrice, user, minPrice, category}) {
+    const {delete: destroy} = useForm()
     const [product, setProduct] = useState(products)
     const [grid, setGrid] = useState('grid-cols-3')
     const [isOpen, setIsOpen] = useState({
         category: false,
         price: false
     })
+    const [deletePopUp, setDeletePopUp] = useState(false)
+    const [deleteId, setDeleteId] = useState(null)
     const [price, setPrice] = useState({
         min: 0,
         max :parseInt(maxPrice),
@@ -34,6 +38,18 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         setclicked(true)
         
     }
+    const deleteClicked = (id) => {
+        setDeletePopUp(true)
+        setDeleteId(id)
+        // if (confirm('are you sure? ')) {
+            //     destroy(route('products.destroy', {'product' : id}))
+            // }
+        } 
+        const deleteHandle = () => {
+            setDeletePopUp(false)
+            destroy(route('products.destroy', {'product' : deleteId}))
+    }
+
     const categoryRef = useRef()
     const priceRef = useRef() 
     useEffect(() => {
@@ -59,6 +75,38 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
         <>
             <Head title='Shop' />
             <Header user={user} clicked={clicked}  />
+            <div className="delete-pop-up">
+            <Modal
+                show={deletePopUp}
+                size="md"
+                popup={true}
+                onClose={() => console.log('close')}
+            >
+                <FontAwesomeIcon icon={faClose} onMouseDown={() => setDeletePopUp(false)} className='p-2 text-gray-500 text-lg hover:text-gray-600 cursor-pointer duration-100 w-fit absolute right-2 ' />
+                <Modal.Body>
+                <div className="text-center pt-10">
+                    <FontAwesomeIcon icon={faExclamation} className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Are you sure you want to delete this product?
+                    </h3>
+                    <div className="flex justify-center gap-4">
+                    <Button
+                        color="failure"
+                        onMouseDown={deleteHandle}
+                    >
+                        Yes, I'm sure
+                    </Button>
+                    <Button
+                        color="gray"
+                        onMouseDown={() => setDeletePopUp(false)}
+                    >
+                        No, cancel
+                    </Button>
+                    </div>
+                </div>
+                </Modal.Body>
+            </Modal>
+            </div>
             <div className="container mx-auto px-5 xl:px-16 md:mt-14 mb-44">
             <p className="title text-4xl my-5 font-black text-center md:text-left">Products</p>
             <div className="flex items-center flex-col md:flex-row justify-between">
@@ -165,10 +213,10 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
                 <p className="fond-bold text-xl mt-5">{product.name}</p>
                 <p className="my-2 text-slate-400 h-9 overflow-hidden">{product.description}</p>
                 </Link>
-                <div className="flex justify-between items-center  font-bold p-2 pt-5" onClick={() => addToCart(product.id)}>
+                <div className="flex justify-between items-center  font-bold p-2 pt-5" >
                     <span className="pricePopular text-yellow-400 text-3xl">{product.price } DH</span>
-                    {user?.issuperuser ? <span className="actions"> <Link href={route('products.edit', {'product' : product.id})}><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /></Link> <FontAwesomeIcon icon={faTrash} className='text-white bg-red-500 p-2 rounded-md' /></span>
-                                : <i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end"></i>}
+                    {user?.issuperuser ? <span className="actions"> <Link href={route('products.edit', {'product' : product.id})}><FontAwesomeIcon icon={faPen} className='text-white bg-sky-500 p-2 rounded-md'  /></Link>  <FontAwesomeIcon icon={faTrash} onClick={() => deleteClicked(product?.id)} className='text-white cursor-pointer bg-red-500 p-2 rounded-md' /></span>
+                                : <i className="las la-shopping-basket bg-yellow-400 text-2xl mr-2 mb-2 p-1 rounded-lg duration-200 cursor-pointer text-black hover:text-white place-self-end" onClick={() => addToCart(product.id)}></i>}
                 </div>
             
                 </div>

@@ -77,9 +77,9 @@ function Header({user, clicked}) {
                         </div>
                         <div className="rightSide text-white text-xl">
                             <a href="https://www.facebook.com"><i className="lab la-facebook "></i></a>
-                            <a href="https://www.instagram.com"><i className="lab la-instagram mx-2 hover:text-yellow-400"></i></a>
-                            <a href="https://www.twitter.com"><i className="lab la-twitter mx-2 hover:text-yellow-400"></i></a>
-                            <a href="https://www.youtube.com"><i className="lab la-youtube mx-2 hover:text-yellow-400"></i></a>
+                            <a href="https://www.instagram.com"><i className="lab la-instagram mx-2 hover:text-yellow-300"></i></a>
+                            <a href="https://www.twitter.com"><i className="lab la-twitter mx-2 hover:text-yellow-300"></i></a>
+                            <a href="https://www.youtube.com"><i className="lab la-youtube mx-2 hover:text-yellow-300"></i></a>
         
                         </div>
                 </div>
@@ -116,7 +116,7 @@ function Header({user, clicked}) {
                     <div className="other text-2xl flex items-center gap-2">
                         
                         <span className="user relative cursor-pointer group" id="user" ref={userRef} onClick={() => setUserClicked((prev) => !prev)}>
-                            <i className="las la-user border  border-slate-400 rounded-full p-2 hover:bg-yellow-400  hover:border-yellow-400"></i>
+                            <i className="las la-user border  border-slate-400 rounded-full p-2 hover:bg-yellow-300  hover:border-yellow-300"></i>
                             <div className={`userprofile ${userClicked? 'block' : 'hidden'} w-32 bg-white group-hover:block py-3 pl-4 pr-4 absolute top-full right-0 border shadow-sm`}>
                                 <ul>
                                     {/* (Route::has('login')) */}
@@ -125,8 +125,8 @@ function Header({user, clicked}) {
                                         user?.issuperuser ? <p className="text-sm text-stone-600"><Link href={route('dashboard')}>Dashboard</Link></p> : <p className="text-sm text-stone-600"><Link href="/profile">{user.name}</Link></p> 
 
                                     : <>
-                                        <li><Link href="/login" className="text-sm text-stone-600">Sign in</Link></li>
-                                        <li><Link href="/register" className="text-sm text-stone-600">Register</Link></li>
+                                        <li><Link href={route('login')} className="text-sm text-stone-600">Sign in</Link></li>
+                                        <li><Link href={route('register')} className="text-sm text-stone-600">Register</Link></li>
                                     </>
                                     }
                                     {/* @if (Auth::user()) */}
@@ -160,7 +160,7 @@ function Header({user, clicked}) {
                             <span className="bg-slate-900 text-white absolute top-0 right-0 rounded-full text-sm h-4 w-4 text-center" name="fav">0</span>
                         </span> --}} */}
                         {/* <span className="relative group" id="cart" ref={cartRef} onClick={() => setCartClicked((prev) => !prev)}>
-                            <i className="las la-shopping-cart cursor-pointer border border-slate-400 rounded-full p-2 hover:bg-yellow-400  hover:border-yellow-400"></i>
+                            <i className="las la-shopping-cart cursor-pointer border border-slate-400 rounded-full p-2 hover:bg-yellow-300  hover:border-yellow-300"></i>
                             <span className="bg-yellow-500  absolute py-0.5 top-0 right-0 rounded-full font-bold text-xs h-5 w-5 text-center text-white" name="cart">{products?.length}</span>
                             <div className={`producstOnCart ${cartClicked ? 'block' : 'hidden'}  group-hover:block bg-white absolute top-12 -right-20 border-t-[2.5px] border-black py-4 px-3 w-[350px]`}>
                                 <div className="products h-[250px] overflow-y-auto">
@@ -190,8 +190,8 @@ function Header({user, clicked}) {
                                 </div>
                             </div>
                         </span> */}
-                        <CartList click={getCartItems}  />
-                        {user?.issuperuser ? <Link href={route('dashboard')} className="hidden md:block px-4 py-2  rounded-lg duration-200 text-white bg-sky-400 text-lg">Dashboard</Link> :<Link href="/products/" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-400 text-xl">order now</Link>}
+                        {user?.issuperuser ? null : <CartList click={getCartItems}  /> }
+                        {user?.issuperuser ? <Link href={route('dashboard')} className="hidden md:block px-4 py-2  rounded-lg duration-200 text-white bg-sky-400 text-lg">Dashboard</Link> :<Link href="/products/" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-300 text-xl">order now</Link>}
                     </div>
                 </div>
             </div>
@@ -199,19 +199,19 @@ function Header({user, clicked}) {
             {/* {{-- <div className="menuMobile flex-col hidden w-1/2 bg-white font-extralight text-md h-screen absolute left-0 top-0 z-50 px-4 py-9"> --}} */}
                 <div className="closeIcon w-fit place-self-end bg-stone-100 p-1" onClick={() => setMenuClicked(false)}><i className="las la-times cursor-pointer h-fit duration-300 hover:rotate-180 text-2xl hover:text-red-500"></i></div>
                 <ul className="flex flex-col items-start gap-5 font-bold text-base mt-2">
-                    {/* {{-- <li className="border-b w-full py-2 pl-3"><Link href="{{ route("home") }}" className="hover:text-yellow-400">Home</Link></li>
-                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("menu") }}" className="hover:text-yellow-400">Menu</Link></li>
-                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("about") }}" className="hover:text-yellow-400">About</Link></li>
-                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("shop") }}" className="hover:text-yellow-400">Shop</Link></li>
-                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("blog") }}" className="hover:text-yellow-400">Blog</Link></li>
-                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("contact") }}" className="hover:text-yellow-400">Contact</Link></li> --}} */}
-                    {user?.issuperuser? <li className="px-2 duration-150 hover:pl-5"><Link href={route('dashboard')} className="hover:text-yellow-400">Dashboard</Link></li>: null}
-                    <li className="px-2 duration-150 hover:pl-5"><Link href={route('home')} className="hover:text-yellow-400">Home</Link></li>
-                    <li className="px-2 duration-150 hover:pl-5"><Link href="menu" className="hover:text-yellow-400">Menu</Link></li>
-                    <li className="px-2 duration-150 hover:pl-5"><Link href="about" className="hover:text-yellow-400">About</Link></li>
-                    <li className="px-2 duration-150 hover:pl-5"><Link href={route('shop')} className="hover:text-yellow-400">Shop</Link></li>
-                    <li className="px-2 duration-150 hover:pl-5"><Link href="blog" className="hover:text-yellow-400">Blog</Link></li>
-                    <li className="px-2 duration-150 hover:pl-5"><Link href="contact" className="hover:text-yellow-400">Contact</Link></li>
+                    {/* {{-- <li className="border-b w-full py-2 pl-3"><Link href="{{ route("home") }}" className="hover:text-yellow-300">Home</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("menu") }}" className="hover:text-yellow-300">Menu</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("about") }}" className="hover:text-yellow-300">About</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("shop") }}" className="hover:text-yellow-300">Shop</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("blog") }}" className="hover:text-yellow-300">Blog</Link></li>
+                    <li className="border-b w-full py-2 pl-3"><Link href="{{ route("contact") }}" className="hover:text-yellow-300">Contact</Link></li> --}} */}
+                    {user?.issuperuser? <li className="px-2 duration-150 hover:pl-5"><Link href={route('dashboard')} className="hover:text-yellow-300">Dashboard</Link></li>: null}
+                    <li className="px-2 duration-150 hover:pl-5"><Link href={route('home')} className="hover:text-yellow-300">Home</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="menu" className="hover:text-yellow-300">Menu</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="about" className="hover:text-yellow-300">About</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href={route('shop')} className="hover:text-yellow-300">Shop</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="blog" className="hover:text-yellow-300">Blog</Link></li>
+                    <li className="px-2 duration-150 hover:pl-5"><Link href="contact" className="hover:text-yellow-300">Contact</Link></li>
                 </ul>
             </div>
             {/* </div> */}
