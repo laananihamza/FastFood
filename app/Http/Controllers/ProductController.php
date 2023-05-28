@@ -14,10 +14,23 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')->paginate(6);
-        return Inertia::render('Admin/products/products-items', ['user' => auth()->user(), 'products' => $products]);
+        $products = DB::table("products")
+            ->join('category', 'products.category_code', '=', 'category.id')
+            // ->when($request->search, function ($query, $search) {
+            //     $query->where('products.name', 'Like', "%" . $search . "%");
+            // })
+
+            ->where('products.name', 'Like', "%" . $request->search . "%")
+            ->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.stock', 'products.ingredients', 'category_name')
+            ->paginate(6)->appends('search', $request->search);
+        // $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')->paginate(6);
+        return Inertia::render('Admin/products/products-items', [
+            'user' => auth()->user(),
+            'products' => $products,
+            'searchParam' => $request->search
+        ]);
     }
 
     /**
@@ -59,7 +72,7 @@ class ProductController extends Controller
             'description' => $request->input('description'),
             'category_code' =>  $request->input('category_code'),
         ]);
-        return to_route('shop');
+        return to_route('products.index');
     }
 
     /**
@@ -116,7 +129,7 @@ class ProductController extends Controller
             'description' => $request->input('description'),
             'category_code' =>  $request->input('category_code'),
         ]);
-        return to_route('shop');
+        return to_route('products.index');
     }
 
     /**
@@ -129,5 +142,21 @@ class ProductController extends Controller
     {
         DB::table('products')->where('id', '=', $product)->delete();
         return redirect()->back();
+    }
+    public function searchProducts(Request $request)
+    {
+        $products = DB::table("products")
+            ->join('category', 'products.category_code', '=', 'category.id')
+            ->when($request->search, function ($query, $search) {
+                $query->where('products.name', 'Like', "%" . $search . "%");
+            })
+            ->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')
+            ->paginate(6);
+        return response()->json([
+            'products' => $products,
+            'searchParam' => $request->search
+        ]);
+
+        return Inertia::render('Admin/products/products-items', ['user' => auth()->user(), 'products' => $products]);
     }
 }

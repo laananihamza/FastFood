@@ -9,7 +9,9 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 /*
@@ -91,6 +93,25 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('products', ProductController::class)->middleware(['admin']);
     });
 });
+// Route::get('/me-admin/products/t', function (Request $request) {
+//     $products = DB::table("products")
+//         ->join('category', 'products.category_code', '=', 'category.id')
+//         // ->when($request->search, function ($query, $search) {
+//         //     $query->where('products.name', 'Like', "%" . $search . "%");
+//         // })
+
+//         ->where('products.name', 'Like', "%" . $request->search . "%")
+
+//         ->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')
+//         ->withQueryString('df')
+//         ->paginate(6);
+//     // $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')->paginate(6);
+//     return Inertia::render('Admin/products/products-items', [
+//         'user' => auth()->user(),
+//         'products' => $products,
+//         'searchParam' => $request->search
+//     ]);
+// })->middleware(['admin']);
 
 /*
 |
