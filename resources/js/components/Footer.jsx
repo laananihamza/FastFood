@@ -56,7 +56,7 @@ function Footer() {
             <div className="part-2 bg-green-600 py-5 ">
                 <div className="container mx-auto px-5 flex flex-col gap-5 py-14 md:flex-row md:gap-1 md:py-0  justify-between items-center">
                     <p className="copyright text-md text-white">
-                        Copyright &copy; {new Date().getFullYear() }, Made By <span className="text-yellow-400">LAANANI</span> <i className="las la-heart text-red-600"></i>
+                        Copyright &copy; {new Date().getFullYear() }, Made By <span className="text-yellow-300">LN&EM</span> <i className="las la-heart text-red-600"></i>
                     </p>
                     <img src="/images/payments.png" alt="" />
                 </div>

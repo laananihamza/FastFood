@@ -85,13 +85,14 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        User::create([
+        $user = User::create([
             'name' => $request->input('firstname') . ' ' . $request->input('lastname'),
             'firstname' => $request->input('firstname'),
             'lastname' => $request->input('lastname'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
-        return redirect('login');
+        Auth::login($user);
+        return redirect(RouteServiceProvider::HOME);
     }
 }

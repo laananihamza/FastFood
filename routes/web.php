@@ -95,6 +95,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('users', UserHandleController::class)->middleware(['admin']);
         Route::post('/users/unblock', [UserHandleController::class, 'unblockUser'])->name('unblockUser')->middleware(['admin']);
         Route::post('/users/block', [UserHandleController::class, 'blockUser'])->name('blockUser')->middleware(['admin']);
+        Route::post('/users/admin', [UserHandleController::class, 'makeUserAdmin'])->name('makeUserAdmin')->middleware(['admin']);
+        Route::post('/users/unadmin', [UserHandleController::class, 'DismissUserFromAdmin'])->name('DismissUserFromAdmin')->middleware(['admin']);
     });
 });
 // Route::get('/me-admin/products/t', function (Request $request) {
