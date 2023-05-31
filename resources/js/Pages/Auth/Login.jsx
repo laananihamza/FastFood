@@ -40,6 +40,9 @@ function Login({status}) {
         // axios.post(route('login'), user)
         post(route('login'))
     }
+    if (errors.email) {
+        // passInput.current.value = ''
+    }
     return ( 
         <>
         <Head title="FastFood | Login" />
@@ -47,8 +50,7 @@ function Login({status}) {
             <div className="container mx-auto px-1 md:px-10 lg:px-14 mt-3 mb-14 md:my-10  lg:my-14 pb-20 pt-5 md:pt-10 lg:pt-20 flex flex-col items-center gap-8" >
                 <div className="title-form text-4xl text-center">Create Account</div>
                 {(errors.email || errors.password)  && <div className="error bg-red-200 px-2 py-5 rounded-lg w-11/12 mx-auto md:w-5/12">
-                    {errors.email  && <p className="my-2 text-red-600">* Email or password incorrect</p>}
-                    {errors.password  && <p className="my-2 text-red-600">* {errors.password}</p>}
+                    {errors.email  && <p className="my-2 text-red-600">* {errors.email}</p>}
                     </div>}
                 <form action={''} method="post" className="w-4/6 md:w-3/4 lg:4/6 xl:w-3/6" onSubmit={handleSubmit}>
                     
@@ -65,7 +67,7 @@ function Login({status}) {
                         passInput.current.focus()
                     }}>
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light ${isClicked.password === true ?  'top-2 text-xs' : user?.password !== ''  ? "top-2 text-xs" : 'text-lg top-1/2'}`}>Password</p> */}
-                        <input type="password" name="password" ref={passInput} className="focus:outline-none w-full border-0 py-4" onChange={changeHandler} />
+                        <input type="password" name="password" ref={passInput} defaultValue={''} className="focus:outline-none w-full border-0 py-4" onChange={changeHandler} />
                     </div>
                         <div className="w-fit mx-auto">
                         <Link href="forget-password" className="text-sm underline">Forget your password?</Link>

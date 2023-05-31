@@ -9,6 +9,7 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserHandleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -89,8 +90,11 @@ Route::group(['middleware' => 'auth'], function () {
         'middleware' => 'admin'
     ], function () {
         Route::get('/', 'index');
-        Route::get('/dashboard', 'Dashboard')->name('dashboard');
+        Route::get('/dashboard', 'Dashboard')->name('dashboard')->middleware(['admin']);
         Route::resource('products', ProductController::class)->middleware(['admin']);
+        Route::resource('users', UserHandleController::class)->middleware(['admin']);
+        Route::post('/users/unblock', [UserHandleController::class, 'unblockUser'])->name('unblockUser')->middleware(['admin']);
+        Route::post('/users/block', [UserHandleController::class, 'blockUser'])->name('blockUser')->middleware(['admin']);
     });
 });
 // Route::get('/me-admin/products/t', function (Request $request) {

@@ -1,4 +1,4 @@
-import { faBoxesStacked, faChartLine, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBoxesStacked, faChartLine, faUser, faUsersGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
 
@@ -10,6 +10,7 @@ function NavBar({user}) {
                         <ul className="mt-5">
                             <li className="my-2 pl-1 text-lg duration-300 hover:pl-2"><Link href={route('dashboard')}><FontAwesomeIcon icon={faChartLine} /> <span className="ml-2 opacity-0 md:opacity-100 duration-150 hidden md:inline group-hover:inline group-hover:opacity-100 text-sm md:text-lg">Dashboard</span></Link></li>
                             <li className="my-2 pl-1 text-lg duration-300 hover:pl-2"><Link href={route('products.index')}><FontAwesomeIcon icon={faBoxesStacked} /> <span className="ml-2 opacity-0 md:opacity-100 duration-150 hidden md:inline group-hover:inline group-hover:opacity-100 text-sm md:text-lg"> Products management</span></Link></li>
+                            <li className="my-2 pl-1 text-lg duration-300 hover:pl-2"><Link href={route('users.index')}><FontAwesomeIcon icon={faUsersGear} /> <span className="ml-2 opacity-0 md:opacity-100 duration-150 hidden md:inline group-hover:inline group-hover:opacity-100 text-sm md:text-lg"> Users management</span></Link></li>
                         </ul>
                     </nav>
         </>

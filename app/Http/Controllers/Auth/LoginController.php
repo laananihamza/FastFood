@@ -60,15 +60,27 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            if (auth()->user()->issuperuser) {
-                return to_route('dashboard');
+            if (auth()->user()->blocked) {
+                Auth::logout();
+
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+                return back()->withErrors([
+                    'email' => 'You don\'t have access to your account.',
+                ])->onlyInput('email');
+            } else {
+                $request->session()->regenerate();
+                if (auth()->user()->issuperuser) {
+                    return to_route('dashboard');
+                }
+                return redirect()->intended();
             }
-            return redirect()->intended();
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'The Email Or Password incorrect.',
+            'password' => 'Error'
         ])->onlyInput('email');
     }
     public function logout(Request $request)
