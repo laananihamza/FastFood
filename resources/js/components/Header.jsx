@@ -92,7 +92,7 @@ function Header({user, clicked}) {
                         <i className="las la-bars text-4xl cursor-pointer"></i>
                     </div>
                     {/* <Link href="/"><img src={require('/images/BurgerKech_Logo.png')} className="logo w-36 2xl:w-44" alt="" /></Link> */}
-                    <Link href="/"><img src="/images/BurgerKech_Logo.png" className="logo w-36 2xl:w-44" alt="" /></Link>
+                    <Link href="/"><img src="/images/BurgerKech_Logo.svg" className="logo w-14 2xl:w-16" alt="" /></Link>
                     
                     <div className="menu hidden lg:inline-block">
                         <ul className="flex items-center gap-5 font-bold text-xl">
