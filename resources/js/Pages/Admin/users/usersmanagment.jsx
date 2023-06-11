@@ -28,20 +28,21 @@ function UserManagment({users, user, searchParam}) {
     const UnblockUser = (userID) => {
         // post()
         // Inertia.post(route('blockUser'),{ userID: userID })
-        router.post(route('unblockUser'),{userID: userID})
+        router.post(route('unblockUser'),{userID: userID, search: searchParam })
         // router.visit(route('blockUser'),{only:['users'], preserveState: true, replace: true, data: {userID: userID} })
     }
     const blockUser = (userID) => {
         // post()
         // Inertia.post(route('blockUser'),{ userID: userID })
-        router.post(route('blockUser'),{userID: userID})
+        router.post(route('blockUser'),{userID: userID, search: searchParam })
         // router.visit(route('blockUser'),{only:['users'], preserveState: true, replace: true, data: {userID: userID} })
     }
     const makeAdmin = (userID) => {
-        router.post(route('makeUserAdmin'),{userID: userID})
+        // router.visit(route('makeUserAdmin'),{data: {userID: userID, search: searchParam}, method:'post',only: ['users'], preserveState: true, replace: true, })
+        router.post(route('makeUserAdmin'),{userID: userID, search: searchParam })
     }
     const removeAdmin = (userID) => {
-            router.post(route('DismissUserFromAdmin'),{userID: userID})
+            router.post(route('DismissUserFromAdmin'),{userID: userID, search: searchParam })
     }
 
     const searching = (value) => {

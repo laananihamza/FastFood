@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Listeners\deletingUser;
+use App\Listeners\UpdatingUser;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +21,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UserAction::class => [
+            // UpdatingUser::class,
+            deletingUser::class,
+        ],
     ];
 
     /**
@@ -27,7 +34,10 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Event::listen(
+            UserAction::class,
+            [deletingUser::class, 'handle']
+        );
     }
 
     /**

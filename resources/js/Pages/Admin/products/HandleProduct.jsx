@@ -1,7 +1,7 @@
 import { Head, useForm, usePage } from "@inertiajs/react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AddProduct({user, category, product}) {
     const {data, setData , errors, post, put} = useForm({
@@ -20,6 +20,7 @@ function AddProduct({user, category, product}) {
         m: product?.size === 'M' ? true: false,
         l: product?.size === 'L' ? true: false,
     })
+    const [imgSelected, setImgSelected] = useState(null)
     const changeSize = (e) => {
         setSizeClicked((prev) => ({...!prev, [e.target.name] : true}))
         setData('size' ,(e.target.name).toUpperCase())
@@ -32,7 +33,9 @@ function AddProduct({user, category, product}) {
             post(route('products.store'))
         }
     }
-    console.log(Object.keys(errors));
+    useEffect(() => {
+        data?.urlPhoto!== '' && setImgSelected(URL.createObjectURL(data?.urlPhoto));
+    }, [data?.urlPhoto])
     return ( 
         <>
         <Head title="Add Product" />
@@ -95,9 +98,9 @@ function AddProduct({user, category, product}) {
                             
                             <div className="product-img w-full md:w-4/12">
                                 <div className="img-border border mx-auto border-black h-72 w-72">
-                                    <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData(e.target.name, `images/${e.target.files[0]?.name}` || data?.urlPhoto)} />
-
-                                    {data?.urlPhoto.length !== 0 || product?.urlPhoto ? <label htmlFor="img" className="h-full w-full cursor-pointer "><img src={`/${product?.urlPhoto || data.urlPhoto }`} alt="" className="w-full h-full object-cover" /></label> : <label htmlFor="img" className="h-full w-full cursor-pointer flex justify-center items-center">Click To Upload Photo</label>}
+                                    <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData(e.target.name, e.target.files[0] || data?.urlPhoto)} />
+                                    
+                                    {data?.urlPhoto.length !== 0 || product?.urlPhoto ? <label htmlFor="img" className="h-full w-full cursor-pointer ">{console.log(imgSelected?.slice(imgSelected?.indexOf(':') + 1))}<img src={`/${product?.urlPhoto.name || imgSelected?.slice(imgSelected?.indexOf(':') + 1) }`} alt="" className="w-full h-full object-cover" /></label> : <label htmlFor="img" className="h-full w-full cursor-pointer flex justify-center items-center">Click To Upload Photo</label>}
                                 </div>
                             </div>
                         </div>

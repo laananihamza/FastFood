@@ -52,20 +52,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:70'],
             'size' => ['required', 'string', 'max:2'],
-            'urlPhoto' => ['required', 'string', 'max:255'],
+            'urlPhoto' => "required|image|mimes:png,jpg,jpeg|max:2048",
             'stock' => ['required', 'numeric', 'gte:1'],
             'price' => ['required', 'numeric', 'gte:10'],
             'ingredients' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string', 'max:1000'],
             'category_code' => ['required', 'numeric', 'gt:0'],
         ]);
+
+        /* To Generate unique name for image */
+        $imgName = time() . '.' . $request->urlPhoto->extension();
+        /* To move image to public image folder */
+        $request->urlPhoto->move(public_path('images'), $imgName);
+
         DB::table('products')->insert([
             'name' => $request->input('name'),
             'size' => $request->input('size'),
-            'urlPhoto' => $request->input('urlPhoto'),
+            'urlPhoto' => 'images/' . $imgName,
             'stock' =>  $request->input('stock'),
             'price' =>  $request->input('price'),
             'ingredients' => $request->input('ingredients'),
@@ -112,17 +119,22 @@ class ProductController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:70'],
             'size' => ['required', 'string', 'max:2'],
-            'urlPhoto' => ['required', 'string', 'max:255'],
+            'urlPhoto' => "required|image|mimes:png,jpg,jpeg|max:2048",
             'stock' => ['required', 'numeric', 'gte:1'],
             'price' => ['required', 'numeric', 'gte:10'],
             'ingredients' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string', 'max:1000'],
             'category_code' => ['required', 'numeric', 'gt:0'],
         ]);
+        /* To Generate unique name for image */
+        $imgName = time() . '.' . $request->urlPhoto->extension();
+        /* To move image to public image folder */
+        $request->urlPhoto->move(public_path('images'), $imgName);
+
         $product = DB::table('products')->where('id', '=', $product)->update([
             'name' => $request->input('name'),
             'size' => $request->input('size'),
-            'urlPhoto' => $request->input('urlPhoto'),
+            'urlPhoto' => 'images/' . $imgName,
             'stock' =>  $request->input('stock'),
             'price' =>  $request->input('price'),
             'ingredients' => $request->input('ingredients'),

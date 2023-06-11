@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserAction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -116,7 +117,7 @@ class UserHandleController extends Controller
                 'role' => $request->input('role')
             ]);
         }
-        return to_route('users.index');
+        return to_route('users.index')->appends('search', $request->search);
     }
 
     /**
@@ -127,32 +128,40 @@ class UserHandleController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect()->back();
+
+        $user = User::find($id);
+        event(new UserAction($user));
+        return event(new UserAction($user));
+        // User::find($id)->delete();
+        // return redirect()->back();
     }
 
     public function unblockUser(Request $request)
     {
         $user = DB::table('users')->where('id', '=', $request->userID)->update(['blocked' => false]);
-        $users = DB::table('users')->paginate(6);
-        return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
+        return redirect()->back();
+        // $users = DB::table('users')->paginate(6)->appends('search', $request->search);
+        // return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
     }
     public function blockUser(Request $request)
     {
         $user = DB::table('users')->where('id', '=', $request->userID)->update(['blocked' => true]);
-        $users = DB::table('users')->paginate(6);
-        return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
+        return redirect()->back();
+        // $users = DB::table('users')->paginate(6)->appends('search', $request->search);
+        // return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
     }
     public function makeUserAdmin(Request $request)
     {
         $user = DB::table('users')->where('id', '=', $request->userID)->update(['issuperuser' => true]);
-        $users = DB::table('users')->paginate(6);
-        return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
+        // $users = DB::table('users')->paginate(6)->appends('search', $request->search);
+        return redirect()->back();
+        // return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
     }
     public function DismissUserFromAdmin(Request $request)
     {
         $user = DB::table('users')->where('id', '=', $request->userID)->update(['issuperuser' => false]);
-        $users = DB::table('users')->paginate(6);
-        return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
+        return redirect()->back();
+        // $users = DB::table('users')->paginate(6)->appends('search', $request->search);
+        // return Inertia::render('Admin/users/usersmanagment', ['user' => auth()->user(), 'users' => $users]);
     }
 }

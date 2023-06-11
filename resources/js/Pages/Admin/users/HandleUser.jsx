@@ -4,7 +4,6 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 
 function HandleUser({user, users}) {
-    console.log(users);
     const {data, setData, post, errors, put} = useForm({
         firstname:  users?.firstname ? users?.firstname:'',
         lastname: users?.lastname ? users?.lastname:'',
