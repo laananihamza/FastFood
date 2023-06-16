@@ -1,18 +1,18 @@
-import { Head, useForm, usePage } from "@inertiajs/react";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useEffect, useState } from "react";
 
 function AddProduct({user, category, product}) {
     const {data, setData , errors, post, put} = useForm({
-        name: product?.name? product?.name : '',
-        size: product?.size? product?.size : 'S',
-        urlPhoto: product?.urlPhoto? product?.urlPhoto : '',
+        name: product?.name ? product?.name : '',
+        size: product?.size ? product?.size : 'S',
         stock: product?.stock? product?.stock : 0,
         price: product?.price? product?.price : 0,
         ingredients: product?.ingredients? product?.ingredients : '',
         description: product?.description? product?.description : '',
-        category_code: product?.category_code? product?.category_code : 1
+        category_code: product?.category_code? product?.category_code : 1,
+        urlPhoto: null,
     })
     const [sizes, setSizes] = useState('S')
     const [sizeClicked, setSizeClicked] = useState({
@@ -20,7 +20,6 @@ function AddProduct({user, category, product}) {
         m: product?.size === 'M' ? true: false,
         l: product?.size === 'L' ? true: false,
     })
-    const [imgSelected, setImgSelected] = useState(null)
     const changeSize = (e) => {
         setSizeClicked((prev) => ({...!prev, [e.target.name] : true}))
         setData('size' ,(e.target.name).toUpperCase())
@@ -33,16 +32,13 @@ function AddProduct({user, category, product}) {
             post(route('products.store'))
         }
     }
-    useEffect(() => {
-        data?.urlPhoto!== '' && setImgSelected(URL.createObjectURL(data?.urlPhoto));
-    }, [data?.urlPhoto])
     return ( 
         <>
         <Head title="Add Product" />
             <Header user={user} />
                 <div className="container mx-auto md:px-10 min-h-[50vh] mt-14 mb-44">
                 
-                    <form action="" onSubmit={submitHandler}>
+                    <form action="" onSubmit={submitHandler} encType="multipart/form-data">
                         <p className="text-3xl font-bold text-center">{product?.id ? 'Update a Product' :'Add New Product'}</p>
                         {Object.keys(errors).length > 0 && <div className="error bg-red-200 px-2 py-5 rounded-lg w-11/12 mx-auto md:w-7/12">
                     {Object.keys(errors).map((error, i) => (
@@ -98,9 +94,10 @@ function AddProduct({user, category, product}) {
                             
                             <div className="product-img w-full md:w-4/12">
                                 <div className="img-border border mx-auto border-black h-72 w-72">
-                                    <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData(e.target.name, e.target.files[0] || data?.urlPhoto)} />
+                                    <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData('urlPhoto', e.target.files[0])} />
+                                    {/* <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData(e.target.name, e.target.files[0])} /> */}
                                     
-                                    {data?.urlPhoto.length !== 0 || product?.urlPhoto ? <label htmlFor="img" className="h-full w-full cursor-pointer ">{console.log(imgSelected?.slice(imgSelected?.indexOf(':') + 1))}<img src={`/${product?.urlPhoto.name || imgSelected?.slice(imgSelected?.indexOf(':') + 1) }`} alt="" className="w-full h-full object-cover" /></label> : <label htmlFor="img" className="h-full w-full cursor-pointer flex justify-center items-center">Click To Upload Photo</label>}
+                                    {product?.urlPhoto ? <label htmlFor="img" className="h-full w-full cursor-pointer "><img src={`/${data?.urlPhoto?.name}`} alt="" className="w-full h-full object-cover" /></label> : <label htmlFor="img" className="h-full w-full cursor-pointer flex justify-center items-center">Click To Upload Photo</label>}
                                 </div>
                             </div>
                         </div>

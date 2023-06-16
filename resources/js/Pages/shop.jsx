@@ -133,10 +133,10 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
             <Link href={`/products/0/${price.max}/pizza`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
                 <FontAwesomeIcon icon={faAngleRight} /> Pizzas
             </Link>
-            <Link href={`/products/0/${price.max}/cold-drinks`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+            <Link href={`/products/0/${price.max}/cold-drink`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
                 <FontAwesomeIcon icon={faAngleRight} /> Cold Drinks
             </Link>
-            <Link href={`/products/0/${price.max}/hot-drinks`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
+            <Link href={`/products/0/${price.max}/hot-drink`} className='pl-0.5 duration-200 hover:pl-3 my-1'>
                 <FontAwesomeIcon icon={faAngleRight} /> Hot Drinks
             </Link>
         </div>

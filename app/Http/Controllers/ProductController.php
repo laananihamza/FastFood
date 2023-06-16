@@ -24,6 +24,7 @@ class ProductController extends Controller
 
             ->where('products.name', 'Like', "%" . $request->search . "%")
             ->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.stock', 'products.ingredients', 'category_name')
+            ->orderBy('products.id')
             ->paginate(6)->appends('search', $request->search);
         // $products = DB::table("products")->join('category', 'products.category_code', '=', 'category.id')->select('products.size', 'products.id', 'products.name', 'products.urlPhoto', 'products.description', 'products.price', 'products.ingredients', 'category_name')->paginate(6);
         return Inertia::render('Admin/products/products-items', [
@@ -116,32 +117,58 @@ class ProductController extends Controller
     public function update(Request $request, products $products, $product)
     {
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:70'],
-            'size' => ['required', 'string', 'max:2'],
-            'urlPhoto' => "required|image|mimes:png,jpg,jpeg|max:2048",
-            'stock' => ['required', 'numeric', 'gte:1'],
-            'price' => ['required', 'numeric', 'gte:10'],
-            'ingredients' => ['required', 'string', 'max:500'],
-            'description' => ['required', 'string', 'max:1000'],
-            'category_code' => ['required', 'numeric', 'gt:0'],
-        ]);
-        /* To Generate unique name for image */
-        $imgName = time() . '.' . $request->urlPhoto->extension();
-        /* To move image to public image folder */
-        $request->urlPhoto->move(public_path('images'), $imgName);
+        if ($request->hasFile('urlPhoto')) {
+            $request->validate([
+                'name' => ['required', 'string', 'max:70'],
+                'size' => ['required', 'string', 'max:2'],
+                'urlPhoto' => "required|image|mimes:png,jpg,jpeg|max:2048",
+                'stock' => ['required', 'numeric', 'gte:1'],
+                'price' => ['required', 'numeric', 'gte:10'],
+                'ingredients' => ['required', 'string', 'max:500'],
+                'description' => ['required', 'string', 'max:1000'],
+                'category_code' => ['required', 'numeric', 'gt:0'],
+            ]);
+        } else {
+            $request->validate([
+                'name' => ['required', 'string', 'max:70'],
+                'size' => ['required', 'string', 'max:2'],
+                'stock' => ['required', 'numeric', 'gte:1'],
+                'price' => ['required', 'numeric', 'gte:10'],
+                'ingredients' => ['required', 'string', 'max:500'],
+                'description' => ['required', 'string', 'max:1000'],
+                'category_code' => ['required', 'numeric', 'gt:0'],
+            ]);
+        }
+        if ($request->file('urlPhoto')) {
+            /* To Generate unique name for image */
+            $imgName = time() . '.' . $request->file('urlPhoto')->extension();
+            /* To move image to public image folder */
+            $request->file('urlPhoto')->move(public_path('images'), $imgName);
+        }
 
-        $product = DB::table('products')->where('id', '=', $product)->update([
-            'name' => $request->input('name'),
-            'size' => $request->input('size'),
-            'urlPhoto' => 'images/' . $imgName,
-            'stock' =>  $request->input('stock'),
-            'price' =>  $request->input('price'),
-            'ingredients' => $request->input('ingredients'),
-            'description' => $request->input('description'),
-            'category_code' =>  $request->input('category_code'),
-        ]);
+        $product = products::find($product);
+        $product->name = $request->input('name');
+        $product->size = $request->input('size');
+        if ($request->file('urlPhoto')) {
+            $product->urlPhoto = 'images/' . $imgName;
+        }
+        $product->stock =  $request->input('stock');
+        $product->price =  $request->input('price');
+        $product->ingredients = $request->input('ingredients');
+        $product->description = $request->input('description');
+        $product->category_code =  $request->input('category_code');
+        $product->save();
         return to_route('products.index');
+        // $product = DB::table('products')->where('id', '=', $product)->update([
+        //     'name' => $request->input('name'),
+        //     'size' => $request->input('size'),
+        //     'urlPhoto' => 'images/' . $imgName,
+        //     'stock' =>  $request->input('stock'),
+        //     'price' =>  $request->input('price'),
+        //     'ingredients' => $request->input('ingredients'),
+        //     'description' => $request->input('description'),
+        //     'category_code' =>  $request->input('category_code'),
+        // ]);
     }
 
     /**

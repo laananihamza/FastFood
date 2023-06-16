@@ -129,11 +129,11 @@ class UserHandleController extends Controller
     public function destroy($id)
     {
 
-        $user = User::find($id);
-        event(new UserAction($user));
-        return event(new UserAction($user));
-        // User::find($id)->delete();
-        // return redirect()->back();
+        // $user = User::find($id);
+        // event(new UserAction($user));
+        // return event(new UserAction($user));
+        User::find($id)->delete();
+        return redirect()->back();
     }
 
     public function unblockUser(Request $request)
