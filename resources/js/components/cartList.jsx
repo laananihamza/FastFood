@@ -38,7 +38,7 @@ function CartList({click}) {
         })
         getCartItems()
         return;
-    }, [cartRef])
+    }, [cartRef, click])
     return ( 
         <>
             <span className="relative group" id="cart" ref={cartRef} onClick={() => setCartClicked((prev) => !prev)}>

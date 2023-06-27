@@ -116,7 +116,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, products $products, $product)
     {
-
+        return $request;
         if ($request->hasFile('urlPhoto')) {
             $request->validate([
                 'name' => ['required', 'string', 'max:70'],

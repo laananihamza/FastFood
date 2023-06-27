@@ -24,6 +24,11 @@ function AddProduct({user, category, product}) {
         setSizeClicked((prev) => ({...!prev, [e.target.name] : true}))
         setData('size' ,(e.target.name).toUpperCase())
     }
+    const changeFile = (e) => {
+        console.log(e.target.value );
+        // e.target.value = null
+        setData('urlPhoto', e.target.files[0])
+    }
     const submitHandler = (e) => {
         e.preventDefault();
         if (product?.id !== undefined) {
@@ -34,7 +39,7 @@ function AddProduct({user, category, product}) {
     }
     return ( 
         <>
-        <Head title="Add Product" />
+        {product?.id ? <Head title="Edit Product" /> : <Head title="Add Product" /> }
             <Header user={user} />
                 <div className="container mx-auto md:px-10 min-h-[50vh] mt-14 mb-44">
                 
@@ -94,7 +99,7 @@ function AddProduct({user, category, product}) {
                             
                             <div className="product-img w-full md:w-4/12">
                                 <div className="img-border border mx-auto border-black h-72 w-72">
-                                    <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData('urlPhoto', e.target.files[0])} />
+                                    <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" defaultValue={null} onChange={changeFile} />
                                     {/* <input type="file" name="urlPhoto" id="img" className="hidden" accept="image/*" onChange={(e) => setData(e.target.name, e.target.files[0])} /> */}
                                     
                                     {product?.urlPhoto ? <label htmlFor="img" className="h-full w-full cursor-pointer "><img src={`/${data?.urlPhoto?.name}`} alt="" className="w-full h-full object-cover" /></label> : <label htmlFor="img" className="h-full w-full cursor-pointer flex justify-center items-center">Click To Upload Photo</label>}

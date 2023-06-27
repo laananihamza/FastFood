@@ -69,8 +69,9 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
 
             }
         })
+        setclicked(false)
         return;
-    }, [categoryRef, priceRef])
+    }, [categoryRef, priceRef,clicked])
     return(
         <>
             <Head title='Shop' />

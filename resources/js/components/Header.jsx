@@ -190,7 +190,7 @@ function Header({user, clicked}) {
                                 </div>
                             </div>
                         </span> */}
-                        {user?.issuperuser ? null : <CartList click={getCartItems}  /> }
+                        {user?.issuperuser ? null : <CartList click={clicked}  /> }
                         {user?.issuperuser ? <Link href={route('dashboard')} className="hidden md:block px-4 py-2  rounded-lg duration-200 text-white bg-sky-400 text-lg">Dashboard</Link> :<Link href="/products/" className="hidden md:block px-4 py-2  rounded-lg duration-200 hover:text-white bg-yellow-300 text-xl">order now</Link>}
                     </div>
                 </div>
