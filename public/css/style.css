@@ -296,3 +296,23 @@ footer .summary-info .box {
     height: 1px;
     background-color: rgb(88, 88, 88);
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(14 159 110);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(12, 134, 93);
+}
