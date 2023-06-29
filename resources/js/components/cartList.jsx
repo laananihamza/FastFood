@@ -24,7 +24,7 @@ function CartList({click}) {
     const increment = (id, product_id) => {
         let pr = products?.find((pr) => pr.id === id)
         router.put(route(`updateCart`), {quantity: ++pr.quantity, product_id: product_id})
-        setTimeout(getCartItems, 500)
+        setTimeout(getCartItems, 200)
     }
     const decrement = (id, product_id) => {
         let pr = products?.find((pr) => pr.id === id)

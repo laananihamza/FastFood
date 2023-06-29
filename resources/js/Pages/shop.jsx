@@ -34,7 +34,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
     }
     const [clicked, setclicked] = useRemember(false)
     const addToCart = (id) => {
-        Inertia.post(`/add-to-cart`, {'product_id': id, 'quantity' : 1})
+        router.post(`/add-to-cart`, {'product_id': id, 'quantity' : 1})
         setclicked(true)
         
     }
