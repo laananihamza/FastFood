@@ -1,4 +1,7 @@
-import { Link, usePage } from "@inertiajs/react";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Inertia } from "@inertiajs/inertia";
+import { Link, router, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 
 function CartList({click}) {
@@ -15,24 +18,26 @@ function CartList({click}) {
 
     let total = 0
     let quantityTotal = 0
-    const increment = () => {
-        // setQuantity((prev) => prev + 1)
-    }
-    const decrement = () => {
-        // setQuantity((prev) => {
-        //     if (prev <= 1) return 1
-        //     return prev - 1
-        // })
-    }
     function getCartItems() {
         axios.get(route('cartItems')).then((res) => setProducts(res.data[0]))
+    }
+    const increment = (id, product_id) => {
+        let pr = products?.find((pr) => pr.id === id)
+        router.put(route(`updateCart`), {quantity: ++pr.quantity, product_id: product_id})
+        setTimeout(getCartItems, 500)
+    }
+    const decrement = (id, product_id) => {
+        let pr = products?.find((pr) => pr.id === id)
+        router.put(route(`updateCart`), {quantity: --pr.quantity, product_id: product_id})
+        setTimeout(getCartItems, 200)
+    }
+    const deleteProduct = (product_id) => {
+        router.delete(route(`deleteItem`, {id : product_id}))
+        setTimeout(getCartItems, 200)
     }
     
     const cartRef = useRef()
     useEffect(() => {
-        const mobileMenu = (e) => {
-            
-        }
         document.addEventListener('mousedown', (e) => {
             if (!(cartRef?.current?.contains(e.target))) {
                 setCartClicked(false)
@@ -42,17 +47,19 @@ function CartList({click}) {
         })
         getCartItems()
         
-        
         return;
     }, [cartRef, click])
     useEffect(() => {
+        
         for (let i = 0; i < products.length; i++) {
             total += +products[i]?.price * +products[i]?.quantity;
             quantityTotal += +products[i]?.quantity;
         }
         setTotalPrice(total)
         setQuantity(quantityTotal)
+
     }, [products])
+    
     return ( 
         <>
             <span className="relative group" id="cart" ref={cartRef} onClick={() => setCartClicked((prev) => !prev)}>
@@ -65,15 +72,15 @@ function CartList({click}) {
                                             <li className="flex justify-between items-center first:border-t-0 border-t py-2 px-5 border-slate-200" key={i}>
                                             <img src={`/${product?.urlPhoto}`} className="w-20 rounded-full" alt="" />
                                             <div className="proInfo">
-                                                <p className="mb-1 text-base">{product?.name}</p>
+                                                <p className="mb-1 text-base">{product?.name} {product?.size && `( ${product?.size} )`}</p>
                                                 <p className="text-lg mb-3 text-green-500">MAD <span className="priceCart"> {product?.price ? product?.price  : 0}</span></p>
                                                 <div className="counts flex">
-                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer" onClick={decrement}>-</button>
+                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer" onClick={() => decrement(product.id,product?.product_id)}>-</button>
                                                     <p className="dec py-1 border-y text-sm px-5"><span className="countMany">{product?.quantity}</span></p>
-                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer" onClick={increment}>+</button>
+                                                    <button className="dec py-1 border text-sm px-5 cursor-pointer" onClick={() => increment(product.id,product?.product_id)}>+</button>
                                                 </div>
                                             </div>
-                                            <i className="las la-trash duration-150 hover:text-red-500 cursor-pointer"></i>
+                                            <FontAwesomeIcon size="xs" icon={faTrash} onClick={() => deleteProduct(product?.product_id)} className="duration-150 hover:text-red-500 cursor-pointer" />
                                         </li>
                                         )) : 'No Products in cart shop'}
                                     </ul>
