@@ -35,6 +35,10 @@ function CartList({click}) {
         router.delete(route(`deleteItem`, {id : product_id}))
         setTimeout(getCartItems, 200)
     }
+    const clearCart = (cart_id) => {
+        router.delete(route(`clearCart`, {id : cart_id}))
+        setTimeout(getCartItems, 200)
+    }
     
     const cartRef = useRef()
     useEffect(() => {
@@ -59,7 +63,6 @@ function CartList({click}) {
         setQuantity(quantityTotal)
 
     }, [products])
-    
     return ( 
         <>
             <span className="relative group" id="cart" ref={cartRef} onClick={() => setCartClicked((prev) => !prev)}>
@@ -89,7 +92,7 @@ function CartList({click}) {
                                 <div className="checkout border-t border-slate-400 text-center p-2 mt-3">
                                     <p className="total-price text-slate-500 text-base mb-2">Total: <span id="Tprice">{Totalprice} MAD</span></p>
                                     <button className="bg-slate-900 w-full py-3 text-white text-base mb-2"><Link href="/checkout">Checkout</Link></button>
-                                    <button className="bg-white  border-2 hover:border-[3px] hover:py-[11px] border-slate-900 w-full py-3 text-slate-900 text-base">Checkout</button>
+                                    <button className="bg-white  border-2 hover:border-[3px] hover:py-[11px] border-slate-900 w-full py-3 text-slate-900 text-base" onClick={() => clearCart(products[0]?.cart_id)}>Clear All</button>
                                 </div>
                             </div>
                         </span>

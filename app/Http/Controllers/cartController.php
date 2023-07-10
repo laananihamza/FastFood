@@ -84,4 +84,14 @@ class cartController extends Controller
         $cart_items = CartItems::where('cart_id', "=", $cart->id)->where('product_id', '=', $product_id)->get();
         DB::table('cart_items')->where('cart_id', "=", $cart->id)->where('product_id', '=', $product_id)->delete();
     }
+    public function clearCart(Request $request)
+    {
+        if (!Auth::user()) {
+            $cart = Cart::find(session()->get('cart_id'));
+        } else {
+            $cart = DB::table('carts')->find($request->user()['id']);
+        }
+        // $cart_items = CartItems::where('cart_id', "=", $cart->id)->get();
+        DB::table('cart_items')->where('cart_id', "=", $cart->id)->delete();
+    }
 }

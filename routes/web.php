@@ -60,6 +60,7 @@ Route::post('/add-to-cart', [cartController::class, 'addToCart']);
 Route::get('/get-cart-items', [cartController::class, 'getCartItems'])->name('cartItems');
 Route::put('/update-cart', [cartController::class, 'updateCartItem'])->name('updateCart');
 Route::delete('/delete-cart/{product_id}', [cartController::class, 'DeleteCartItem'])->name('deleteItem');
+Route::delete('/clear-cart/{cart_id}', [cartController::class, 'clearCart'])->name('clearCart');
 
 /*
 |
