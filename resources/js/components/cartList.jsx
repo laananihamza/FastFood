@@ -19,7 +19,7 @@ function CartList({click}) {
     let total = 0
     let quantityTotal = 0
     function getCartItems() {
-        axios.get(route('cartItems')).then((res) => setProducts(res.data[0]))
+        axios.get(route('cartItems')).then((res) => setProducts(res.data))
     }
     const increment = (id, product_id) => {
         let pr = products?.find((pr) => pr.id === id)
@@ -55,7 +55,7 @@ function CartList({click}) {
     }, [cartRef, click])
     useEffect(() => {
         
-        for (let i = 0; i < products.length; i++) {
+        for (let i = 0; i < products?.length; i++) {
             total += +products[i]?.price * +products[i]?.quantity;
             quantityTotal += +products[i]?.quantity;
         }
@@ -68,10 +68,10 @@ function CartList({click}) {
             <span className="relative group" id="cart" ref={cartRef} onClick={() => setCartClicked((prev) => !prev)}>
                             <i className="las la-shopping-cart cursor-pointer border border-slate-400 rounded-full p-2 hover:bg-yellow-400  hover:border-yellow-400"></i>
                             <span className="bg-yellow-500  absolute py-0.5 top-0 right-0 rounded-full font-bold text-xs h-5 w-5 text-center text-white" name="cart">{quantity}</span>
-                            <div className={`producstOnCart ${cartClicked ? 'block' : 'hidden'}  group-hover:block bg-white absolute top-12 -right-20 border-t-[2.5px] border-black py-4 px-3 w-[400px]`}>
-                                <div className="products h-[300px] overflow-y-auto">
-                                    <ul>
-                                        {products.length !== 0 ? products?.map((product, i) => (
+                            <div className={`producstOnCart ${cartClicked ? 'block' : 'hidden'} shadow-md  group-hover:block bg-white absolute top-12 -right-20 border-t-[2.5px] border-black py-4 px-3 w-[400px]`}>
+                                <div className="products h-[300px] overflow-y-auto ">
+                                    
+                                        {products?.length !== 0 ?<ul> {products?.map((product, i) => (
                                             <li className="flex justify-between items-center first:border-t-0 border-t py-2 px-5 border-slate-200" key={i}>
                                             <img src={`/${product?.urlPhoto}`} className="w-20 rounded-full" alt="" />
                                             <div className="proInfo">
@@ -85,8 +85,8 @@ function CartList({click}) {
                                             </div>
                                             <FontAwesomeIcon size="xs" icon={faTrash} onClick={() => deleteProduct(product?.product_id)} className="duration-150 hover:text-red-500 cursor-pointer" />
                                         </li>
-                                        )) : 'No Products in cart shop'}
-                                    </ul>
+                                        ))}</ul> : <div className="h-full flex justify-center items-center"><p className="text-base">No Products in cart shop</p></div>}
+                                    
                                 </div>
         
                                 <div className="checkout border-t border-slate-400 text-center p-2 mt-3">

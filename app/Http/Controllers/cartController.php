@@ -8,9 +8,13 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Return_;
 
 class cartController extends Controller
 {
+    public function UserLoggedCart(Request $request)
+    {
+    }
     public function addToCart(Request $request)
     {
         if (!Auth::user()) {
@@ -28,7 +32,8 @@ class cartController extends Controller
 
             // return response()->json($cart_items);
         } else {
-            $cart = DB::table('carts')->find($request->user()['id']);
+
+            $cart = DB::table('carts')->where('user_id', $request->user()['id'])->first();
             $cart_items = DB::table('cart_items')->where('cart_id', '=', $cart->id)->where('product_id', '=', $request->product_id)->get();
             // return response()->json($cart_items);
             if (count($cart_items) !== 0) {
@@ -52,12 +57,19 @@ class cartController extends Controller
 
             // return $cart;
         } else {
-            $cart = DB::table('carts')
-                ->find($request->user()['id']);
-            $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=',  $cart->id ?? null)->get(); // join with cart_items
+            if (session()->has('cart_id')) {
+                $cart = DB::table('carts')
+                    ->where('user_id', $request->user()['id'])->first();
+                Cart::find(session()->get('cart_id'))->update(['user_id' => auth()->user()->id, 'updated_at' => new DateTime()]);
+                $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=',  $cart->id ?? null)->get();
+            } else {
+                $cart = DB::table('carts')
+                    ->where('user_id', $request->user()['id'])->first();
+                $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=',  $cart->id ?? null)->get(); // join with cart_items
+            }
         }
         // $cart_items = DB::table('cart_items')->where('cart_id', '=', $cart[0]->id)->get();
-        return response()->json([$product_list]);
+        return response()->json($product_list);
     }
     public function updateCartItem(Request $request)
     {
