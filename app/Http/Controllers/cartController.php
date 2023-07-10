@@ -60,8 +60,13 @@ class cartController extends Controller
             if (session()->has('cart_id')) {
                 $cart = DB::table('carts')
                     ->where('user_id', $request->user()['id'])->first();
+
                 Cart::find(session()->get('cart_id'))->update(['user_id' => auth()->user()->id, 'updated_at' => new DateTime()]);
-                $product_list = DB::table('products')->join('cart_items', 'cart_items.product_id', '=', 'products.id')->where('cart_id', '=',  $cart->id ?? null)->get();
+                CartItems::where('cart_id', session()->get('cart_id'))->update(['cart_id' => $cart->id, 'updated_at' => new DateTime()]);
+                $product_list = DB::table('products')
+                    ->join('cart_items', 'cart_items.product_id', '=', 'products.id')
+                    ->where('cart_id', '=',  $cart->id ?? null)
+                    ->get();
             } else {
                 $cart = DB::table('carts')
                     ->where('user_id', $request->user()['id'])->first();
@@ -76,13 +81,13 @@ class cartController extends Controller
         if (!Auth::user()) {
             $cart = Cart::find(session()->get('cart_id'));
         } else {
-            $cart = DB::table('carts')->find($request->user()['id']);
+            $cart = DB::table('carts')->where('user_id', $request->user()['id'])->first();
         }
 
 
         DB::table('cart_items')->where('cart_id', '=', $cart->id)->where('product_id', '=', $request->product_id)->update(['quantity' => $request->quantity]);
-        $cart_items = CartItems::where('cart_id', "=", $cart->id)->where('product_id', '=', $request->product_id)->get();
-        if ($cart_items[0]->quantity < 1) {
+        $cart_items = CartItems::where('cart_id', "=", $cart->id)->where('product_id', '=', $request->product_id)->first();
+        if ($cart_items->quantity < 1) {
             DB::table('cart_items')->where('cart_id', "=", $cart->id)->where('product_id', '=', $request->product_id)->delete();
         }
     }
@@ -91,7 +96,7 @@ class cartController extends Controller
         if (!Auth::user()) {
             $cart = Cart::find(session()->get('cart_id'));
         } else {
-            $cart = DB::table('carts')->find($request->user()['id']);
+            $cart = DB::table('carts')->where('user_id', $request->user()['id'])->first();
         }
         $cart_items = CartItems::where('cart_id', "=", $cart->id)->where('product_id', '=', $product_id)->get();
         DB::table('cart_items')->where('cart_id', "=", $cart->id)->where('product_id', '=', $product_id)->delete();
@@ -101,7 +106,7 @@ class cartController extends Controller
         if (!Auth::user()) {
             $cart = Cart::find(session()->get('cart_id'));
         } else {
-            $cart = DB::table('carts')->find($request->user()['id']);
+            $cart = DB::table('carts')->where('user_id', $request->user()['id'])->first();
         }
         // $cart_items = CartItems::where('cart_id', "=", $cart->id)->get();
         DB::table('cart_items')->where('cart_id', "=", $cart->id)->delete();
