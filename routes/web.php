@@ -10,6 +10,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserHandleController;
+use App\Http\Controllers\verificationEmailController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +48,7 @@ Route::get('/product/{category}/{id}', [StoreController::class, "getProduct"]);
 // Route::get('/home', [StoreController::class, 'Home'])->name('home');
 
 Route::post('/test/', [StoreController::class, 'getDashies']);
-Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware('auth');
+Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware(['auth', 'verified']);
 
 /*
 |
@@ -79,28 +81,35 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 
 Route::resource('/profile', UserController::class)->middleware('auth');
 
+/*
+|
+|* Verify Email
+|
+*/
 
+Route::get('/email/verify', [verificationEmailController::class, 'notice'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [verificationEmailController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', [verificationEmailController::class, 'send'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::get('/email/verify/send-notice', [verificationEmailController::class, 'noticeSended'])->middleware('auth')->name('verification.noticeSended');
 /*
 * 
 * Admin Routes
 *
 */
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::group([
-        'prefix' => '/me-admin',
-        'controller' => AdminController::class,
-        'middleware' => 'admin'
-    ], function () {
-        Route::get('/', 'index');
-        Route::get('/dashboard', 'Dashboard')->name('dashboard')->middleware(['admin']);
-        Route::resource('products', ProductController::class)->middleware(['admin']);
-        Route::resource('users', UserHandleController::class)->middleware(['admin']);
-        Route::post('/users/unblock', [UserHandleController::class, 'unblockUser'])->name('unblockUser')->middleware(['admin']);
-        Route::post('/users/block', [UserHandleController::class, 'blockUser'])->name('blockUser')->middleware(['admin']);
-        Route::post('/users/admin', [UserHandleController::class, 'makeUserAdmin'])->name('makeUserAdmin')->middleware(['admin']);
-        Route::post('/users/unadmin', [UserHandleController::class, 'DismissUserFromAdmin'])->name('DismissUserFromAdmin')->middleware(['admin']);
-    });
+Route::group([
+    'prefix' => '/me-admin',
+    'controller' => AdminController::class,
+    'middleware' => ['auth', 'admin']
+], function () {
+    Route::get('/', 'index');
+    Route::get('/dashboard', 'Dashboard')->name('dashboard');
+    Route::resource('products', ProductController::class);
+    Route::resource('users', UserHandleController::class);
+    Route::post('/users/unblock', [UserHandleController::class, 'unblockUser'])->name('unblockUser');
+    Route::post('/users/block', [UserHandleController::class, 'blockUser'])->name('blockUser');
+    Route::post('/users/admin', [UserHandleController::class, 'makeUserAdmin'])->name('makeUserAdmin');
+    Route::post('/users/unadmin', [UserHandleController::class, 'DismissUserFromAdmin'])->name('DismissUserFromAdmin');
 });
 // Route::get('/me-admin/products/t', function (Request $request) {
 //     $products = DB::table("products")
