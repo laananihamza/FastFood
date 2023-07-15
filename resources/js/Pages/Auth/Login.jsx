@@ -1,4 +1,4 @@
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import axios from 'axios'
 import Header from "../../components/Header";
@@ -47,11 +47,24 @@ function Login({status}) {
         }
 
     }, [])
+    const {props} = usePage()
+    console.log(props);
     return ( 
         <>
         <Head title="FastFood | Login" />
         <Header />
             <div className="container mx-auto px-1 md:px-10 lg:px-14 mt-3 mb-14 md:my-10  lg:my-14 pb-20 pt-5 md:pt-10 lg:pt-20 flex flex-col items-center gap-8" >
+                {errors?.message  && <div className="error bg-red-200 px-2 py-5 rounded-lg w-11/12 mx-auto md:w-5/12">
+                    <p className="my-2 text-red-600">* {errors?.message}</p>
+                    </div>}
+            <div>
+                    <p><a href={route('google.auth')} className="border border-black px-14 py-3 my-3 flex items-center gap-2"><img src="/images/google.png" className="w-5" alt="" />Continue with Google</a></p>
+                </div> 
+                <div className="text-center w-8/12 md:w-1/3 text-xl flex justify-center items-center gap-5">
+                    <span className="h-[1px] w-full bg-gray-500"></span>
+                    <span className="">OR</span>
+                    <span className="h-[1px] w-full bg-gray-500"></span>
+                </div>
                 <div className="title-form text-4xl text-center">Create Account</div>
                 {(errors.email || errors.password)  && <div className="error bg-red-200 px-2 py-5 rounded-lg w-11/12 mx-auto md:w-5/12">
                     {errors.email  && <p className="my-2 text-red-600">* {errors.email}</p>}

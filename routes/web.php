@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\StoreController;
@@ -83,6 +84,15 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::resource('/profile', UserController::class)->middleware('auth');
+
+/*
+|
+|* Google Auth
+|
+*/
+
+Route::get('auth/google', [GoogleController::class, 'signInwithGoogle'])->name('google.auth');
+Route::get('auth/google/callback', [GoogleController::class, 'callbackToGoogle']);
 
 /*
 |

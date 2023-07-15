@@ -29,6 +29,14 @@ function Register() {
         <Head title="FastFood | Sign up" />
         <Header />
             <div className="container mx-auto px-0 my-14 py-20 flex flex-col items-center gap-8" >
+                <div>
+                    <p><a href={route('google.auth')} className="border border-black px-14 py-3 my-3 flex items-center gap-2"><img src="/images/google.png" className="w-5" alt="" />Continue with Google</a></p>
+                </div> 
+                <div className="text-center w-8/12 md:w-1/3 text-xl flex justify-center items-center gap-5">
+                    <span className="h-[1px] w-full bg-gray-500"></span>
+                    <span className="">OR</span>
+                    <span className="h-[1px] w-full bg-gray-500"></span>
+                </div>
                 <div className="title-form text-4xl text-center">Create Account</div>
                 {(errors.email || errors.firstname || errors.lastname|| errors.password)  && <div className="error bg-red-200 px-2 py-5 rounded-lg w-11/12 mx-auto md:w-5/12">
                     {errors.firstname  && <p className="my-2 text-red-600">* {errors.firstname}</p>}
@@ -70,6 +78,7 @@ function Register() {
                 <div className="w-fit mx-auto">
                         <Link href={route('login')} className="text-base underline">already have account?</Link>
                         </div>
+               
             </div>
             <Footer />
         </>
