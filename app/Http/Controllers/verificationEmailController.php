@@ -14,14 +14,14 @@ class verificationEmailController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             return to_route('home');
         }
-        return Inertia::render('Auth/verify-email', ['email' => auth()->user()->email]);
+        return Inertia::render('Auth/Email/verify-email', ['email' => auth()->user()->email]);
     }
     public function noticeSended(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
             return to_route('home');
         }
-        return Inertia::render('Auth/send-email');
+        return Inertia::render('Auth/Email/send-email');
     }
     public function verify(EmailVerificationRequest $request)
     {

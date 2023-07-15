@@ -74,7 +74,7 @@ function Login({status}) {
                         <input type="password" name="password" ref={passInput} className="focus:outline-none w-full border-0 py-4" onChange={changeHandler} />
                     </div>
                         <div className="w-fit mx-auto">
-                        <Link href="forget-password" className="text-sm underline">Forget your password?</Link>
+                        <Link href={route('password.request')} className="text-sm underline">Forget your password?</Link>
                         </div>
                     <div className="submit w-1/3 mx-auto ">
                         <button className="bg-black text-white mt-5 py-3 px-1 mx-auto w-full">Login</button>

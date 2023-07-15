@@ -38,7 +38,7 @@ function Register() {
                     </div>}
                 <form action="" method="post" className="w-4/6 md:w-3/4 lg:4/6 xl:w-3/6" onSubmit={handleSubmit}>
                 <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>First Name</p>
-                    <div className={`relative border ${errors.firstname ? "border-red-500" : 'border-black'} mb-5 p-0`} id="fname" >
+                    <div className={`relative border ${errors.firstname ? "border-red-500" : 'border-black'} mb-5 p-0`}  >
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>First name</p> */}
                         <input type="text" name="firstname" className="focus:outline-0 w-full border-0 py-4" onChange={changeHandler} />
                     </div>
@@ -48,17 +48,17 @@ function Register() {
                         <input type="text" name="lastname" className="focus:outline-0 w-full border-0 py-4" onChange={changeHandler} />
                     </div>
                 <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Email</p>
-                    <div className={`relative border ${errors.email ? "border-red-500" : 'border-black'} mb-5 p-0`} id="fname">
+                    <div className={`relative border ${errors.email ? "border-red-500" : 'border-black'} mb-5 p-0`} >
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Email</p> */}
                         <input type="email" name="email" className="focus:outline-0 w-full border-0 py-4" onChange={changeHandler} />
                     </div>
                     <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Password</p>
-                    <div className={`relative border ${errors.password ? "border-red-500" : 'border-black'} mb-5 p-0`} id="fname">
+                    <div className={`relative border ${errors.password ? "border-red-500" : 'border-black'} mb-5 p-0`} >
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Password</p> */}
                         <input type="password" name="password" className="focus:outline-0 w-full border-0 py-4" onChange={changeHandler} />
                     </div>
                     <p className={`input-lable duration-200 select-none -translate-x-0 my-2 font-light text-lg`}>Confirm Password</p>
-                    <div className={`relative border ${errors.password_confirmation ? "border-red-500" : 'border-black'} mb-5 p-0`} id="fname">
+                    <div className={`relative border ${errors.password_confirmation ? "border-red-500" : 'border-black'} mb-5 p-0`} >
                         {/* <p className={`input-lable absolute duration-200 select-none  -translate-y-1/2 font-light top-2 text-xs`}>Password</p> */}
                         <input type="password" name="password_confirmation" className="focus:outline-0 w-full border-0 py-4" onChange={changeHandler} />
                     </div>

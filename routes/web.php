@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserHandleController;
@@ -47,8 +48,10 @@ Route::get('/product/{category}/{id}', [StoreController::class, "getProduct"]);
 // Route::post('/home', [StoreController::class, 'getDashies']);
 // Route::get('/home', [StoreController::class, 'Home'])->name('home');
 
-Route::post('/test/', [StoreController::class, 'getDashies']);
-Route::get('/test', [StoreController::class, 'testReact'])->name('test')->middleware(['auth', 'verified']);
+// Route::post('/test/', [StoreController::class, 'getDashies']);
+Route::get('/test', function () {
+    return Inertia::render('test');
+})->name('test')->middleware(['auth', 'verified']);
 
 /*
 |
@@ -86,11 +89,31 @@ Route::resource('/profile', UserController::class)->middleware('auth');
 |* Verify Email
 |
 */
+Route::group([
+    'controller' => verificationEmailController::class,
+    'middleware' => 'auth',
+], function () {
+    Route::get('/email/verify', 'notice')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', 'verify')->middleware('signed')->name('verification.verify');
+    Route::post('/email/verification-notification', 'send')->middleware('throttle:6,1')->name('verification.send');
+    Route::get('/email/verify/send-notice', 'noticeSended')->name('verification.noticeSended');
+});
+/*
+|
+|* Reset password
+|
+*/
+Route::group([
+    'controller' => ResetPasswordController::class,
+    'middleware' => 'guest',
+], function () {
+    Route::get('/forgot-password', 'index')->name('password.request');
+    Route::post('/forgot-password', 'sendNotification')->name('password.email');
+    Route::get('/password/reset/{token}', 'resetForm')->name('password.reset');
+    Route::post('/reset-password', 'update')->name('password.update');
+});
 
-Route::get('/email/verify', [verificationEmailController::class, 'notice'])->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [verificationEmailController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
-Route::post('/email/verification-notification', [verificationEmailController::class, 'send'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-Route::get('/email/verify/send-notice', [verificationEmailController::class, 'noticeSended'])->middleware('auth')->name('verification.noticeSended');
+
 /*
 * 
 * Admin Routes
