@@ -6,6 +6,11 @@
 /* font-family: 'Poppins', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 /* font-family: 'Lilita One', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;700;800;900&family=Lilita+One&display=swap');
+/* 
+font-family: 'Inter', sans-serif;
+font-family: 'Lilita One', cursive; 
+*/
 
 /* .landing::before {
     content: '';
@@ -315,4 +320,11 @@ footer .summary-info .box {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(12, 134, 93);
+}
+
+.producstOnCart .title p,
+.producstOnCart .no-product .title p,
+.producstOnCart .checkout .total p,
+.producstOnCart .no-product .acc p:first-child {
+    font-family: 'Lilita One', cursive;
 }

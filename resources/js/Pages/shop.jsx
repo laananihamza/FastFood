@@ -75,7 +75,7 @@ export default function Shop({products, maxPrice, user, minPrice, category}) {
     return(
         <>
             <Head title='Shop' />
-            <Header user={user} clicked={clicked}  />
+            <Header user={user} clicked={clicked} show={true}  />
             <div className="delete-pop-up">
             <Modal
                 show={deletePopUp}

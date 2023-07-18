@@ -8,13 +8,11 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 use PhpParser\Node\Stmt\Return_;
 
 class cartController extends Controller
 {
-    public function UserLoggedCart(Request $request)
-    {
-    }
     public function addToCart(Request $request)
     {
         if (!Auth::user()) {
@@ -110,5 +108,13 @@ class cartController extends Controller
         }
         // $cart_items = CartItems::where('cart_id', "=", $cart->id)->get();
         DB::table('cart_items')->where('cart_id', "=", $cart->id)->delete();
+    }
+    public function goToCart()
+    {
+        return Inertia::render('Cart/GoToCart', ['user' => auth()->user()]);
+    }
+    public function checkout()
+    {
+        return Inertia::render('Cart/Checkout', ['user' => auth()->user()]);
     }
 }

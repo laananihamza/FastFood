@@ -67,6 +67,8 @@ Route::get('/get-cart-items', [cartController::class, 'getCartItems'])->name('ca
 Route::put('/update-cart', [cartController::class, 'updateCartItem'])->name('updateCart');
 Route::delete('/delete-cart/{product_id}', [cartController::class, 'DeleteCartItem'])->name('deleteItem');
 Route::delete('/clear-cart/{cart_id}', [cartController::class, 'clearCart'])->name('clearCart');
+Route::get('/cart', [cartController::class, 'goToCart'])->name('goToCart');
+Route::get('/checkout', [cartController::class, 'checkout'])->name('checkout');
 
 /*
 |
