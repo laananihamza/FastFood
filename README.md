@@ -1,2 +1,2 @@
 # FastFood
-## FastFood or 'BurgerKech' is a Website using Laravel. 
+## FastFood or 'BurgerKech' is a Website using Laravel and ReactJs. 
